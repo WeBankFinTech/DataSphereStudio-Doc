@@ -65,7 +65,7 @@ Please be patient, it will take some time to load gif.
                                                  
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DSS also defines standard and generic workflow parsing and publishing specifications for scheduling systems, allowing other scheduling systems to easily achieve low-cost integration with DSS.
                                                  
-![Azkaban](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Azkaban_AppConn.gif)
+![Azkaban](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Azkaban_AppJoint.gif)
 
  &nbsp; &nbsp;&nbsp; &nbsp;b. Scriptis AppConn —— Data Development IDE Tool
 
@@ -77,7 +77,7 @@ Please be patient, it will take some time to load gif.
                                                 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Currently supports HiveSQL, SparkSQL, Pyspark, Scala and other script node types.
                                                 
-![Scriptis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Scriptis_AppConn.gif)
+![Scriptis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Scriptis_AppJoint.gif)
 
  &nbsp; &nbsp;&nbsp; &nbsp;c. Visualis AppConn —— Data Visualization Tool
 
@@ -87,13 +87,13 @@ Please be patient, it will take some time to load gif.
                                                 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Visualis AppConn integrates data visualization capabilities to DSS, and allows displays and dashboards, as nodes of DSS workflows, to be associated with upstream data market.
                                                 
-![Visualis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Visualis_AppConn.gif)
+![Visualis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Visualis_AppJoint.gif)
 
  &nbsp; &nbsp;&nbsp; &nbsp;d. Qualitis AppConn —— Data quality management Tool
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Qualitis AppConn integrates data quality verification capabilities for DSS, allows Qualitis as a node in DSS workflow
                                                 
-![Qualitis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Qualitis_AppConn.gif)
+![Qualitis](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/en_US/readme/Qualitis_AppJoint.gif)
 
  &nbsp; &nbsp;&nbsp; &nbsp;e. Data Sender——Sender AppConn
 
