@@ -26,7 +26,7 @@ mvn clean install
 1. 从步骤2中的target目录获取visualis-appconn.zip物料包
 2. 放置到如下目录并进行解压
 ```
-{DSS_HOME}/dss-dev/dss-appconns
+{DSS_HOME}/dss/dss-appconns
 ```
 
 
