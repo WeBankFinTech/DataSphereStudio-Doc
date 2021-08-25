@@ -67,7 +67,6 @@ cd {DSS_INSTALL_HOME}/dss/bin
 sh stop-all.sh
 sh start-all.sh
 ```
-等到所有服务都重启完毕之后，
 
 
 
