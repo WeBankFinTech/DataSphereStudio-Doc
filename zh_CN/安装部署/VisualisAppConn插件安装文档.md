@@ -48,8 +48,8 @@ sh install-appconn.sh
 
 
 
-## 5.VisualisAppConn插件的安装原理
-本小节是安装的延伸，是对VisualisAppConn应用原理的简单讲解。
+## 5.VisualisAppConn插件的工作原理
+本小节是安装的延伸，是对VisualisAppConn工作原理的简单讲解。
 
 1.使用VisualisAppConn的微服务
 

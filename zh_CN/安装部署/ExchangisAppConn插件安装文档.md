@@ -14,12 +14,12 @@
     <version>${dss.version}</version>
 </dependency>
 ```
-在DSS1.0.0版本中，Exchangis可以做到与DSS做到第一级规范的SSO规范，在首页能够免密登录到Exchangis。
+在DSS1.0.0版本中，Exchangis可以做到DSS第一级规范中的SSO规范，在首页能够免密登录到Exchangis。
 
 
 ## 2.ExchangisAppConn物料的编译
 
-DSS1.0.0版本，此步骤可以跳过
+DSS1.0.0版本，此步骤可以跳过，ExchangisAppConn使用的是默认SSO实现
 
 ## 3.ExchangisAppConn物料的部署安装
 
@@ -27,19 +27,15 @@ DSS1.0.0版本，此步骤可以跳过
 
 
 
-## 4.ExchangisAppConn的配置
+## 4.ExchangisAppConn的使用
+您可以进入DSS的前端首页,然后进入Exchangis应用的首页,如图
 
-1. Exchangis集成进入dss需要在以下数据库表中设置相应的内容
-
-| 表名      | 表作用   | 备注                                   |
-|-----------------|----------------|----------------------------------------|
-| dss_application       | 应用表,主要是插入Exchangis应用的基本信息    | 必须                                   |
-| dss_menu     | 菜单表，存储对外展示的内容，如图标、名称等 | 必须                                   |
-| dss_onestop_menu_application | menu和application的关联表，用于联合查找 |                    必须                |
+![Exchangis嵌入DSS](../Images/安装部署/ExchangisAppConn部署/DSS-Exchangis.png)
 
 
+## 5.ExchangisAppConn插件的工作原理
 
-## 5.使用ExchangisAppConn的微服务
+1. 使用ExchangisAppConn的微服务
 
 DSS中有以下的微服务会通过ExchangisAppConn与Exchangis进行交互，完成指定的功能。
 
@@ -50,7 +46,20 @@ DSS中有以下的微服务会通过ExchangisAppConn与Exchangis进行交互，�
 
 
 
-## 5.使用方式
-您可以进入DSS的前端首页,然后进入Exchangis应用的首页,如图
+2. Exchangis集成进入dss需要在以下数据库表中设置相应的内容
 
-![Exchangis嵌入DSS](../Images/安装部署/ExchangisAppConn部署/DSS-Exchangis.png)
+| 表名      | 表作用   | 备注                                   |
+|-----------------|----------------|----------------------------------------|
+| dss_application       | 应用表,主要是插入Exchangis应用的基本信息    | 必须                                   |
+| dss_menu     | 菜单表，存储对外展示的内容，如图标、名称等 | 必须                                   |
+| dss_onestop_menu_application | menu和application的关联表，用于联合查找 |                    必须                |
+
+
+
+3.后续开发项
+
+3.1 ExchangisAppConn支持一级规范中的工程规范
+
+3.2 ExchangisAppConn支持第三级规范中的执行规范，支持执行Exchangis类型的任务
+
+3.3 ExchangisAppConn支持第三级规范中的导入导出规范
