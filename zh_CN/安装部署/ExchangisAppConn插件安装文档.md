@@ -23,7 +23,28 @@ DSS1.0.0版本，此步骤可以跳过，ExchangisAppConn使用的是默认SSO�
 
 ## 3.ExchangisAppConn物料的部署安装
 
-DSS1.0.0版本，此步骤可以跳过
+DSS1.0.0版本,ExchangisAppConn物料安装可以跳过，但是需要在数据库中插入相应的数据，sql如下
+```roomsql
+SET @EXCHANGIS_INSTALL_IP_PORT='127.0.0.1:9003';
+SET @URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
+SET @HOMEPAGE_URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
+SET @PROJECT_URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
+SET @REDIRECT_URL = replace('http://EXCHANGIS_IP_PORT/udes/auth', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
+
+delete from `dss_application` WHERE `name` = 'Exchangis';
+INSERT INTO `dss_application`(`name`,`url`,`is_user_need_init`,`level`,`user_init_url`,`exists_project_service`,`project_url`,`enhance_json`,`if_iframe`,`homepage_url`,`redirect_url`) VALUES ('Exchangis', @URL, 0, 1, NULL, 0, @PROJECT_URL, '', 1, @HOMEPAGE_URL, @REDIRECT_URL);
+
+select @dss_exchangis_applicationId:=id from `dss_application` WHERE `name` = 'Exchangis';
+
+delete from `dss_stop_menu` WHERE `name` = '数据交换';
+INSERT INTO `dss_stop_menu`(`name`, `title_en`, `title_cn`, `description`, `is_active`) values ('数据交换','data exchange','数据交换','数据交换',1);
+
+select @dss_onestop_menu_id:=id from `dss_onestop_menu` where `name` = '数据交换';
+
+delete from `dss_onestop_menu_application` WHERE title_en = 'Exchangis';
+INSERT INTO `dss_onestop_menu_application` (`application_id`, `onestop_menu_id`, `title_en`, `title_cn`, `desc_en`, `desc_cn`, `labels_en`, `labels_cn`, `is_active`, `access_button_en`, `access_button_cn`, `manual_button_en`, `manual_button_cn`, `manual_button_url`, `icon`, `order`, `create_by`, `create_time`, `last_update_time`, `last_update_user`, `image`) 
+VALUES(@dss_exchangis_applicationId, @dss_onestop_menu_id, 'Exchangis','数据交换','Exchangis is a lightweight, high scalability, data exchange platform, support for structured and unstructured data transmission between heterogeneous data sources','Exchangis是一个轻量级的、高扩展性的数据交换平台，支持对结构化及无结构化的异构数据源之间的数据传输，在应用层上具有数据权限管控、节点服务高可用和多租户资源隔离等业务特性，而在数据层上又具有传输架构多样化、模块插件化和组件低耦合等架构特点。','Data Exchange','数据交换','1','Enter Exchangis','进入Exchangis','user manual','用户手册','http://127.0.0.1:8088/wiki/scriptis/manual/workspace_cn.html','shujujiaohuan-logo',NULL,NULL,NULL,NULL,NULL,'shujujiaohuan-icon');
+```
 
 
 
