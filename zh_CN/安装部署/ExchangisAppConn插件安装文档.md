@@ -23,7 +23,7 @@ DSS1.0.0版本，此步骤可以跳过，ExchangisAppConn使用的是默认SSO�
 
 ## 3.ExchangisAppConn物料的部署安装
 
-DSS1.0.0版本,ExchangisAppConn物料安装可以跳过，但是需要在数据库中插入相应的数据，sql如下
+DSS1.0.0版本,ExchangisAppConn物料安装可以跳过，但是需要在数据库中插入相应的数据，sql如下，您需要在第一行修改Exhangis服务的ip和端口
 ```roomsql
 SET @EXCHANGIS_INSTALL_IP_PORT='127.0.0.1:9003';
 SET @URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
@@ -36,8 +36,8 @@ INSERT INTO `dss_application`(`name`,`url`,`is_user_need_init`,`level`,`user_ini
 
 select @dss_exchangis_applicationId:=id from `dss_application` WHERE `name` = 'Exchangis';
 
-delete from `dss_stop_menu` WHERE `name` = '数据交换';
-INSERT INTO `dss_stop_menu`(`name`, `title_en`, `title_cn`, `description`, `is_active`) values ('数据交换','data exchange','数据交换','数据交换',1);
+delete from `dss_onestop_menu` WHERE `name` = '数据交换';
+INSERT INTO `dss_onestop_menu`(`name`, `title_en`, `title_cn`, `description`, `is_active`) values ('数据交换','data exchange','数据交换','数据交换',1);
 
 select @dss_onestop_menu_id:=id from `dss_onestop_menu` where `name` = '数据交换';
 
