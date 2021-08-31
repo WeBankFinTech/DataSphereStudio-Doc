@@ -22,7 +22,8 @@ sh ${DSS_HOME}bin/appconn-install.sh
 >> 127.0.0.1
 >> 8089
 ```
-# 4. Schedulis AppConn表配置说明
+# 4. Schedulis AppConn使用原理
+&nbsp;&nbsp;&nbsp;&nbsp;Schedulis的相关配置信息会插入到以下表中，通过配置下表，可以完成Schedulis的使用配置，安装Schedulis AppConn时，脚本会替换每个AppConn下的init.sql，并插入到表中。
 | 表名      | 表作用   | 备注                                   |
 |-----------------|----------------|----------------------------------------|
 | dss_application       | 应用表,主要是插入schedulis应用的基本信息 | 必须                                   |
@@ -32,5 +33,12 @@ sh ${DSS_HOME}bin/appconn-install.sh
 | dss_appconn_instance  | AppConn的实例的信息，包括自身的url信息 | 必须         |
 | dss_workflow_node  | qualitis作为工作流节点需要插入的信息 | 如果使用可视化节点，则必须         |
 
+&nbsp;&nbsp;&nbsp;&nbsp;Schedulis作为调度框架，实现了一级规范和二级规范，需要使用Schedulis AppConn的微服务如下表。
+
+| 微服务名      | 使用AppConn完成的功能   | 备注                                   |
+|-----------------|----------------|----------------------------------------|
+| dss-framework-project-server       | 使用schedulis-appconn完成工程以及组织的统一    | 必须                                   |
+|-----------------|----------------|----------------------------------------|
+| dss-workflow-server       | 借用调度AppConn实现工作流发布，状态等获取    | 必须                                   |
 # 5. Schedulis使用方式
 &nbsp;&nbsp;&nbsp;&nbsp;Schedulis服务部署完成，Schedulis AppConn安装完成后，即可在DSS中使用Schedulis。可以在应用商店中，点击Schedulis进入Schedulis，在工作流开发时，可以一键发布DSS工作流到Schedulis进行调度执行。
