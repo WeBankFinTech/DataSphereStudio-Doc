@@ -74,9 +74,9 @@ sh start-all.sh
 ## 5.使用方式
 您可以进入DSS的前端首页,然后进入Qualitis应用的首页,如图
 
-![Qualitis嵌入DSS](/Images/qualitis/dss-qualitis.png)
+![Qualitis嵌入DSS](https://github.com/JackChen0810/DataSphereStudio-Doc/tree/main/zh_CN/Images/qualitis/dss-qualitis.png)
 
 您也可以通过使用工作流的可视化节点来使用Qualitis的可视化能力，如图
 
-![工作流使用可视化节点](/Images/qualitis/workflow-qualitis.png)
+![工作流使用可视化节点](https://github.com/JackChen0810/DataSphereStudio-Doc/tree/main/zh_CN/Images/qualitis/workflow-qualitis.png)
 
