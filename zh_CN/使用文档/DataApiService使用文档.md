@@ -44,4 +44,14 @@ DSS目前支持将SQL脚本发布成数据服务API，分享给其他用户使�
 
 ![](../Images/apiservice/ff7b18b4eec06f5dfd2da1e3693e2e59.png)
 
+**4、使用postman访问数据服务**
+
+数据服务发布后，支持使用api接口访问，可以给其它系统直接调用。提交查询如下图所示：
+
+![](../Images/apiservice/postman01.png)
+
+获取到任务执行ID, 再根据ID可以获取任务的执行进度，日志，结果集等。
+
+![](../Images/apiservice/postman02.png)
+
 
