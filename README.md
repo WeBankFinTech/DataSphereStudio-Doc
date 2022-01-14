@@ -68,9 +68,9 @@ English | [中文](README-ZH.md)
 
 - [Schedulis AppConn Plugin Installation Guide](en_US/Installation_and_Deployment/SchedulisAppConn_Plugin_Installation_Documentation.md)
 
-- [Qualitis AppConn Plugin Installation Guide](en_US/Installation_and_deployment/Installation_and_Deployment/QualitisAppConn_Plugin_Installation_Documentation.md)
+- [Qualitis AppConn Plugin Installation Guide](en_US/Installation_and_Deployment/QualitisAppConn_Plugin_Installation_Documentation.md)
 
-- [Exchangis AppConn Plugin Installation Guide](en_US/Installation_and_deployment/Installation_and_Deployment/ExchangisAppConn_Plugin_Installation_Documentation.md)
+- [Exchangis AppConn Plugin Installation Guide](en_US/Installation_and_Deployment/ExchangisAppConn_Plugin_Installation_Documentation.md)
 
 ## Who is using DSS
 
