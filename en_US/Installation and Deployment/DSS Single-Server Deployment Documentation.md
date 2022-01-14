@@ -306,7 +306,7 @@ sh bin/start-all.sh
 #### (2) Check if the startup is successful
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can view the startup status of Linkis & DSS background microservices on the Eureka interface.
-![Eureka](../Images/Install and deploy/Standalone Deployment Documentation/eureka.png)
+![Eureka](../Images/Install_and_Deploy/Standalone_Deployment_Documentation/eureka.png)
 
 #### (3) Google Chrome access:
 

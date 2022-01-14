@@ -38,13 +38,13 @@ The script is an interactive installation solution. You need to enter the string
 4. Restart the dss service to complete the update of the plugin
 
 ## 4. Use of QualitisAppConn
-You can enter the front-end homepage of DSS, and then enter the homepage of the Qualitis application, as shown in the figure
+You can enter the front-end homepage of DSS, and then enter the homepage of the Qualitis application, as shown in the figure.
 
-![Qualitis Embedded DSS](../Images/Install and deploy/QualitisAppConn deployment/dss-qualitis.png)
+![Qualitis Embedded DSS](../Images/Install%20and%20deploy/QualitisAppConn_Deployment/dss-qualitis.png)
+<center>Figure</center>
 
 You can also use the visualization capabilities of Qualitis by using the visualization node of the workflow, as shown in Fig.
-
-![Workflows use visualization nodes](../Images/Install and deploy/QualitisAppConn deployment/workflow-qualitis.png)
+![Workflows use visualization nodes](../Images/Install%20and%20deploy/QualitisAppConn_Deployment/workflow-qualitis.png)
 
 
 

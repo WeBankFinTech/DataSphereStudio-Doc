@@ -40,11 +40,11 @@ The script is an interactive installation scheme. You need to enter the string v
 ## 4. Use of VisualisAppConn
 You can enter the front-end homepage of DSS, and then enter the homepage of the Visualis application, as shown in the figure
 
-![Visualis Embed DSS](../Images/Install and deploy/VisualisAppConn Deployment/DSS-Visualis.png)
+![Visualis Embed DSS](../Images/Install_and_Deploy/VisualisAppConn_Deployment/DSS-Visualis.png)
 
 You can also use the visualization capabilities of Visualis by using the visualization node of the workflow, as shown in the figure
 
-![Workflow uses visualization nodes](../Images/Install and deploy/VisualisAppConn Deployment/Workflow-Visualis.png)
+![Workflow uses visualization nodes](../Images/Install_and_Deploy/VisualisAppConn_Deployment/Workflow-Visualis.png)
 
 
 

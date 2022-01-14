@@ -51,7 +51,7 @@ VALUES(@dss_exchangis_applicationId, @dss_onestop_menu_id, 'Exchangis','data exc
 ## 4. Use of ExchangisAppConn
 You can enter the front-end homepage of DSS, and then enter the homepage of the Exchangis application, as shown in the figure
 
-![Exchangis Embed DSS](../Images/Install and deploy/ExchangisAppConn Deployment/DSS-Exchangis.png)
+![Exchangis Embed DSS](../Images/Install_and_Deploy/ExchangisAppConn_Deployment/DSS-Exchangis.png)
 
 
 ## 5.How the ExchangisAppConn plugin works
