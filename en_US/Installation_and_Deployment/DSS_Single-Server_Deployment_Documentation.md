@@ -1,4 +1,4 @@
-# DataSphere Studio one-click installation documentation
+# DataSphere Studio One-Click Installation Documentation
 
 ## 1. Environment preparation before use
 

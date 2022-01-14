@@ -12,7 +12,7 @@
 *Note: If you want to support multi-user login, DSS user login depends on Linkis, which needs to be configured in the configuration of linkis-GateWay. Linkis-GateWay supports LDAP by default. *
 
 ![login page](../Images/loginpage.png)
-<center>图 2.1 DSS1.0.0登录首页</center>
+<center>Figure 2.1 DSS1.0.0 Login HomePage</center>
 
 ## 3. Workspace management  
 
@@ -82,7 +82,7 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After debugging, click the Release button to support the one-click release of the DSS workflow to Schedulelis for daily batch scheduling.
 
-## 5.3. data service
+## 5.3. Data service
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DSS1.0 provides data service functions in the form of embedded application tools, which can facilitate users who do not have library table permissions to access specific data and publish data services Users only need to simply write Spark SQL queries, reserve query interfaces, and publish them as data services for other users to use.
 
@@ -121,7 +121,7 @@
 6. **Note: msg.type cannot be changed to SEND by default, msg.sender, msg.topic, msg.name are required. **
 ```
 
-示例：
+For example:
 ```xml
 msg.type=SEND
 
