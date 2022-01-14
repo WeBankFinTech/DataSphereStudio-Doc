@@ -97,6 +97,7 @@ English | [中文](README-ZH.md)
 
  &nbsp; &nbsp; &nbsp; &nbsp;You can scan the QR code below to join our WeChat and QQ group to get more immediate response.
 
+ ![communication](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/zh_CN/readme/communication.png)
 
 ## License
 
