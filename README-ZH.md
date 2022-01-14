@@ -1,4 +1,4 @@
-![DSS](https://github.com/WeBankFinTech/DataSphereStudio/images/en_US/readme/DSS_logo.png)
+DataSphereStudio
 ====
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
@@ -45,9 +45,9 @@
 
 ## 编译和安装部署
 
-请参照 [编译指引](zh_CN/开发文档/DSS编译文档.md) 来编译 DSS 源码。
+&nbsp; &nbsp; &nbsp; &nbsp;请参照 [编译指引](zh_CN/开发文档/DSS编译文档.md) 来编译 DSS 源码。
 
-请参考 [安装部署文档](zh_CN/安装部署/DSS单机部署文档.md) 来部署 DSS。
+&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS单机部署文档.md) 来部署 DSS。
 
 ## Demo试用环境
 
@@ -59,13 +59,12 @@
 
 &nbsp; &nbsp; &nbsp; &nbsp;DataSphereStudio Demo 环境登录页面：[点我进入](https://dss-open.wedatasphere.com/#/login)
 
-&nbsp; &nbsp; &nbsp; &nbsp;**DataSphereStudio1.0 Demo 环境将在近期开放，敬请期待**。
 
 ## 文档目录
 
-请访问 [中文文档](zh_CN)， 查看 DSS 的完整文档列表。
+&nbsp; &nbsp; &nbsp; &nbsp;请访问 [中文文档](zh_CN)， 查看 DSS 的完整文档列表。
 
-以下为 DSS 相关 AppConn 插件的安装指南：
+&nbsp; &nbsp; &nbsp; &nbsp;以下为 DSS 相关 AppConn 插件的安装指南：
 
 - [DSS 的 Visualis AppConn 插件安装指南](zh_CN/安装部署/VisualisAppConn插件安装文档.md)
 
@@ -97,11 +96,11 @@
 
 ## 联系我们
 
-对 DSS 的任何问题和建议，敬请提交issue，以便跟踪处理和经验沉淀共享。
+&nbsp; &nbsp; &nbsp; &nbsp;对 DSS 的任何问题和建议，敬请提交issue，以便跟踪处理和经验沉淀共享。
 
-您也可以扫描下面的二维码，加入我们的微信/QQ群，以获得更快速的响应。
+&nbsp; &nbsp; &nbsp; &nbsp;您也可以扫描下面的二维码，加入我们的微信/QQ群，以获得更快速的响应。
 
-![交流](https://github.com/WeBankFinTech/DataSphereStudio/images/zh_CN/readme/communication.png)
+![交流](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/images/zh_CN/readme/communication.png)
 
 
 ## License
