@@ -15,8 +15,13 @@ DataSphere Studio（简称DSS）是微众银行自研的数据应用开发管理
 * [使用文档](使用文档)
     * [DSS用户手册](使用文档/DSS用户手册.md)
     * [DataApiService使用文档](使用文档/DataApiService使用文档.md)
+    * Scriptis
+        * [如何使用 SparkSQL？](使用文档/Scriptis/Scriptis_User_Tests3_SparkSQL.md)
+        * [如何使用 Hive QL？](使用文档/Scriptis/Scriptis_User_Tests2_Hive.md)
+        * [如何使用 Spark Scala？](使用文档/Scriptis/Scriptis_User_Tests1_Scala.md)
 * [开发文档](开发文档)
-    * [DSS编译文档](开发文档/DSS编译文档.md)
+    * [DSS后台编译文档](开发文档/DSS编译文档.md)
+    * [DSS前端编译文档](开发文档/前端编译文档.md)
     * [第三方系统接入DSS开发指南](开发文档/第三方系统接入DSS开发指南.md)
     
 更多文档持续更新中，敬请期待……
