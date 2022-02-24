@@ -57,16 +57,16 @@ sudo useradd hadoop
 
 ```bash
 vi /etc/sudoers
-````
+```
 
-````properties
+```properties
      hadoop ALL=(ALL) NOPASSWD: NOPASSWD: ALL
-````
+```
 
 4. Make sure that the server where DSS and Linkis are deployed can execute commands such as hdfs , hive -e and spark-sql -e normally. In the one-click install script, the components are checked.
 
 5. **If your Pyspark wants to have the drawing function, you also need to install the drawing module on all installation nodes**. The command is as follows:
-    
+   
 
 ```bash
 python -m pip install matplotlib
@@ -84,7 +84,7 @@ Compile by yourself or go to the component release page to download the installa
 
 3. Download the DSS & LINKIS one-click installation deployment package, and unzip it. The following is the hierarchical directory structure of the one-click installation deployment package:
 
-````text
+```text
 ├── dss_linkis # One-click deployment home directory
   ├── bin # for one-click installation, and one-click to start DSS + Linkis
   ├── conf # Parameter configuration directory for one-click deployment
@@ -99,7 +99,7 @@ Compile by yourself or go to the component release page to download the installa
 
 ```bash
 vi conf/config.sh
-````
+```
 
 The parameter description is as follows:
 
