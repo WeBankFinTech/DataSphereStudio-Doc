@@ -14,6 +14,7 @@ Linkix需要的命令工具（在正式安装前，脚本会自动检测这些�
 -   yum
 -   java
 -   unzip
+-   zip
 -   expect
 
 需要安装的软件：
@@ -67,7 +68,6 @@ vi /etc/sudoers
 4.  确保部署 DSS 和 Linkis 的服务器可正常执行 hdfs 、hive -e 和 spark-sql -e 等命令。在一键安装脚本中，会对组件进行检查。
     
 5.  **如果您的Pyspark想拥有画图功能，则还需在所有安装节点，安装画图模块**。命令如下：
-    
 
 ```bash
 python -m pip install matplotlib
@@ -94,6 +94,9 @@ python -m pip install matplotlib
  ├── wedatasphere-linkis-x.x.x-dist.tar.gz # Linkis安装包
 ```
 
+4.停止机器上所有DSS及Linkis服务。若从未安装过DSS及Linkis服务，忽略此步骤。
+
+
 ### d. 修改配置
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打开conf/config.sh，按需修改相关配置参数：
@@ -113,7 +116,7 @@ vi conf/config.sh
 # 非必须不建议修改
 # LINKIS_VERSION=1.0.2
 
-### DSS Web，本机安装无需修改
+### DSS Web，本机安装一般无需修改，但需确认此端口是否占用，若被占用，修改一个可用端口即可。
 #DSS_NGINX_IP=127.0.0.1
 #DSS_WEB_PORT=8088
 
@@ -151,7 +154,7 @@ SPARK_CONF_DIR=/appcom/config/spark-config
 #LINKIS_PUBLIC_MODULE=lib/linkis-commons/public-module
 
 
-## YARN REST URL
+## YARN REST URL，ensure this PORT have no conflict with DSS_WEB_PORT
 YARN_RESTFUL_URL=http://127.0.0.1:8088
 
 ## Engine版本配置，不配置则采用默认配置
