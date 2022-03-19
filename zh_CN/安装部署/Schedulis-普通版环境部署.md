@@ -272,6 +272,8 @@ Schedulis 项目的日志默认存放路径为 /appcom/logs/azkaban, 目录下�
 
 ### 6.密码加密问题
 
+**配置文件中的数据库密码，采用java base64方式加密，参考如下java加密算法**
+
 ```
 azkaban.base64Pwd
 Base 64 加密后：amVyZWgxMjM=
@@ -288,20 +290,16 @@ package azkaban;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
-
 import java.util.Base64;
-
 
 public class base64Pwd {
     public static void main(String[] args) throws Exception {
         String str = "abcd123";
 
         base64(str);
-
         enAndDeCode(str);
 
     }
-
 
     /**
      * Base64
@@ -319,9 +317,7 @@ public class base64Pwd {
 
         String decodeStr = new String(decoded);
         System.out.println("Base 64 解密后：" + decodeStr);
-
         System.out.println();
-
 
     }
 
@@ -419,11 +415,13 @@ zakaban.webserver.url=http://localhost:18080
 
 
 
-## 七、help
+## 七、常见问题处理
 
 1. [azkaban-executor启动时出现conf/global.properties (No such file or directory)的问题解决](https://www.cnblogs.com/zlslch/p/7124229.html)
 
 2. [maven跳过单元测试-maven.test.skip和skipTests的区别](https://www.cnblogs.com/javabg/p/8026881.html)
+
+   解决azkaban-exec-server模块的test文件夹的测试代码报错问题，
 
 3. [^M问题的原因与解决](https://blog.csdn.net/ygy162/article/details/105364096?spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5.pc_relevant_antiscanv2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5.pc_relevant_antiscanv2&utm_relevant_index=9)
 
@@ -434,9 +432,35 @@ zakaban.webserver.url=http://localhost:18080
 5. 登录异常，前端登录无响应，控制态报opendj 的jar包错误
 
    需要确保 opendj-core-3.0.0.jar 和 abcd-grizzly-3.0.0.jar 正确，版本不能变。
+   
+6. 使用mysql5数据库，有useSSL=false提示的错误，详细错误见如下链接
 
+[了符合不使用SSL的现有应用程序，verifyServerCertificate属性设置为“false”。您需要通过设置useSSL=false显式禁用SSL，或者设置useSSL=true并为服务器_座上来者皆为客的博客-CSDN博客](https://blog.csdn.net/qq_39752726/article/details/104965380)
 
+如果使用mysql5，需要手动挡更改mysql5的驱动jar包。
+
+```
+azkaban.utils.StdOutErrRedirect 65 write - Fri Mar 18 08:58:33 CST 2022 WARN: Establishing SSL connection without server's identity verification is not recommended. According to MySQL 5.5.45+, 5.6.26+ and 5.7.6+ requirements SSL connection must be established by default if explicit option isn't set. For compliance with existing applications not using SSL the verifyServerCertificate property is set to 'false'. You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true and provide truststore for server certificate verification.
+```
+对应的解决方案，修改配置文件azkaban.properties，增加如下配置
+
+```
+mysql.usessl=[#DB_USESSL]
+```
+
+修改MySQLDataSource代码，增加mysql5的支持，
+
+```
+final String usessl = props.getString("mysql.usessl");
+addConnectionProperty("useSSL", usessl);
+```
+
+然后重新打包。
+
+## 八、相关教程
 
 参考官方部署文档：[Schedulis/schedulis_deploy_cn.md at master · WeBankFinTech/Schedulis (github.com)](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md)
 
 参考官方使用教程：[Schedulis/schedulis_user_manual_cn.md at master · WeBankFinTech/Schedulis (github.com)](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_user_manual_cn.md)
+
+参考第三方教程：[WeBank/Schedulis部署和开发_GliangJu的博客-CSDN博客_schedulis 部署](https://blog.csdn.net/GliangJu/article/details/118601909)
