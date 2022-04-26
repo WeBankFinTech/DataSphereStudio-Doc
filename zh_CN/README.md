@@ -1,27 +1,27 @@
 ## 引言
 
-DataSphere Studio（简称DSS）是微众银行自研的数据应用开发管理集成框架。
+DataSphere Studio（简称 DSS）是微众银行自研的数据应用开发管理集成框架。
 
-在统一的UI下，DataSphere Studio以工作流式的图形化拖拽开发体验，将满足从数据交换、脱敏清洗、分析挖掘、质量检测、可视化展现、定时调度到数据输出应用等，数据应用开发全流程场景需求。
+在统一的UI下，DataSphere Studio 以工作流式的图形化拖拽开发体验，将满足从数据交换、脱敏清洗、分析挖掘、质量检测、可视化展现、定时调度到数据输出应用等，数据应用开发全流程场景需求。
 
 ## 文档列表
 
 * [安装部署](安装部署)
-    * [DSS单机部署文档](安装部署/DSS单机部署文档.md)
-    * [ExchangisAppConn插件安装文档](安装部署/ExchangisAppConn插件安装文档.md)
-    * [QualitisAppConn插件安装文档](安装部署/QualitisAppConn插件安装文档.md)
-    * [SchedulisAppConn插件安装文档](安装部署/SchedulisAppConn插件安装文档.md)
-    * [VisualisAppConn插件安装文档](安装部署/VisualisAppConn插件安装文档.md)
+    * [DSS 单机部署文档](安装部署/DSS单机部署文档.md)
+    * [ExchangisAppConn 插件安装文档](安装部署/ExchangisAppConn插件安装文档.md)
+    * [QualitisAppConn 插件安装文档](安装部署/QualitisAppConn插件安装文档.md)
+    * [SchedulisAppConn 插件安装文档](安装部署/SchedulisAppConn插件安装文档.md)
+    * [VisualisAppConn 插件安装文档](安装部署/VisualisAppConn插件安装文档.md)
 * [使用文档](使用文档)
     * [DSS用户手册](使用文档/DSS用户手册.md)
-    * [DataApiService使用文档](使用文档/DataApiService使用文档.md)
+    * [DataApiService 使用文档](使用文档/DataApiService使用文档.md)
     * Scriptis
         * [如何使用 SparkSQL？](使用文档/Scriptis/Scriptis_User_Tests3_SparkSQL.md)
         * [如何使用 Hive QL？](使用文档/Scriptis/Scriptis_User_Tests2_Hive.md)
         * [如何使用 Spark Scala？](使用文档/Scriptis/Scriptis_User_Tests1_Scala.md)
 * [开发文档](开发文档)
-    * [DSS后台编译文档](开发文档/DSS编译文档.md)
-    * [DSS前端编译文档](开发文档/前端编译文档.md)
-    * [第三方系统接入DSS开发指南](开发文档/第三方系统接入DSS开发指南.md)
+    * [DSS 后台编译文档](开发文档/DSS编译文档.md)
+    * [DSS 前端编译文档](开发文档/前端编译文档.md)
+    * [第三方系统接入DSS 开发指南](开发文档/第三方系统接入DSS开发指南.md)
     
 更多文档持续更新中，敬请期待……
