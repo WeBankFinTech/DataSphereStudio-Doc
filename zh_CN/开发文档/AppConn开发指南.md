@@ -94,6 +94,23 @@ https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/
 
 请注意：**如果是 Spring Web 应用，还需将实现的 ```UserInterceptor``` 以 ```@Component``` 标识，以便 ```SpringOriginSSOPluginFilter``` 能够正常加载到该 ```UserInterceptor```。**
 
+#### 2.1.4 DSS 与 第三方 AppConn 的用户同步
+
+从 DSS1.1.0 开始，DSS admin 模块提供了新增 LDAP 用户的功能。
+
+由于一些上层应用工具本身也提供了用户管理功能（在数据库中存储用户信息），为了打通 DSS 用户跟 第三方 AppConn 的用户体系，`OnlySSOAppConn` 还提供了一个 `SSOUserService` 服务，用于当 DSS 的用户有新增或是修改时，可支持同步新增或修改第三方 AppConn 的用户。
+
+由于 `SSOUserService` 不是必须实现的 Service，所以如果您的第三方应用本身如果没有用户管理功能，可直接跳过本小节。
+
+如您想打通第三方 AppConn 跟 DSS 的用户体系，请直接实现以下几个 `Operation`：
+
+- `SSOUserCreationOperation`：新增用户操作，当 DSS Admin 模块新建一个用户时，或是该用户第一次登陆到 DSS 时，同步请求第三方 AppConn 创建一个用户。
+- `SSOUserUpdateOperation`：更新用户操作，当 DSS Admin 模块更新一个用户时，同步请求第三方 AppConn 更新一个用户。
+- `SSOUserDeletionOperation`：删除用户操作，当 DSS Admin 模块删除一个用户时，同步请求第三方 AppConn 删除一个用户。
+- `SSOUserGetOperation`：请求第三方 AppConn，获取唯一英文用户名为 username 的 第三方 AppConn 用户信息。
+
+您只需在 AppConn 中直接实现这四个抽象类即可，无需手动实现一个 `SSOUserService` ，DSS 框架会自动识别并加载这四个 Operation。
+
 ### 2.2 OnlyStructureAppConn —— 接入 DSS 组织结构规范
 
 ```OnlyStructureAppConn``` 要求用户必须返回一个 ```StructureIntegrationStandard``` 对象，该对象即为： DSS 组织结构规范。
