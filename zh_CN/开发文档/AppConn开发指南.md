@@ -25,6 +25,7 @@
 
 以树形结构表达其组织结构关系如下：
 
+```html
 |-- [OnlySSOAppConn](#21-onlyssoappconn--打通-sso-免登录跳转)：第三方系统与 DSS 完成 SSO 免登录跳转，已提供默认实现，用户无需该 AppConn 的任何方法。
 |   |-- SSOIntegrationStandard：DSS 与 第三方系统的 SSO 免登录跳转规范，已提供默认实现，用户无需该 AppConn 的任何方法。
 |   |   |-- SSORequestService：提供通用的、可以向与 DSS 集成的第三方 AppConn 系统发送前端或后台请求的服务能力。
@@ -75,6 +76,7 @@
 |   |-- OptionalIntegrationStandard：可选规范。
 |   |   |-- OptionalService：为第三方 AppConn 提供的通用 `Service` 服务，用于构建一些具备特殊能力的 `Operation`，以供 DSS 内嵌的应用工具使用。
 |   |   |   |-- OptionalOperation：第三方系统具备特殊能力的 `Operation`。
+```
 
 ### 2.1 OnlySSOAppConn —— 打通 SSO 免登录跳转
 
