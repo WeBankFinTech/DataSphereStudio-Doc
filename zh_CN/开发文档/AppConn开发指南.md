@@ -6,7 +6,7 @@
 
 以下是各种基础 ```AppConn``` 的详细介绍，每一种 AppConn 都代表了 DSS 框架抽象的一种能力：
 
-- ```OnlySSOAppConn```。如果您的第三方系统只想与 DSS 完成 SSO 免登录跳转，则只需继承该 AppConn 即可。
+- ```OnlySSOAppConn```。如果您的第三方系统想与 DSS 完成 SSO 免登录跳转，则需使用该 AppConn 提供的能力。
 - ```OnlyStructureAppConn```。如果您的第三方系统想与 DSS 统一组织结构，如：工程的统一创建、更新、删除等管理操作，角色权限管理的统一管理，则需继承该 AppConn。
 - ```OnlyDevelopmentAppConn```。如果您的第三方系统想作为 DSS 工作流的一个节点集成进来，则需实现该 AppConn。
 - ```OptionalAppConn```。该 AppConn 是 一个可选的非强制实现的 AppConn 规范。用于协助第三方 AppConn 提供一些特殊的 Operation 能力，这些 Operation 与 DSS 的框架逻辑无关，并不是 DSS 框架要求第三方 AppConn 需具备的能力。
@@ -23,9 +23,74 @@
 
 ```AppConn``` 的具体实现包含以下几个层面，第一层是 ```AppConn``` 层，第二层是 ```AppStandard``` 规范层，第三层是 ```Service``` 层，第四层是 ```Operation``` 层，主要的业务逻辑都是在 ```Operation``` 层实现的, 参数的传递统一采用的是 ```Ref``` 实现类。
 
-![AppConn架构图](../Images/开发文档/第三方系统如何接入DSS/AppConn架构图.png)
+以树形结构表达其组织结构关系如下：
+
+|-- [OnlySSOAppConn](#21-onlyssoappconn--打通-sso-免登录跳转)：第三方系统与 DSS 完成 SSO 免登录跳转，已提供默认实现，用户无需该 AppConn 的任何方法。
+|   |-- SSOIntegrationStandard：DSS 与 第三方系统的 SSO 免登录跳转规范，已提供默认实现，用户无需该 AppConn 的任何方法。
+|   |   |-- SSORequestService：提供通用的、可以向与 DSS 集成的第三方 AppConn 系统发送前端或后台请求的服务能力。
+|   |   |   |-- SSORequestOperation：向与 DSS 集成的第三方 AppConn 系统发送前端或后台请求。
+|   |   |-- SSOPluginService：与 `SSOBuilderService` 对应，第三方系统在引入 DSS SSO Jar 后，该Jar 会使用该 Service 解析第三方系统的后台 `HttpServletRequest`，获取所需的 DSS 实体信息。
+|   |   |   |-- SSOMsgParseOperation：**_无需关注，如感兴趣，可参阅架构设计文档_**。
+|   |   |   |-- DssMsgCacheOperation：：**_无需关注，如感兴趣，可参阅架构设计文档_**。
+|   |   |   |-- WorkspaceInfoOperation：：**_无需关注，如感兴趣，可参阅架构设计文档_**。
+|   |   |-- [SSOUserService](#214-dss-与-第三方-appconn-的用户同步)：DSS 用户与第三方 AppConn 的用户同步服务。**_可按需实现_**。
+|   |   |   |-- SSOUserCreationOperation：用于请求第三方 AppConn 创建同名用户。
+|   |   |   |-- SSOUserUpdateOperation：用于修改第三方 AppConn 用户的基础信息。
+|   |   |   |-- SSOUserGetOperation：用于请求第三方 AppConn 获取同名用户信息。
+|   |   |   |-- SSOUserDeletionOperation：预留接口，用于删除第三方 AppConn 用户。
+|   |   |-- SSOBuilderService：与 `SSOPluginService` 对应，向第三方系统发起 Http 请求时，用于拼出可支持 SSO 免密访问能力的第三方系统的特殊 URL。
+|   |   |   |-- SSOUrlBuilderOperation：**_无需关注，如感兴趣，可参阅架构设计文档_**。
+|   |   |   |-- DssMsgBuilderOperation：**_无需关注，如感兴趣，可参阅架构设计文档_**。
+|-- [OnlyStructureAppConn](#22-onlystructureappconn--接入-dss-组织结构规范)：与 DSS 统一组织结构，如：工程的统一创建、更新、删除等管理操作。
+|   |-- StructureIntegrationStandard：DSS 的二级规范，为组织结构规范，主要提供了工程管理服务能力、角色管理服务能力 和 第三方系统状态管理能力。
+|   |   |-- ProjectService：用于打通 DSS 工程与接入的第三方系统的工程体系，实现工程的协同管理。
+|   |   |   |-- ProjectCreationOperation：请求第三方系统创建一个与 DSS 工程一对一关联的第三方 refProject。
+|   |   |   |-- ProjectUpdateOperation：请求第三方系统更新关联的第三方 refProject。
+|   |   |   |-- ProjectDeletionOperation：请求第三方系统删除关联的第三方 refProject。
+|   |   |   |-- ProjectSearchOperation：请求第三方系统查询包含了 projectName 的工程。
+|   |   |-- RoleService：统一角色规范，用于打通DSS与各集成接入系统的角色体系。**_预留规范，暂无需实现_**。
+|   |   |   |-- RoleCreationOperation：请求第三方系统创建一个与 DSS 角色一对一关联的第三方 refRole。
+|   |   |   |-- RoleUpdateOperation：请求第三方系统更新与 DSS 角色已经一对一关联的第三方 refRole。
+|   |   |   |-- RoleDeletionOperation：请求第三方系统删除关联的第三方 refRole。
+|   |   |   |-- RoleUrlOperation：用于当用户在 DSS 前端设置第三方系统的这个角色的权限信息时，返回第三方系统该角色的前端跳转页面 jumpURL。
+|   |   |-- AppStatusService：第三方应用状态检查规范。**_预留规范，暂无需实现_**。
+|   |   |   |-- AppStatusOperation：检查第三方系统的状态，如果发现该第三方系统出现异常，以便及时告警或展示给到前端使用用户。
+|-- [OnlyDevelopmentAppConn](#23-onlydevelopmentappconn--接入-dss-开发流程规范)：如果您的第三方系统想作为 DSS 工作流的一个节点集成进来，则需实现该 AppConn。
+|   |-- DevelopmentIntegrationStandard：DSS 开发流程规范。可直接继承 `AbstractDevelopmentIntegrationStandard`，包含五个需要用户实现的 `DevelopmentService`。
+|   |   |-- RefCRUDService：Job 管理规范，主要用于管理第三方应用工具的 Job（命名为 refJob）。
+|   |   |   |-- RefCreationOperation，第三方应用工具的 Job（命名为 refJob）的创建操作。
+|   |   |   |-- RefCopyOperation，第三方应用工具的 Job（命名为 refJob）的复制操作。
+|   |   |   |-- RefUpdateOperation，第三方应用工具的 Job（命名为 refJob）的更新操作。
+|   |   |   |-- RefDeletionOperation，第三方应用工具的 Job（命名为 refJob）的删除操作。
+|   |   |-- RefExecutionService：Job 执行规范，主要用于执行第三方应用工具的 Job。
+|   |   |   |-- RefExecutionOperation：执行第三方 AppConn 的 refJob。
+|   |   |-- RefExportService：Job 导出规范，主要用于导出第三方应用工具的 Job。
+|   |   |   |-- RefExportOperation：支持将第三方 AppConn 的 Job 导出成 Linkis BML 物料或 `InputStream` 字节流。
+|   |   |-- RefImportService：Job 导入规范，主要用于导入第三方应用工具的 Job。
+|   |   |   |-- RefImportOperation：通过传入 Linkis BML 物料或 `InputStream` 字节流，第三方 AppConn 需支持将其转换成一个 refJob。
+|   |   |-- RefQueryService：Job 查询规范，主要用于打开第三方应用工具的 Job 的页面。
+|   |   |   |-- RefQueryJumpUrlOperation：用于当用户在前端双击该工作流节点时，返回一个可以跳转的 jumpURL。
+|   |   |   |-- RefQueryOperation：在 refProject 下获取第三方 AppConn 的 refJob 的一些信息。
+|-- [OptionalAppConn](#24-optionalappconn--可选的非强制实现的-appconn-规范)：协助第三方 AppConn 提供一些特殊的 `Operation` 能力。
+|   |-- OptionalIntegrationStandard：可选规范。
+|   |   |-- OptionalService：为第三方 AppConn 提供的通用 `Service` 服务，用于构建一些具备特殊能力的 `Operation`，以供 DSS 内嵌的应用工具使用。
+|   |   |   |-- OptionalOperation：第三方系统具备特殊能力的 `Operation`。
 
 ### 2.1 OnlySSOAppConn —— 打通 SSO 免登录跳转
+
+如果您的第三方系统想与 DSS 完成 SSO 免登录跳转，则需使用该 AppConn 提供的能力。
+
+`OnlySSOAppConn` 提供了默认的抽象类 `AbstractOnlySSOAppConn`，该抽象类已提供了一级规范的默认实现。
+
+**_请注意：一般情况下，相关的 `AppConn` 子类会主动继承该抽象类，因此您无需实现 `OnlySSOAppConn` 的任何方法_**。
+
+如果您的第三方系统只想与 DSS 实现 SSO 免登录跳转，那您甚至无需重新写一个 `OnlySSOAppConn` 实现，您只需直接使用 `SSOAppConn` 即可。
+
+如何使用 `SSOAppConn`？只需在 DSS 的 dss_appconn 表中新增一条记录，将 reference 字段指定为 sso 即可。
+
+关于 dss_appconn 表的介绍，请参考：[dss_appconn 表介绍](第三方系统接入DSS开发指南.md#331-dss_appconn-表)。
+
+**_`OnlySSOAppConn` 的核心，是需要第三方 AppConn 按照要求引入 DSS 的 SSO Jar 包，完成相关接口的代码实现和引入，具体如下_**：
 
 DSS 提供了 SSO 免登录跳转的核心 SSO Jar 包，第三方系统需引入该 SSO Jar 包，且在 Filter 中信任 DSS 用户，即可完成用户免登录跳转。
 
@@ -33,7 +98,7 @@ DSS SSO 免登录跳转的设计方案如下：
 
 ![SSO免登录跳转](../Images/开发文档/第三方系统如何接入DSS/SSO免密跳转.png)
 
-目前对接 DSS 的一级 SSO 免登录跳转规范大概有两种方式：一种是 Spring Web 应用的对接方式；另一种则是非 Spring Web 应用的对接方式。
+目前第三方 AppConn 系统，对接 DSS 的一级 SSO 免登录跳转规范大概有两种方式：一种是 Spring Web 应用的对接方式；另一种则是非 Spring Web 应用的对接方式。
 
 #### 2.1.1 Spring Web 应用实现 DSS 一级规范
 
@@ -118,7 +183,7 @@ https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/
 用户可以直接继承 ```AbstractStructureIntegrationStandard```，其中包含了三个需要用户实现的 ```StructureService```，即：
 
 - ```ProjectService```，工程集成规范。用于打通 DSS 工程与接入的第三方应用工具的工程体系，实现工程的协同管理。
-- ```RoleService```，工程集成规范。该规范为预留规范，DSS 框架层暂未与这两个规范进行对接，用户直接返回 null 即可。
+- ```RoleService```，角色集成规范。该规范为预留规范，DSS 框架层暂未与这两个规范进行对接，用户直接返回 null 即可。
 - ```AppStatusService```，第三方应用状态检查规范。该规范为预留规范，DSS 框架层暂未与这两个规范进行对接，用户直接返回 null 即可。
 
 #### 2.2.1 工程集成规范
@@ -198,6 +263,8 @@ https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/
 ### 2.3 OnlyDevelopmentAppConn —— 接入 DSS 开发流程规范
 
 ```OnlyDevelopmentAppConn``` 要求用户必须返回一个 ```DevelopmentIntegrationStandard``` 对象，该对象即为： DSS 开发流程规范。
+
+DSS 开发流程规范用于打通并关联 DSS 的 Job 与集成的第三方 AppConn 的一个 Job，并在 DSS 的编排器（如：DSS 工作流）中对第三方 AppConn 的 Job 进行统一管理，DSS 编排器会提供通用的从需求 -> 设计 -> 开发 -> 调试 -> 导出 -> 导入 -> 发布 的全流程数据应用开发管理能力。
 
 用户可以直接继承 ```AbstractDevelopmentIntegrationStandard```，其中包含了五个需要用户实现的 ```DevelopmentService```，即：
 
