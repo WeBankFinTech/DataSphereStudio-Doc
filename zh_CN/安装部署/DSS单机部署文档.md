@@ -75,7 +75,7 @@ python -m pip install matplotlib
 
 ### c.安装准备
 
-自行编译或者去 release 页面下载安装包：  [wedatasphere-dss-x.x.x-dist.tar.gz](https://github.com/WeBankFinTech/DataSphereStudio/releases)
+自行编译或者去 release 页面下载安装包：  [DSS Release-1.0.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.0.1)
 
 **请注意：为了能正常使用 Visualis1.0.0-RC1 和 Exchangis1.0.0-RC1，请去 releases 页面下载最新的一键安装部署包。**
 
