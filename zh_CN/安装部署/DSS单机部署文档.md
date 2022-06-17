@@ -319,7 +319,7 @@ sh bin/start-all.sh
 
 请使用**谷歌浏览器**访问以下前端地址：
 
-`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址**。登陆时管理员的用户名和密码均为部署用户名，如部署用户为hadoop，则管理员的用户名/密码为：hadoop/hadoop。
+`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址**。登陆时管理员的用户名和密码均为部署用户名，如部署用户为hadoop，则管理员的用户名为：hadoop（密码：dss<1.0.1版本和部署用户一致；dss>=1.0.1 版本,密码是在执行部署是随机生成一个密码串，存储于{LinkisInstallPath}/conf/linkis-mg-gateway.properties)
 
 #### (4) 停止服务：
 
