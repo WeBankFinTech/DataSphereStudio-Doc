@@ -4,21 +4,22 @@
 
 ### 一、安装前准备
 
-- 需先安装DSS，可参考: [DSS&Linkis单机一键部署文档](DSS&Linkis单机一键部署文档.md)
+- 需先安装DSS，可参考: [DSS单机部署文档](DSS单机部署文档.md)
 
 - 需先安装并运行 Schedulis，可参考: [Schedulis部署文档](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md)
 
 ### 二、安装 Schedulis AppConn
-
-- 安装Schedulis时，通过执行以下脚本，只需输入 Schedulis 部署机器的 IP，和 Port，就能配置完成对应的 AppConn 插件的安装，在执行脚本时，会执行对应 AppConn 下 init.sql 脚本，把对应的数据库信息插入到 DSS 表中
+- 用户首先需要查看xx/dss_linkis/dss/dss-appconns目录下面是否存在 schedulis 目录，若不存在用户就需要下载 schedulis 插件
+- 用户通过执行脚本appconn-install.sh来安装 Schedulis AppConn，只需输入部署 Schedulis WEB机器的具体 IP 和 Port，就能完成 AppConn 插件安装。在执行脚本时，会执行对应 AppConn 下 init.sql 脚本，把对应的数据库信息插入到 DSS 表中
 ```
 ## 切换目录到DSS的安装目录
 cd xx/dss
 
-## 执行 appconn-install 安装脚本，输入对应的appconn名称，按照提示输入对应schedulis exec服务对应的IP和PORT
+## 执行 appconn-install 安装脚本，输入对应的appconn名称，按照提示输入对应schedulis WEB服务对应的IP和PORT，
+## 注意当服务都部署在一台机器时，IP不要输入127.0.0.1 或 localhost，必须输入真实IP
 sh bin/appconn-install.sh
 >> schedulis
->> 127.0.0.1
+>> xx.xx.xx.xx
 >> 8085
 ```
 
@@ -27,31 +28,11 @@ sh bin/appconn-install.sh
 
 - 用户还需为 Schedulis 安装一个 JobType 插件： linkis-jobtype，请点击[Linkis JobType安装文档](Schedulis_Linkis_JobType安装文档.md)。
 
-### 四、用户 token 配置
+### 四、Schedulis 使用方式
 
-- 请在 DSS-SERVER 服务 conf 目录的 token.properties 文件中，配置用户名和密码信息，关联 DSS 和 Schedulis 用户，因为用户通过 DSS 创建工程后，要发布到 Schedulis，用户必须保持一致。示例：
+- Schedulis 服务部署完成和 Schedulis AppConn 安装完成后，即可在 DSS 中使用 Schedulis。用户可以在应用组件中，点击 Schedulis 进入 Schedulis，或在工作流开发时，一键发布 DSS 工作流到 Schedulis 进行调度执行。
 
-```shell script
-cd ${DSS_HOME}/conf
-vim token.properties
-```
-
-
-
-```
-## token.properties 添加用户
- 用户名=密码
-```
-
-- 说明：由于每个公司都有各自的登录认证系统，这里只提供简单实现，用户可以实现 ```SchedulerSecurityService``` 定义自己的登录认证方法。
-
-- Schedulis 用户管理可参考：[Azkaban-3.x 用户管理](https://cloud.tencent.com/developer/article/1492734) 或 [官网](https://azkaban.readthedocs.io/en/latest/userManager.html)
-
-### 五、Schedulis 使用方式
-
-- Schedulis 服务部署完成和 Schedulis AppConn 安装完成后，即可在 DSS 中使用 Schedulis。可以在应用组件中，点击 Schedulis 进入 Schedulis，在工作流开发时，可以一键发布 DSS 工作流到 Schedulis 进行调度执行。
-
-### 六、Schedulis AppConn 安装原理
+### 五、Schedulis AppConn 安装原理
 
 - Schedulis 的相关配置信息会插入到以下表中，通过配置下表，可以完成 Schedulis 的使用配置，安装 Schedulis AppConn 时，脚本会替换每个 AppConn 下的 init.sql，并插入到表中。
 
