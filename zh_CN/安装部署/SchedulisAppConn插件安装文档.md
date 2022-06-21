@@ -19,7 +19,21 @@ mvn clean install
 
 ## 3. 安装 Schedulis AppConn
 
+- 安装appconn之前，可以先配置appconn的参数
+
+```shell script
+ cd ${DSS_HOME}/dss/dss-appconns/schedulis
+ vim appconn.properties
+```
+可按需修改如下配置，修改为自定义的路径即可。
+
+```properties
+#发布到schedulis时项目压缩包的存储目录
+wds.dss.appconn.scheduler.project.store.dir=/appcom/tmp/wds/scheduler
+```
+
 &nbsp;&nbsp;&nbsp;&nbsp;安装Schedulis时，通过执行以下脚本，只需输入 Schedulis 部署机器的 IP，和 Port，就能配置完成对应的 AppConn 插件的安装，在执行脚本时，会执行对应 AppConn 下 init.sql 脚本，把对应的数据库信息插入到 DSS 表中。
+
 ```shell script
 sh ${DSS_HOME}bin/appconn-install.sh
 
