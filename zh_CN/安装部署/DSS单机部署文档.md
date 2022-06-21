@@ -333,11 +333,9 @@ HIVE_PASSWORD=xxx
 
    ```
    # 切换目录到dss，正常情况下dss目录就在xx/dss_linkis目录下，
-   
    cd xx/dss_linkis/dss/bin
    
    # 执行启动默认Appconn脚本
-   
    sh start-default-appconn.sh
    ```
 
@@ -349,8 +347,23 @@ HIVE_PASSWORD=xxx
  
     ![](../Images/安装部署/DSS单机部署文档/eureka.png)
 
-- 用户可以使用**谷歌浏览器**访问以下前端地址：`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址（在xx/dss_linkis/conf/config.sh中也配置了此地址）**。登陆时管理员的用户名和密码均为部署用户名，如部署用户为hadoop，则管理员的用户名为：hadoop（密码：dss<1.0.1版本和部署用户一致；dss>=1.0.1 版本,密码是在执行部署时随机生成一个密码串，存储于xx/dss_linkis/linkis/conf/linkis-mg-gateway.properties)
+- 用户可以使用**谷歌浏览器**访问以下前端地址：`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址（在xx/dss_linkis/conf/config.sh中也配置了此地址）**。登陆时管理员的用户名为部署用户为hadoop，密码因DSS版本不同而不同（密码：dss<1.0.1版本和部署用户一致；dss>=1.0.1 版本，密码是在执行部署时随机生成一个密码串，存储于xx/dss_linkis/linkis/conf/linkis-mg-gateway.properties)
 
 7. #### 停止服务
    `sh stop-all.sh`
 - 若用户需要停止所有服务可执行该命令`sh stop-all.sh`，重新启动所有服务就执行`sh start-all.sh`，这两条命令均在xx/dss_linkis/bin目录下执行
+
+### 六、补充说明
+- 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎使用](https://linkis.apache.org/zh-CN/docs/latest/engine_usage/overview)
+- DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如[Visualis](), [Exchangis](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.0.0/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md), [Qualitis](), [Prophecis](), [Streamis]()
+- 若用户的Linkis安装包是通过自己编译获取且用户想启用数据源管理功能，那么就需要去修改配置以启动该项功能，使用下载的安装包无需操作
+```
+## 切换到Linkis配置文件目录
+cd xx/dss_linkis/linkis/conf
+
+## 打开配置文件linkis-env.sh
+vi linkis-env.sh
+
+## 将如下配置改为true
+export ENABLE_METADATA_MANAGER=true
+```
