@@ -29,7 +29,7 @@ SET @EXCHANGIS_INSTALL_IP_PORT='127.0.0.1:9003';
 SET @URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
 SET @HOMEPAGE_URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
 SET @PROJECT_URL = replace('http://EXCHANGIS_IP_PORT', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
-SET @REDIRECT_URL = replace('http://EXCHANGIS_IP_PORT/udes/auth', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
+SET @REDIRECT_URL = replace('http://EXCHANGIS_IP_PORT/#/udes/auth', 'EXCHANGIS_IP_PORT', @EXCHANGIS_INSTALL_IP_PORT);
 
 delete from `dss_application` WHERE `name` = 'Exchangis';
 INSERT INTO `dss_application`(`name`,`url`,`is_user_need_init`,`level`,`user_init_url`,`exists_project_service`,`project_url`,`enhance_json`,`if_iframe`,`homepage_url`,`redirect_url`) VALUES ('Exchangis', @URL, 0, 1, NULL, 0, @PROJECT_URL, '', 1, @HOMEPAGE_URL, @REDIRECT_URL);

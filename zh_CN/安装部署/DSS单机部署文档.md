@@ -30,60 +30,62 @@ Linkix需要的命令工具（在正式安装前，脚本会自动检测这些�
 
 下面的服务必须可从本机访问：
 
--   Hadoop(**2.7.2，Hadoop其他版本需自行编译Linkis**) ，安装的机器必须支持执行 ``` hdfs dfs -ls / ``` 命令
+-   Hadoop(**2.7.2，Hadoop 其他版本需自行编译 Linkis**) ，安装的机器必须支持执行 ``` hdfs dfs -ls / ``` 命令
     
--   Hive(**2.3.3，Hive其他版本需自行编译Linkis**)，安装的机器必须支持执行``` hive -e "show databases" ```命令
+-   Hive(**2.3.3，Hive 其他版本需自行编译 Linkis**)，安装的机器必须支持执行``` hive -e "show databases" ```命令
     
 -   Spark(**支持2.0以上所有版本**) ，安装的机器必须支持执行```spark-sql -e "show databases" ```命令
     
 
 Tips:
 
-如您是第一次安装Hadoop，单机部署Hadoop可参考：[Hadoop单机部署](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html) ；分布式部署Hadoop可参考：[Hadoop分布式部署](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html)。
+如您是第一次安装 Hadoop，单机部署 Hadoop 可参考：[Hadoop单机部署](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html) ；分布式部署Hadoop可参考：[Hadoop分布式部署](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html)。
 
-如您是第一次安装Hive，可参考：[Hive快速安装部署](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)。
+如您是第一次安装 Hive，可参考：[Hive快速安装部署](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)。
 
-如您是第一次安装Spark，On Yarn模式可参考：[Spark on Yarn部署](http://spark.apache.org/docs/2.4.3/running-on-yarn.html)。
+如您是第一次安装 Spark，On Yarn 模式可参考：[Spark on Yarn部署](http://spark.apache.org/docs/2.4.3/running-on-yarn.html)。
 
 ### b. 创建用户
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如: **部署用户是hadoop账号**（可以不是hadoop用户，但是推荐使用Hadoop的超级用户进行部署，这里只是一个示例）
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如: **部署用户是 hadoop 账号**（可以不是 hadoop 用户，但是推荐使用Hadoop的超级用户进行部署，这里只是一个示例）
 
 2.  在所有需要部署的机器上创建部署用户，用于安装
 
-```bash
-sudo useradd hadoop
+```shell script
+ sudo useradd hadoop
 ```
 
-3.  因为Linkis的服务是以 sudo -u ${linux-user} 方式来切换引擎，从而执行作业，所以部署用户需要有 sudo 权限，而且是免密的。
+3.  因为 Linkis 的服务是以 `sudo -u ${linux-user}` 方式来切换引擎，从而执行作业，所以部署用户需要有 sudo 权限，而且是免密的。
 
-```bash
-vi /etc/sudoers
+```shell script
+ vi /etc/sudoers
 ```
 
 ```properties
     hadoop  ALL=(ALL)       NOPASSWD: NOPASSWD: ALL
 ```
 
-4.  确保部署 DSS 和 Linkis 的服务器可正常执行 hdfs 、hive -e 和 spark-sql -e 等命令。在一键安装脚本中，会对组件进行检查。
+4.  确保部署 DSS 和 Linkis 的服务器可正常执行 `hdfs dfs -ls` 、`hive -e` 和 `spark-sql -e` 等命令。在一键安装脚本中，会对组件进行检查。
     
-5.  **如果您的Pyspark想拥有画图功能，则还需在所有安装节点，安装画图模块**。命令如下：
+5.  **如果您的 Pyspark 想拥有画图功能，则还需在所有安装节点，安装画图模块**。命令如下：
 
-```bash
+```shell script
 python -m pip install matplotlib
 ```
 
 ### c.安装准备
 
-自行编译或者去组件release页面下载安装包：
+自行编译或者去 release 页面下载安装包：  [DSS Release-1.0.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.0.1)
 
-2.  下载安装包
+**请注意：为了能正常使用 Visualis1.0.0-RC1 和 Exchangis1.0.0-RC1，请去 releases 页面下载最新的一键安装部署包。**
 
--   [wedatasphere-linkis-x.x.x-dist.tar.gz](https://github.com/WeBankFinTech/Linkis/releases)
--   [wedatasphere-dss-x.x.x-dist.tar.gz](https://github.com/WeBankFinTech/DataSphereStudio/releases)
--   [wedatasphere-dss-web-x.x.x-dist.zip](https://github.com/WeBankFinTech/DataSphereStudio/releases)
+**请注意：为了能正常使用 Visualis1.0.0-RC1 和 Exchangis1.0.0-RC1，请去 releases 页面下载最新的一键安装部署包。**
 
-3.  下载 DSS & LINKIS 一键安装部署包，并解压。以下是一键安装部署包的层级目录结构：
+**如果您选择自行编译 Linkis，请确保编译的是 Linkis1.1.1。**
+
+**如果您选择自行编译 DSS，请确保已 pull 了 DSS `master` 分支的最新代码。**
+
+DSS & LINKIS 一键安装部署包的层级目录结构如下：
 
 ```text
 ├── dss_linkis # 一键部署主目录
@@ -94,15 +96,14 @@ python -m pip install matplotlib
  ├── wedatasphere-linkis-x.x.x-dist.tar.gz # Linkis安装包
 ```
 
-4.停止机器上所有DSS及Linkis服务。若从未安装过DSS及Linkis服务，忽略此步骤。
-
+如果您选择自行编译 Linkis 或 DSS，直接将上面的 Linkis 安装包或 DSS 安装包替换成编译后相关安装包即可。
 
 ### d. 修改配置
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打开conf/config.sh，按需修改相关配置参数：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打开 `conf/config.sh`，按需修改相关配置参数：
 
-```bash
-vi conf/config.sh   
+```shell script
+ vi conf/config.sh   
 ```
 
 参数说明如下：
@@ -114,14 +115,14 @@ vi conf/config.sh
 # deployUser=hadoop
 
 # 非必须不建议修改
-# LINKIS_VERSION=1.0.2
+LINKIS_VERSION=1.1.1
 
 ### DSS Web，本机安装一般无需修改，但需确认此端口是否占用，若被占用，修改一个可用端口即可。
 #DSS_NGINX_IP=127.0.0.1
 #DSS_WEB_PORT=8088
 
 # 非必须不建议修改
-#DSS_VERSION=1.0.0
+DSS_VERSION=1.0.1
 
 ## Java应用的堆栈大小。如果部署机器的内存少于8G，推荐128M；达到16G时，推荐至少256M；如果想拥有非常良好的用户使用体验，推荐部署机器的内存至少达到32G。
 export SERVER_HEAP_SIZE="128M"
@@ -250,8 +251,8 @@ EMAIL_PROTOCOL=smtp
 
 请确保配置的数据库，安装机器可以正常访问，否则将会出现DDL和DML导入失败的错误。
 
-```bash
-vi conf/db.sh 
+```shell script
+ vi conf/db.sh 
 ```
 
 ```properties
@@ -274,8 +275,8 @@ HIVE_PASSWORD=xxx
 
 ### 1. 执行安装脚本：
 
-```bash
-sh bin/install.sh
+```shell script
+ sh bin/install.sh
 ```
 
 ### 2. 安装步骤
@@ -297,6 +298,8 @@ sh bin/install.sh
 
 ### 4. 启动服务
 
+如果您本机已有 DSS 和 Linkis 的服务正在运行中，请先停掉所有相关服务。
+
 #### (1) 启动服务：
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在安装目录执行以下命令，启动所有服务：
@@ -316,12 +319,12 @@ sh bin/start-all.sh
 
 请使用**谷歌浏览器**访问以下前端地址：
 
-`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址**。登陆时管理员的用户名和密码均为部署用户名，如部署用户为hadoop，则管理员的用户名/密码为：hadoop/hadoop。
+`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址**。登陆时管理员的用户名和密码均为部署用户名，如部署用户为hadoop，则管理员的用户名为：hadoop（密码：dss<1.0.1版本和部署用户一致；dss>=1.0.1 版本,密码是在执行部署是随机生成一个密码串，存储于{LinkisInstallPath}/conf/linkis-mg-gateway.properties)
 
 #### (4) 停止服务：
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在安装目录执行以下命令，停止所有服务：
 
-```bash
-sh bin/stop-all.sh
+```shell script
+ sh bin/stop-all.sh
 ```
