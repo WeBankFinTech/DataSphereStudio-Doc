@@ -44,7 +44,7 @@
 ```properties
 # 【必填】指定 DolphinScheduler 的管理员用户
 wds.dss.appconn.ds.admin.user=admin
-# 【必填】指定 DolphinScheduler 管理员用户的 token
+# 【必填】指定 DolphinScheduler 管理员用户的 token，可从dolphinscheduler页面的"安全中心->令牌管理"处中得到
 wds.dss.appconn.ds.admin.token=
 
 # 【请参考】目前只适配了 DolphinScheduler 1.3.X.
@@ -68,6 +68,69 @@ sh install-appconn.sh
 ```
 
 请注意：dolphinscheduler 的 ip 不要输入 `localhost` 或 `127.0.0.1`，请输入真实 IP。
+
+#### 3.1.1 - 放入dss-dolphinscheduler-token.jar到dss-framework-project的lib下
+
+这个jar包的作用是提供framework/project/ds/token接口。
+
+jar包获取方式：dss编译后从plugins/dolphinscheduler目录中可以获取：
+
+![img_9.png](../Images/安装部署/DolphinschedulerAppConn部署/img_9.png)
+
+将该jar包上传到dss部署目录的: lib/dss-framework/dss-framework-project-server/，
+
+然后重启dss-framework-project-server服务：
+```shell
+sh sbin/dss-daemon.sh restart project-server
+```
+
+####3.1.2 放入dolphinscheduler-prod-metrics.jar
+
+这一步是将dolphinscheduler的自定义接口实现jar包添加到dolphinscheduler服务，使之生效。
+jar获取方式：从dss编译后的plugins目录下有dolphinscheduler相关插件包，如图：
+![img_6.png](../Images/安装部署/DolphinschedulerAppConn部署/img_6.png)
+
+将该jar包拷贝到dolphinscheduler部署的lib目录：
+
+![img_7.png](../Images/安装部署/DolphinschedulerAppConn部署/img_7.png)
+
+重启dolphinscheduler的服务，使jar的自定义接口生效：
+
+```
+sh bin/stop-all.sh
+
+sh bin/start-all.sh
+```
+
+
+####3.2 修改dss的nginx配置，加入/dolphinscheduler路径的请求匹配规则。
+这一步是由于运维中心页面前端会直接调用dolphinscheduler服务的接口请求数据（/dolphinscheduler路径前缀），
+所以需要将请求转发到dolphinscheduler服务。
+
+```shell
+location /dolphinscheduler {
+    proxy_pass http://127.0.0.1:12345;#后端dolphinscheduler服务的地址
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection upgrade;
+}
+```
+修改完毕后执行命令重加载nginx配置使之生效：
+```shell
+sudo nginx -s reload
+```
+
+#### 3.3. 配置“前往调度中心”的url
+
+修改conf/dss-workflow-server.properties配置：
+```properties
+#该路径对应的是dolphinscheduler运维中心的页面
+wds.dss.workflow.schedulerCenter.url="/scheduler"
+```
+然后重启下workflow使配置生效：
+```shell
+sh sbin/dss-daemon.sh restart workflow-server
+```
 
 ## 4. 部署 dss-dolphinscheduler-client
 
@@ -101,6 +164,10 @@ unzip dss-dolphinscheduler-client.zip
 ```
 
 解压即可完成 `dss-dolphinscheduler-client` 的安装。
+
+接着需要修改dss-dolphinscheduler-client中的配置文件conf/linkis.properties的linkis网关的ip和端口：
+![img_5.png](../Images/安装部署/DolphinschedulerAppConn部署/img_5.png)
+
 
 ## 4. DolphinSchedulerAppConn 的使用
 

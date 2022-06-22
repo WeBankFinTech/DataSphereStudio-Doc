@@ -11,7 +11,7 @@
 ### 二、安装 Schedulis AppConn
 - 用户首先需要查看xx/dss_linkis/dss/dss-appconns目录下面是否存在 schedulis 目录，若不存在用户就需要下载 schedulis 插件
 - 用户通过执行脚本appconn-install.sh来安装 Schedulis AppConn，只需输入部署 Schedulis WEB机器的具体 IP 和 Port，就能完成 AppConn 插件安装。在执行脚本时，会执行对应 AppConn 下 init.sql 脚本，把对应的数据库信息插入到 DSS 表中
-```
+```shell
 ## 切换目录到DSS的安装目录
 cd xx/dss
 
