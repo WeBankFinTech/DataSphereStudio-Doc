@@ -48,13 +48,13 @@ DataSphereStudio
 
 &nbsp; &nbsp; &nbsp; &nbsp;请参照 [编译指引](zh_CN/开发文档/DSS编译文档.md) 来编译 DSS 源码。
 
-&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS单机部署文档.md) 来部署 DSS。
+&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS&Linkis一键部署文档单机版.md) 来部署 DSS。
 
 ## Demo试用环境
 
 &nbsp; &nbsp; &nbsp; &nbsp;由于 DataSphereStudio 支持执行脚本风险较高，WeDataSphere Demo 环境的隔离没有做完，考虑到大家都在咨询 Demo 环境，决定向社区先定向发放邀请码，接受企业和组织的试用申请。
 
-&nbsp; &nbsp; &nbsp; &nbsp;如果您想试用 Demo 环境，请加入 DataSphere Studio 社区用户群（**加群方式请翻到本文档末尾处**），联系团队成员获取邀请码。
+&nbsp; &nbsp; &nbsp; &nbsp;如果您想试用 Demo 环境，请加入 DataSphere Studio 社区用户群 [加群方式可跳转](#1)，联系团队成员获取邀请码。
 
 &nbsp; &nbsp; &nbsp; &nbsp;DataSphereStudio Demo 环境用户注册页面：[点我进入](https://dss-open.wedatasphere.com/#/register)
 
@@ -87,7 +87,7 @@ DataSphereStudio
 
 &nbsp; &nbsp; &nbsp; &nbsp;DataSphere Studio 统一使用 GitBook 进行管理，整个项目会整理成一个 GitBook 电子书，方便大家下载和使用。
 
-&nbsp; &nbsp; &nbsp; &nbsp;WeDataSphere 后续会提供统一的文档阅读入口，关于 GitBook 的使用方式，请参考：[GitBook文档](http://caibaojian.com/gitbook/)。
+&nbsp; &nbsp; &nbsp; &nbsp;WeDataSphere 后续会提供统一的文档阅读入口，关于 GitBook 的使用方式，请参考：[GitBook文档](http://caibaojian.com/gitbook/).
 
 
 ## 贡献
@@ -95,7 +95,7 @@ DataSphereStudio
 &nbsp; &nbsp; &nbsp; &nbsp;我们非常欢迎和期待更多的贡献者参与共建 DSS, 不论是代码、文档，或是其他能够帮助到社区的贡献形式。
 
 
-## 联系我们
+## <a id = "1">联系我们</a>
 
 &nbsp; &nbsp; &nbsp; &nbsp;对 DSS 的任何问题和建议，敬请提交issue，以便跟踪处理和经验沉淀共享。
 

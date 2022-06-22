@@ -4,7 +4,7 @@
 
 ### 一、安装前准备
 
-- 需先安装DSS，可参考: [DSS单机部署文档](DSS单机部署文档.md)
+- 需先安装DSS，可参考: [DSS单机部署文档](DataSphere Studio & Linkis 单机一键部署文档.md)
 
 - 需先安装并运行 Schedulis，可参考: [Schedulis部署文档](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md)
 

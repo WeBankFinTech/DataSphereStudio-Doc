@@ -28,7 +28,7 @@
 
   如用户是第一次安装Hive，可参考：[Hive快速安装部署](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
 
-  如用户是第一次安装Spark，On Yarn模式可参考：[Spark on Yarn部署](
+  如用户是第一次安装Spark，On Yarn模式可参考：[Spark on Yarn部署](https://spark.apache.org/docs/2.4.3/running-on-yarn.html)
 
 ### 二、创建用户
 
@@ -37,15 +37,15 @@
 
 2. 在所有需要部署的机器上创建部署用户，用于安装 ，如下命令创建部署用户hadoop
 
-   ```
-   sudo useradd hadoop
-   ```
+    ```shell
+    sudo useradd hadoop
+    ```
 
 3. 因为Linkis的服务是以 `sudo -u ${linux-user}` 方式来切换引擎，从而执行作业，所以部署用户需要有 sudo 权限，而且是免密的，按下面步骤修改部署用户权限
 
    编辑/etc/sudoers文件：
 
-   ```
+   ```shell
    vi /etc/sudoers
    ```
 
@@ -60,7 +60,7 @@
 
 5. **如果用户的Pyspark想拥有画图功能，则还需在所有安装节点，安装画图模块**。命令如下：
 
-   ```
+   ```shell
    python -m pip install matplotlib
    ```
 
@@ -68,9 +68,9 @@
 
 - 用户可以自行编译或者去 release 页面下载安装包：  [DSS Release-1.1.0](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.0)
 
-  **请注意：为了能正常使用 Visualis1.0.0-RC1 和 Exchangis1.0.0-RC1，请去 releases 页面下载最新的一键安装部署包。**
+  **请注意：为了能正常使用 Visualis1.0.0 和 Exchangis1.0.0，请去 releases 页面下载最新的一键安装部署包。**
 
-  **请注意：为了能正常使用 Visualis1.0.0-RC1 和 Exchangis1.0.0-RC1，请去 releases 页面下载最新的一键安装部署包。**
+  **请注意：为了能正常使用 Visualis1.0.0 和 Exchangis1.0.0，请去 releases 页面下载最新的一键安装部署包。**
 
 
 
@@ -92,7 +92,7 @@
   [DSS后端编译文档](../开发文档/DSS编译文档.md)  
   [DSS前端编译文档](../开发文档/前端编译文档.md)  
   [Linkis后端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/linkis_compile_and_package)  
-  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/web_build)is_compile_and_package)
+  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/web_build)
 
 
         1. 针对后端安装包可直接将上面的 Linkis 后端安装包或 DSS 后端安装包替换成编译后相关安装包即可。
@@ -115,10 +115,10 @@
 
 ### <a id = "1">四、修改配置</a>
 
-- 用户需要对xx/dss_linkis/conf目录下的config.sh和db.sh进行修改
+- 用户需要对xx/dss_linkis/conf目录下的`config.sh`和`db.sh`进行修改
 
 
-- 打开config.sh，按需修改相关配置参数，参数说明如下：
+- 打开`config.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
 #################### 一键安装部署的基本配置 ####################
@@ -277,15 +277,10 @@ EMAIL_USERNAME=xxx@163.com
 EMAIL_PASSWORD=xxxxx
 EMAIL_PROTOCOL=smtp
 
-### Save the file path exported by the orchestrator service
-ORCHESTRATOR_FILE_PATH=/appcom/tmp/dss
-### Save DSS flow execution service log path
-EXECUTION_LOG_PATH=/appcom/tmp/dss
-
 ############## other default configuration 其他默认配置信息 ############## 
 ```
 
-- 修改数据库配置。请确保配置的数据库，安装机器可以正常访问，否则将会出现DDL和DML导入失败的错误，打开db.sh，按需修改相关配置参数，参数说明如下：
+- 修改数据库配置。请确保配置的数据库，安装机器可以正常访问，否则将会出现DDL和DML导入失败的错误，打开`db.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
 ### 配置DSS数据库
@@ -310,11 +305,13 @@ HIVE_PASSWORD=xxx
 - 若从未安装过DSS及Linkis服务，忽略此步骤
 
 2. #### 将当前目录切换到bin目录
-
-   `cd xx/dss_linkis/bin`
+    ```shell
+    cd xx/dss_linkis/bin
+    ```
 3. #### 执行安装脚本
-
-   `sh install.sh`
+    ```shell
+    sh install.sh
+    ```
 - 该安装脚本会检查各项集成环境命令，如果没有请按照提示进行安装，以下命令为必须项：
 
   *yum; java; mysql; unzip; expect; telnet; tar; sed; dos2unix; nginx*
@@ -325,13 +322,39 @@ HIVE_PASSWORD=xxx
 - *除非用户想重新安装整个应用，否则该命令执行一次即可*
 
 4. #### 启动服务
+- 若用户的Linkis安装包是通过自己编译获取且用户想启用数据源管理功能，那么就需要去修改配置以启动该项功能，使用下载的安装包无需操作
+    ```shell
+    ## 切换到Linkis配置文件目录
+    cd xx/dss_linkis/linkis/conf
+    
+    ## 打开配置文件linkis-env.sh
+    vi linkis-env.sh
+    
+    ## 将如下配置改为true
+    export ENABLE_METADATA_MANAGER=true
+    ```
+- 若用户的Linkis安装包是通过自己编译获取，在启动服务前尽量将后续用到的密码改成和部署用户名一致，使用下载的安装包无需操作
+    ```shell
+    ## 切换到Linkis配置文件目录
+    cd xx/dss_linkis/linkis/conf/
 
-   `sh start-all.sh`
+    ## 打开配置文件linkis-mg-gateway.properties
+    vi linkis-mg-gateway.properties
+
+    ## 修改密码
+    wds.linkis.admin.password=hadoop
+    ```
+- 在xx/dss_linkis/bin目录下执行启动服务脚本
+
+    ```shell
+    sh start-all.sh
+    ```
+
 - 如果启动产生了错误信息，可以查看具体报错原因。启动后，各项微服务都会进行**通信检测**，如果有异常则可以帮助用户定位异常日志和原因
 
 5. #### 安装默认Appconn
 
-   ```
+   ```shell
    # 切换目录到dss，正常情况下dss目录就在xx/dss_linkis目录下，
    cd xx/dss_linkis/dss/bin
    
@@ -343,27 +366,30 @@ HIVE_PASSWORD=xxx
 
 6. #### 查看验证是否成功
 
-- 用户可以在Eureka界面查看 Linkis & DSS 后台各微服务的启动情况，默认情况下DSS有7个微服务，Linkis有8个微服务（**Eureka地址在xx/dss_linkis/conf/config.sh有配置）**
+- 用户可以在Eureka界面查看 Linkis & DSS 后台各微服务的启动情况，默认情况下DSS有7个微服务，Linkis有10个微服务(包括启用数据源管理功能后的两个微服务) **（Eureka地址在xx/dss_linkis/conf/config.sh有配置）**
  
-    ![](../Images/安装部署/DSS单机部署文档/eureka.png)
+    ![](../Images/安装部署/DSS&Linkis一键部署文档单机版/eureka.png)
 
-- 用户可以使用**谷歌浏览器**访问以下前端地址：`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址（在xx/dss_linkis/conf/config.sh中也配置了此地址）**。登陆时管理员的用户名为部署用户为hadoop，密码因DSS版本不同而不同（密码：dss<1.0.1版本和部署用户一致；dss>=1.0.1 版本，密码是在执行部署时随机生成一个密码串，存储于xx/dss_linkis/linkis/conf/linkis-mg-gateway.properties)
+- 用户可以使用**谷歌浏览器**访问以下前端地址：`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址（在xx/dss_linkis/conf/config.sh中也配置了此地址）**。登陆时默认管理员的用户名和密码均为部署用户为hadoop（用户若想修改密码，可以通过修改 xx/dss_linkis/linkis/conf/linkis-mg-gateway.properties 文件中的 wds.linkis.admin.password 参数)
 
 7. #### 停止服务
-   `sh stop-all.sh`
+    ```shell
+    sh stop-all.sh
+    ```
 - 若用户需要停止所有服务可执行该命令`sh stop-all.sh`，重新启动所有服务就执行`sh start-all.sh`，这两条命令均在xx/dss_linkis/bin目录下执行
 
 ### 六、补充说明
-- 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎使用](https://linkis.apache.org/zh-CN/docs/latest/engine_usage/overview)
+- 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎的安装](https://linkis.apache.org/zh-CN/docs/latest/deployment/engine_conn_plugin_installation/)
+- DSS默认未安装调度系统，用户可以选择安装 Schedulis 或者 DolphinScheduler，具体安装方式见下面表格
 - DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如[Visualis](), [Exchangis](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.0.0/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md), [Qualitis](), [Prophecis](), [Streamis]()
-- 若用户的Linkis安装包是通过自己编译获取且用户想启用数据源管理功能，那么就需要去修改配置以启动该项功能，使用下载的安装包无需操作
-```
-## 切换到Linkis配置文件目录
-cd xx/dss_linkis/linkis/conf
+  调度系统就是Schedulis和DolphinScheduler
 
-## 打开配置文件linkis-env.sh
-vi linkis-env.sh
-
-## 将如下配置改为true
-export ENABLE_METADATA_MANAGER=true
-```
+    | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
+    |-----------------|----------------|----------------------------------------|-------------------|
+    | Schedulis       | Schedulis0.7.0 |                                    | |
+    | Visualis     |  |                                    | |
+    | Exchangis |  |                                    | |
+    | Qualitis      |   |                                    | |
+    | Prophecis  |  |          | |
+    | Streamis  |  |          | |
+    | DolphinScheduler | | | | 

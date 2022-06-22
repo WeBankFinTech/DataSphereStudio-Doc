@@ -1,5 +1,5 @@
 * [安装部署](安装部署)
-    * [DSS 单机部署文档](安装部署/DSS单机部署文档.md)
+    * [DSS 单机部署文档](安装部署/DSS&Linkis一键部署文档单机版.md)
     * [ExchangisAppConn 插件安装文档](安装部署/ExchangisAppConn插件安装文档.md)
     * [QualitisAppConn 插件安装文档](安装部署/QualitisAppConn插件安装文档.md)
     * [SchedulisAppConn 插件安装文档](安装部署/SchedulisAppConn插件安装文档.md)
