@@ -11,6 +11,7 @@
 进入到dss的部署目录，在目录下执行命令停止dss的所有服务：
 ```shell
 cd ${DSS_DEPLOY_PATH}
+
 sh sbin/dss-stop-all.sh
 ```
 #### 2. 执行数据库升级sql脚本
@@ -29,7 +30,26 @@ source ${your_path}/from_v101_to_v110.sql
 
 #### 3. dss部署目录替换为新版本包
 
-首先备份dss旧版本的部署目录，以该目录为例：/appcom/Install/DSSInstall
+**(重要：最好先备份好dss旧版本的数据库)**
+
+- 通过mysqldump命令备份如下有结构变化的表：
+
+dss_appconn、dss_appconn_instance、dss_workflow_node、dss_onestop_user_favorites、dss_component_role、dss_onestop_menu_application
+
+
+
+这些表只是修改了表名，也可以备份下：
+
+dss_dictionary
+dss_role 
+dss_admin_dept
+dss_download_audit 
+dss_flow_relation
+dss_flow_edit_lock 
+dss_onestop_menu 
+dss_menu_role
+
+- 备份dss旧版本的部署目录，以该目录为例：/appcom/Install/DSSInstall
 ```shell
 mv /appcom/Install/DSSInstall /appcom/Install/DSSInstall-bak
 ```
@@ -67,17 +87,12 @@ cp -r conf/dss-guide-server.properties /appcom/Install/DSSInstall/conf/
 
 配置修改：
 
-1.在dss.properties配置文件中加入：
-```properties
-###dolphinscheduler系统admin用户的token，若无需安装dolphinscheduler-appconn则无需配置该项
-wds.dss.appconn.ds.admin.token=
-```
 1.在配置文件dss-framework-project-server.properties中加入：
 ```properties
-###或appconn没有实现所欲开发规范（节点更新、删除、拷贝、导入、导出操作），需要加入到该配置忽略检查
+###若appconn没有实现所有开发规范（节点更新、删除、拷贝、导入、导出操作），需要加入到该配置忽略检查
 wds.dss.appconn.checker.development.ignore.list=workflow,sendemail
-###或appconn没有实现所有工程规范（增删改查），需要加入到该配置忽略检查
-wds.dss.appconn.checker.project.ignore.list=mlss
+###若appconn没有实现所有工程规范（增删改查），需要加入到该配置忽略检查
+wds.dss.appconn.checker.project.ignore.list=
 ```
 
 #### 5. 服务启动
