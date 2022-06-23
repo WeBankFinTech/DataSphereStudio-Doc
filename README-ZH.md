@@ -48,7 +48,7 @@ DataSphereStudio
 
 &nbsp; &nbsp; &nbsp; &nbsp;请参照 [编译指引](zh_CN/开发文档/DSS编译文档.md) 来编译 DSS 源码。
 
-&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS单机部署文档.md) 来部署 DSS。
+&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS&Linkis一键部署文档单机版.md) 来部署 DSS。
 
 ## Demo试用环境
 
