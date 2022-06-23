@@ -115,10 +115,10 @@
 
 ### <a id = "1">四、修改配置</a>
 
-- 用户需要对xx/dss_linkis/conf目录下的config.sh和db.sh进行修改
+- 用户需要对 `xx/dss_linkis/conf` 目录下的 `config.sh` 和 `db.sh` 进行修改。
 
 
-- 打开config.sh，按需修改相关配置参数，参数说明如下：
+- 打开 `config.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
 #################### 一键安装部署的基本配置 ####################
@@ -285,7 +285,9 @@ EXECUTION_LOG_PATH=/appcom/tmp/dss
 ############## other default configuration 其他默认配置信息 ############## 
 ```
 
-- 修改数据库配置。请确保配置的数据库，安装机器可以正常访问，否则将会出现DDL和DML导入失败的错误，打开db.sh，按需修改相关配置参数，参数说明如下：
+请注意：DSS 推荐使用 LDAP 进行用户登录鉴权，如您想接入公司的 LDAP，还需在上面的 `config.sh` 中填写 LDAP 的配置参数。 [如何安装 LDAP？](https://web.mit.edu/rhel-doc/5/RHEL-5-manual/Deployment_Guide-en-US/s1-ldap-quickstart.html)
+
+- 修改数据库配置。请确保配置的数据库，安装机器可以正常访问，否则将会出现 DDL 和 DML 导入失败的错误，打开 `db.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
 ### 配置DSS数据库

@@ -61,7 +61,7 @@ wds.dss.appconn.ds.client.home=${DSS_DOLPHINSCHEDULER_CLIENT_HOME}
 
 - 加载 `DolphinScheduler` 插件
 
-``` bash 
+```shell script 
 cd ${DSS_HOME}/bin
 sh install-appconn.sh
 # 该脚本为交互式的安装方案，您只需要按照指示，输入字符串 dolphinscheduler 以及 dolphinscheduler 服务的 ip 和端口，即可以完成安装
@@ -69,45 +69,51 @@ sh install-appconn.sh
 
 请注意：dolphinscheduler 的 ip 不要输入 `localhost` 或 `127.0.0.1`，请输入真实 IP。
 
-#### 3.1.1 - 放入dss-dolphinscheduler-token.jar到dss-framework-project的lib下
+#### 3.1.1 - 放入 dss-dolphinscheduler-token.jar 到 dss-framework-project 的 lib 下
 
-这个jar包的作用是提供framework/project/ds/token接口。
+这个 Jar 包的作用是提供 `/api/rest_j/v1/dss/framework/project/ds/token` 接口，用于免密请求 DolphinScheduler 的接口。
 
-jar包获取方式：dss编译后从plugins/dolphinscheduler目录中可以获取：
+Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可以获取：
 
 ![img_9.png](../Images/安装部署/DolphinschedulerAppConn部署/img_9.png)
 
-将该jar包上传到dss部署目录的: lib/dss-framework/dss-framework-project-server/，
+将该 Jar 包上传到 DSS 部署目录的: `${DSS_HOME}/lib/dss-framework/dss-framework-project-server/`，然后重启 `dss-framework-project-server` 服务：
 
-然后重启dss-framework-project-server服务：
 ```shell
 sh sbin/dss-daemon.sh restart project-server
 ```
 
-####3.1.2 放入dolphinscheduler-prod-metrics.jar
+#### 3.1.2 放入 dolphinscheduler-prod-metrics.jar
 
-这一步是将dolphinscheduler的自定义接口实现jar包添加到dolphinscheduler服务，使之生效。
-jar获取方式：从dss编译后的plugins目录下有dolphinscheduler相关插件包，如图：
+这一步是将 DolphinScheduler 的自定义接口实现 Jar 包添加到 DolphinScheduler 服务的 lib 目录，并重启 DolphinScheduler 服务使之生效。
+
+Jar获取方式：从 DSS 编译后的 plugins 目录下有 dolphinscheduler 相关插件包，如图：
+
 ![img_6.png](../Images/安装部署/DolphinschedulerAppConn部署/img_6.png)
 
-将该jar包拷贝到dolphinscheduler部署的lib目录：
+将该 Jar 包拷贝到 DolphinScheduler 部署的 lib 目录：
 
 ![img_7.png](../Images/安装部署/DolphinschedulerAppConn部署/img_7.png)
 
-重启dolphinscheduler的服务，使jar的自定义接口生效：
+重启 DolphinScheduler 的服务，使 Jar 的自定义接口生效：
 
-```
+```shell script
 sh bin/stop-all.sh
-
 sh bin/start-all.sh
 ```
 
 
-####3.2 修改dss的nginx配置，加入/dolphinscheduler路径的请求匹配规则。
-这一步是由于运维中心页面前端会直接调用dolphinscheduler服务的接口请求数据（/dolphinscheduler路径前缀），
-所以需要将请求转发到dolphinscheduler服务。
+#### 3.2 修改 DSS 的 nginx 配置，加入 /dolphinscheduler 路径的请求匹配规则。
 
-```shell
+这一步是由于运维中心页面的前端，会直接调用 DolphinScheduler 服务的接口请求数据（`/dolphinscheduler` URI 路径前缀），
+
+所以需要将请求转发到 DolphinScheduler 服务。
+
+```shell script
+vim /etc/nginx/conf.d/dss.conf
+```
+
+```shell script
 location /dolphinscheduler {
     proxy_pass http://127.0.0.1:12345;#后端dolphinscheduler服务的地址
     proxy_http_version 1.1;
@@ -115,20 +121,25 @@ location /dolphinscheduler {
     proxy_set_header Connection upgrade;
 }
 ```
-修改完毕后执行命令重加载nginx配置使之生效：
-```shell
+
+修改完毕后执行命令重加载 nginx 配置使之生效：
+
+```shell script
 sudo nginx -s reload
 ```
 
-#### 3.3. 配置“前往调度中心”的url
+#### 3.3. 配置 前往调度中心 的 url
 
-修改conf/dss-workflow-server.properties配置：
+修改 `${DSS_HOME}/conf/dss-workflow-server.properties` 配置：
+
 ```properties
 #该路径对应的是dolphinscheduler运维中心的页面
 wds.dss.workflow.schedulerCenter.url="/scheduler"
 ```
-然后重启下workflow使配置生效：
-```shell
+
+然后重启下 workflow 使配置生效：
+
+```shell script
 sh sbin/dss-daemon.sh restart workflow-server
 ```
 
@@ -166,6 +177,7 @@ unzip dss-dolphinscheduler-client.zip
 解压即可完成 `dss-dolphinscheduler-client` 的安装。
 
 接着需要修改dss-dolphinscheduler-client中的配置文件conf/linkis.properties的linkis网关的ip和端口：
+
 ![img_5.png](../Images/安装部署/DolphinschedulerAppConn部署/img_5.png)
 
 
@@ -179,10 +191,8 @@ unzip dss-dolphinscheduler-client.zip
 
 ### 4.2 发布 DSS 工作流到 DolphinScheduler
 
-点击工作流的发布按钮，可将 DSS 工作流一键发布到 DolphinScheduler。
-
-![DSS工作流一键发布到DolphinScheduler]()
+点击 DSS 工作流的发布按钮，可将 DSS 工作流一键发布到 DolphinScheduler。
 
 ### 4.3 调度中心使用文档
 
-更多关于 DSS 调度中心的使用介绍，请参考：[调度中心使用文档]()
+更多关于 DSS 调度中心的使用介绍，请参考：[调度中心使用文档](../用户手册/调度中心使用文档.md)
