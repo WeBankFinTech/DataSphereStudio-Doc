@@ -2,7 +2,7 @@
 
 > 简介:帮助文档模块属于dss-user-guide模块下，用于提供dss项目相关资料。
 
-​        在使用dss-user-guide模块时需先部署dss项目服务，可参考dss部署相关文档，dss-user-guide文档同步功能采用定时任务没两小时同步一次，文档更新到系统需要维护一份SUMMARY.md文件用于user-guide模块解析文件所在位置，及解析文档内容。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用dss-user-guide模块时需先部署dss项目服务，可参考dss部署相关文档，dss-user-guide文档同步功能采用定时任务没两小时同步一次，文档更新到系统需要维护一份SUMMARY.md文件用于user-guide模块解析文件所在位置，及解析文档内容。
 
 
 
@@ -20,9 +20,11 @@ host.gitbook.path=/appcom/Install/ApacheInstall/gitbook_books
 target.gitbook.path=/appcom/Install/ApacheInstall
 #用于忽略解析km下到目录
 summary.ignore.model=km
+#知识库同步方式：gitbook database
+guide.sync.model=gitbook
 ````
 
-### 1.2 建议配置
+### 1.2 DSS1.1.0配置
 
 ````properties
 #gitbook
@@ -30,13 +32,15 @@ summary.ignore.model=km
 target.ip.address=127.0.0.1
 #文档所在服务器路径(目录配置到summary.md文件所在目录即可，例：/xxx/test1/SUMMARY.md)
 host.gitbook.path=/xxx/test1
+#Dss1.1.0不支持gitbook方式同步，故采取database
+guide.sync.model=gitbook
 ````
 
 
 
 ## 2、SUMMARY.md文件结构说明
 
-​	SUMMARY.md文件主要用于维护文件所在位置及文件解析之后文件到层级结构
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUMMARY.md文件主要用于维护文件所在位置及文件解析之后文件到层级结构
 
 **例：**
 
@@ -94,7 +98,7 @@ km
 
 ## 3.文件图片说明及配置
 
-​	由于部分文档会存在插图，md文件被user-guide模块解析后会将其内容存放到数据库中，图片存放到数据库的只是图片到路径，故在md文档中插入图片的时候需要存放文件到相对路径，然后通过nginx代理到服务器图片存放的文件夹即可。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于部分文档会存在插图，md文件被user-guide模块解析后会将其内容存放到数据库中，图片存放到数据库的只是图片到路径，故在md文档中插入图片的时候需要存放文件到相对路径，然后通过nginx代理到服务器图片存放的文件夹即可。
 
 文件目录结构如下：(假设文件存放子服务器/xxx/test1目录下)
 
@@ -123,7 +127,7 @@ location /images {
 
 **注：这段配置需加在dss服务所在到nginx配置中，需要保证图片到ip:port有服务器一致。**
 
-配置完成之后重启服务即可将文件同步到user-guide中！
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置完成之后重启服务即可将文件同步到user-guide中！
 
 
 
