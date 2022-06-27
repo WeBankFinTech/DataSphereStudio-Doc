@@ -361,7 +361,7 @@ HIVE_PASSWORD=xxx
    cd xx/dss_linkis/dss/bin
    
    # 执行启动默认Appconn脚本
-   sh start-default-appconn.sh
+   sh install-default-appconn.sh
    ```
 
 - *该命令执行一次即可，除非用户想重新安装整个应用*
@@ -392,6 +392,6 @@ HIVE_PASSWORD=xxx
   | Visualis | Visualis1.0.0  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
   | Exchangis | Exchangis1.0.0 | [Exchangis部署](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn部署](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
   | Qualitis |Qualitis0.9.2   |   [Qualitis部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E6%89%8B%E5%86%8C%E2%80%94%E2%80%94%E5%8D%95%E6%9C%BA%E7%89%88.md) |[Qualitis AppConn部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)   |
-  | Prophecis  | Prophecis |   [Prophecis部署]() | [Prophecis AppConn部署]() |
+  | Prophecis  | Prophecis0.3.2 |   [Prophecis部署]() | [Prophecis AppConn部署]() |
   | Streamis  | Streamis0.2.0 |  [Streamis部署]()       | [Streamis AppConn部署]() |
-  | DolphinScheduler | DolphinScheduler | [DolphinScheduler 部署]() | [DolphinScheduler AppConn部署]() | 
+  | DolphinScheduler | DolphinScheduler1.3.x | [DolphinScheduler部署](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.8/user_doc/standalone-deployment.html) | [DolphinScheduler AppConn部署](DolphinScheduler插件安装文档.md) | 
