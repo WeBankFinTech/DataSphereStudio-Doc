@@ -83,7 +83,7 @@ km
 
 **说明：**
 
-![企业微信截图_20220623173645](..\Images\安装部署\DSSUserGuide部署\userguide_1.png)
+![企业微信截图_20220623173645](../Images/安装部署/DSSUserGuide部署/userguide_1.png)
 
 **目录结构说明：**
 
