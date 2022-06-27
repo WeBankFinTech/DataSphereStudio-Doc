@@ -7,11 +7,11 @@ DataSphere Studio（简称 DSS）是微众银行自研的数据应用开发管�
 ## 文档列表
 
 * [安装部署](安装部署)
-    * [DSS 单机部署文档](安装部署/DSS单机部署文档.md)
-    * [ExchangisAppConn 插件安装文档](安装部署/ExchangisAppConn插件安装文档.md)
-    * [QualitisAppConn 插件安装文档](安装部署/QualitisAppConn插件安装文档.md)
+    * [DSS 单机部署文档](安装部署/DSS&Linkis一键部署文档单机版.md)
+    * [ExchangisAppConn 插件安装文档](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md)
+    * [QualitisAppConn 插件安装文档](安https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)
     * [SchedulisAppConn 插件安装文档](安装部署/SchedulisAppConn插件安装文档.md)
-    * [VisualisAppConn 插件安装文档](安装部署/VisualisAppConn插件安装文档.md)
+    * [VisualisAppConn 插件安装文档](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)
 * [使用文档](使用文档)
     * [DSS用户手册](使用文档/DSS用户手册.md)
     * [DataApiService 使用文档](使用文档/DataApiService使用文档.md)

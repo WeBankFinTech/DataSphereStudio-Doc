@@ -48,13 +48,13 @@ DataSphereStudio
 
 &nbsp; &nbsp; &nbsp; &nbsp;请参照 [编译指引](zh_CN/开发文档/DSS编译文档.md) 来编译 DSS 源码。
 
-&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS单机部署文档.md) 来部署 DSS。
+&nbsp; &nbsp; &nbsp; &nbsp;请参考 [安装部署文档](zh_CN/安装部署/DSS&Linkis一键部署文档单机版.md) 来部署 DSS。
 
 ## Demo试用环境
 
 &nbsp; &nbsp; &nbsp; &nbsp;由于 DataSphereStudio 支持执行脚本风险较高，WeDataSphere Demo 环境的隔离没有做完，考虑到大家都在咨询 Demo 环境，决定向社区先定向发放邀请码，接受企业和组织的试用申请。
 
-&nbsp; &nbsp; &nbsp; &nbsp;如果您想试用 Demo 环境，请加入 DataSphere Studio 社区用户群（**加群方式请翻到本文档末尾处**），联系团队成员获取邀请码。
+&nbsp; &nbsp; &nbsp; &nbsp;如果您想试用 Demo 环境，请加入 DataSphere Studio 社区用户群 [加群方式可跳转](#1)，联系团队成员获取邀请码。
 
 &nbsp; &nbsp; &nbsp; &nbsp;DataSphereStudio Demo 环境用户注册页面：[点我进入](https://dss-open.wedatasphere.com/#/register)
 
@@ -67,13 +67,13 @@ DataSphereStudio
 
 &nbsp; &nbsp; &nbsp; &nbsp;以下为 DSS 相关 AppConn 插件的安装指南：
 
-- [DSS 的 Visualis AppConn 插件安装指南](zh_CN/安装部署/VisualisAppConn插件安装文档.md)
+- [DSS 的 Visualis AppConn 插件安装指南](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)
 
 - [DSS 的 Schedulis AppConn 插件安装指南](zh_CN/安装部署/SchedulisAppConn插件安装文档.md)
 
-- [DSS 的 Qualitis AppConn 插件安装指南](zh_CN/安装部署/QualitisAppConn插件安装文档.md)
+- [DSS 的 Qualitis AppConn 插件安装指南](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)
 
-- [DSS 的 Exchangis AppConn 插件安装指南](zh_CN/安装部署/ExchangisAppConn插件安装文档.md)
+- [DSS 的 Exchangis AppConn 插件安装指南](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md)
 
 
 ## 谁在使用 DataSphere Studio
@@ -95,7 +95,7 @@ DataSphereStudio
 &nbsp; &nbsp; &nbsp; &nbsp;我们非常欢迎和期待更多的贡献者参与共建 DSS, 不论是代码、文档，或是其他能够帮助到社区的贡献形式。
 
 
-## 联系我们
+## <a id = "1">联系我们</a>
 
 &nbsp; &nbsp; &nbsp; &nbsp;对 DSS 的任何问题和建议，敬请提交issue，以便跟踪处理和经验沉淀共享。
 
