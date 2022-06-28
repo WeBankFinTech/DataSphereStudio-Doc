@@ -387,8 +387,7 @@ HIVE_PASSWORD=xxx
 ### 六、补充说明
 - 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎的安装](https://linkis.apache.org/zh-CN/docs/latest/deployment/engine_conn_plugin_installation/)
 - DSS默认未安装调度系统，用户可以选择安装 Schedulis 或者 DolphinScheduler，具体安装方式见下面表格
-- DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如[Visualis](), [Exchangis](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.0.0/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md), [Qualitis](), [Prophecis](), [Streamis]()
-  调度系统就是Schedulis和DolphinScheduler
+- DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如Visualis, Exchangis, Qualitis, Prophecis, Streamis。调度系统可使用Schedulis或DolphinScheduler
 
   | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
   |-----------------|----------------|----------------------------------------|-------------------|
