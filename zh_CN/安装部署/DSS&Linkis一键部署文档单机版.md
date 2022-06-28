@@ -391,7 +391,7 @@ HIVE_PASSWORD=xxx
   调度系统就是Schedulis和DolphinScheduler
 
   | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
-      |-----------------|----------------|----------------------------------------|-------------------|
+  |-----------------|----------------|----------------------------------------|-------------------|
   | Schedulis | Schedulis0.7.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn部署](SchedulisAppConn插件安装文档.md)|
   | Visualis | Visualis1.0.0  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
   | Exchangis | Exchangis1.0.0 | [Exchangis部署](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn部署](https://github.com/WeDataSphere/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
