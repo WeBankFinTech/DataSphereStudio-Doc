@@ -277,6 +277,10 @@ EMAIL_USERNAME=xxx@163.com
 EMAIL_PASSWORD=xxxxx
 EMAIL_PROTOCOL=smtp
 
+### Save the file path exported by the orchestrator service
+ORCHESTRATOR_FILE_PATH=/appcom/tmp/dss
+### Save DSS flow execution service log path
+EXECUTION_LOG_PATH=/appcom/tmp/dss
 ############## other default configuration 其他默认配置信息 ############## 
 ```
 
