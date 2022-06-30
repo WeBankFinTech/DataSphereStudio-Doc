@@ -1,7 +1,3 @@
----
-title: 调试指引
-sidebar_position: 2
----
 
 # 调试相关
 
@@ -19,20 +15,20 @@ mvn clean Install
 ```
 
 ## step 2 在服务器上部署好DSS服务
-若尚未部署DSS可参考部署文档：[DSS单机部署文档](./DSS单机部署文档.md)
+若尚未部署DSS可参考部署文档：[DSS单机部署文档](DSS&Linkis一键部署文档单机版.md)
 
 ## step 3 打开调试端口
 
-首先需要明确需要调试的包所在的服务，根据需要调试的代码位置,确定其所属的服务。
+首先需要明确需要调试的包所在的服务，根据需要调试的代码位置，确定其所属的服务。
 
-进入dss部署目录下的该目录：${DSS_HOME}/sbin/ext，修改需要调试的对应服务的启动脚本文件，开启远程调用端口：（以workflow-server服务为例）
+其后进入dss部署目录下的 ${DSS_HOME}/sbin/ext 目录，修改需要调试的对应服务的启动脚本文件，开启远程调用端口：（以workflow-server服务为例）
 
-```properties
-cd ${DSS_HOME}
+```shell
+cd ${DSS_HOME}/sbin/ext
 
-vim sbin/ext/dss-workflow-server
+vim dss-workflow-server
 ```
-在脚本中找到 DEBUG_PORT 关键字，然后输入需要打开的端口号（要从本地能够连通）：
+在脚本中找到 DEBUG_PORT 关键字，然后输入需要打开的端口号 **(要从本地能够连通)**
 
 ![img.png](../Images/安装部署/DSS调试/img.png)
 
@@ -52,30 +48,31 @@ sh sbin/dss-daemon.sh restart workflow-server
 
 ![img_2.png](../Images/安装部署/DSS调试/img_2.png)
 
-## step 5. 开始调试
+## step 5 开始调试
 
 在idea右上角点击调试按钮，即可可以开始调试：
 
 ![img_3.png](../Images/安装部署/DSS调试/img_3.png)
 
-## step 6. 替换jar包
+## step 6 替换jar包
 
-本地修改了代码后，可以打包好对应模块的jar包，然后替换服务器上对应lib的jar。重启服务即可。
+本地修改代码后，可以打包好对应模块的jar包，然后替换服务器上对应lib的jar。重启服务即可。
 
-```properties
+```shell
 cd ${DSS_HOME}
 
 ## 往服务器上传jar包
 rz -bye
 
-##将上传的jar包拷贝替换原来jar包
+## 将上传的jar包拷贝替换原来jar包
 cp ${your_jar_name} lib/${jar_path}
 ```
 
 注：若不清楚该jar在哪些服务的lib中存在，可通过如下命令搜索该jar的所有位置：
-```properties
+```shell
 cd ${DSS_HOME}
-###搜索lib目录下的所有dss-orchestrator-common-*.jar包
+
+## 搜索lib目录下的所有dss-orchestrator-common-*.jar包
 find lib/ -name "*dss-orchestrator-common*"
 ```
 

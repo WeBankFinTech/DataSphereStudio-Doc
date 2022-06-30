@@ -1,12 +1,12 @@
-# 帮助文档部署文档
+# 帮助文档部署指南
 
 > 简介:帮助文档模块属于dss-user-guide模块下，用于提供dss项目相关资料。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用dss-user-guide模块时需先部署dss项目服务，可参考dss部署相关文档，dss-user-guide文档同步功能采用定时任务没两小时同步一次，文档更新到系统需要维护一份SUMMARY.md文件用于user-guide模块解析文件所在位置，及解析文档内容。
+在使用dss-user-guide模块时需先部署dss项目服务，可参考dss部署相关文档，dss-user-guide文档同步功能采用定时任务每两小时同步一次，文档更新到系统需要维护一份SUMMARY.md文件用于user-guide模块解析文件所在位置，及解析文档内容。
 
 
 
-## 1、dss-guide-server.properties知识库相关配置说明
+## 1. dss-guide-server.properties知识库相关配置说明
 
 ### 1.1 参考配置
 
@@ -38,9 +38,9 @@ guide.sync.model=gitbook
 
 
 
-## 2、SUMMARY.md文件结构说明
+## 2. SUMMARY.md文件结构说明
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUMMARY.md文件主要用于维护文件所在位置及文件解析之后文件到层级结构
+SUMMARY.md文件主要用于维护文件所在位置及文件解析之后文件的层级结构
 
 **例：**
 
@@ -92,20 +92,21 @@ km
 - “空格” + “空格” + “空格” + “空格” + “-” + “空格” + “[内容]” + "()" 表示三级目录
 - “空格” + “空格” + “空格” + “空格” + “空格” + “空格” + “-” + “空格” + “[内容]” + "()" 表示四级目录
 
-**注：()中放文件到相对路径，并且文件名不能含有英文字符的()**
+**注：( )中存放文件的相对路径，并且文件名不能含有英文括号**
 
 
 
-## 3.文件图片说明及配置
+## 3. 文件图片说明及配置
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于部分文档会存在插图，md文件被user-guide模块解析后会将其内容存放到数据库中，图片存放到数据库的只是图片到路径，故在md文档中插入图片的时候需要存放文件到相对路径，然后通过nginx代理到服务器图片存放的文件夹即可。
+由于部分文档会存在插图，md文件被user-guide模块解析后会将其内容存放到数据库中，图片存放到数据库的只是图片的路径，故在md文档中插入图片的时候需要存放文件的相对路径，然后通过nginx代理到服务器存放图片的文件夹即可。
 
-文件目录结构如下：(假设文件存放子服务器/xxx/test1目录下)
-
+文件目录结构如下：(假设文件存放在服务器/xxx/test1目录下)
+```text
 ├── 这是一个例子而已.md <br>
-│   ├── images  <br>
-│   │   └── 1.png <br>
-├──  SUMMARY.md  <br>
+    ├── images  <br>
+        └── 1.png <br>
+├──SUMMARY.md  <br>
+```
 
 **例：**
 
@@ -125,9 +126,9 @@ location /images {
 }        
 ````
 
-**注：这段配置需加在dss服务所在到nginx配置中，需要保证图片到ip:port有服务器一致。**
+**注：这段配置需加在dss服务所在的nginx配置中，需要保证图片所在服务器的ip和port与DSS服务的一致。**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;配置完成之后重启服务即可将文件同步到user-guide中！
+**配置完成之后重启服务即可将文件同步到user-guide中！**
 
 
 
