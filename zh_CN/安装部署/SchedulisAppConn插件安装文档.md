@@ -25,14 +25,14 @@ sh bin/appconn-install.sh
 
 #### 配置 "前往调度中心" 按钮 的 url
 
-修改 `${DSS_HOME}/conf/dss-workflow-server.properties` 配置：
+- 修改 `${DSS_HOME}/conf/dss-workflow-server.properties` 配置：
 
 ```properties
 #该路径对应的是dolphinscheduler运维中心的页面
 wds.dss.workflow.schedulerCenter.url="http://${schedulis_ip}:${schedulis_port}"
 ```
 
-然后重启下 workflow 使配置生效：
+- 然后重启下 workflow 使配置生效：
 
 ```shell script
 sh sbin/dss-daemon.sh restart workflow-server
