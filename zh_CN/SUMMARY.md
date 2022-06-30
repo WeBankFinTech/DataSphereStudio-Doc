@@ -3,12 +3,13 @@
     * [DolphinScheduler 插件安装文档](安装部署/DolphinScheduler插件安装文档.md)
     * [SchedulisAppConn 插件安装文档](安装部署/SchedulisAppConn插件安装文档.md)
     * [DSS1.0.1 到 1.1.0 升级文档](安装部署/DSS1.0.1到1.1.0升级文档.md)
+
+
 * [使用文档](使用文档)
     * [DSS 快速使用文档](使用文档/DSS用户手册.md)
     * [DSS 用户手册汇总版](用户手册/用户使用文档.md)
         * [DSS 如何新增用户](用户手册/DSS新增用户方式.md)
         * [超级管理员使用介绍](用户手册/超级管理员功能.md)
-        * [工作空间管理使用介绍](用户手册/)
         * [Scriptis 数据开发探索使用介绍](用户手册/Scriptis使用文档.md)
         * [DSS 工作流使用介绍](用户手册/工作流使用文档.md)
         * [数据服务使用介绍](用户手册/数据服务使用手册.md)
@@ -16,20 +17,25 @@
         * [调度中心使用介绍](用户手册/调度中心使用文档.md)
     * [DSS 接口汇总](使用文档/DSS接口汇总.md)
     * [DSS 用户登录认证体系](使用文档/用户登录认证体系.md)
+    * [工作空间管理使用介绍](使用文档/工作空间使用手册.md)
     * DSS 插件使用文档
-        * [如何使用 ExchangisAppConn ？]()
-        * [如何使用 StreamisAppConn ？]()
-        * [如何使用 QualitisAppConn ？]()
-        * [如何使用 VisualisAppConn ？]()
-        * [如何使用 ProphecisAppConn ？]()
+        * [如何使用 ExchangisAppConn ？](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md)
+        * [如何使用 StreamisAppConn ？](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/development/StreamisAppConn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)
+        * [如何使用 QualitisAppConn ？](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)
+        * [如何使用 VisualisAppConn ？](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)
+        * [如何使用 ProphecisAppConn ？](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)
     * Scriptis
         * [如何使用 SparkSQL？](使用文档/Scriptis/Scriptis_User_Tests3_SparkSQL.md)
         * [如何使用 Hive QL？](使用文档/Scriptis/Scriptis_User_Tests2_Hive.md)
         * [如何使用 Spark Scala？](使用文档/Scriptis/Scriptis_User_Tests1_Scala.md)
+
+      
 * [开发文档](开发文档)
     * [DSS 后台编译文档](开发文档/DSS编译文档.md)
     * [DSS 前端编译文档](开发文档/前端编译文档.md)
     * [第三方系统接入 DSS 开发指南](开发文档/第三方系统接入DSS开发指南.md)
+
+
 * [设计文档](设计文档)
     * [AppConn 设计文档](设计文档/appconn/appconn.md)
     * [DSS Workspace 设计文档](设计文档/Workspace/README.md)
