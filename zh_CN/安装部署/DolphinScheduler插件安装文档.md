@@ -10,18 +10,19 @@
 
 ## 2. 下载和编译
 
-`DolphinSchedulerAppConn` 插件安装包，可从此处下载：[点我下载 `DolphinSchedulerAppConn` 插件安装包]()。
+`DolphinSchedulerAppConn` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dolphinscheduler-appconn.zip)
 
 如果您想自己编译 `DolphinSchedulerAppConn`，具体编译步骤如下:
 
 1. clone DataSphereStudio 的代码
 
-2. 单独编译 dolphinscheduler-appconn
+2. 单独编译 dss-dolphinscheduler-appconn
 
 ```shell script 
  cd ${DSS_HOME}/dss-appconn/appconns/dss-dolphinscheduler-appconn
  mvn clean install
 ```
+3. 在dss-dolphinscheduler-appconn/target/out目录下会生成dolphinscheduler文件夹，用户将其压缩成dolphinscheduler-appconn.zip文件即可
 
 ## 3. 配置和部署
 
@@ -134,7 +135,7 @@ sudo nginx -s reload
 
 ```properties
 #该路径对应的是dolphinscheduler运维中心的页面
-wds.dss.workflow.schedulerCenter.url="/scheduler"
+wds.dss.workflow.schedulerCenter.url=http://ip:port/dolphinscheduler
 ```
 
 然后重启下 workflow 使配置生效：
@@ -149,7 +150,7 @@ sh sbin/dss-daemon.sh restart workflow-server
 
 ### 4.1 安装包准备
 
-`dss-dolphinscheduler-client` 插件安装包，可从此处下载：[点我下载`dss-dolphinscheduler-client`插件安装包]()。
+`dss-dolphinscheduler-client` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-client.zip)
 
 如果您想自己编译 `dss-dolphinscheduler-client`，具体编译步骤如下:
 
@@ -187,8 +188,8 @@ unzip dss-dolphinscheduler-client.zip
 
 进入 DSS 的工作空间首页，然后在顶部菜单栏点击跳转到 DolphinScheduler。
 
-![DolphinScheduler免密跳转]()
-
+![DolphinScheduler免密跳转](../Images/安装部署/DolphinschedulerAppConn部署/img_13.png)
+![img_14](../Images/安装部署/DolphinschedulerAppConn部署/img_14.png)
 ### 4.2 发布 DSS 工作流到 DolphinScheduler
 
 点击 DSS 工作流的发布按钮，可将 DSS 工作流一键发布到 DolphinScheduler。
