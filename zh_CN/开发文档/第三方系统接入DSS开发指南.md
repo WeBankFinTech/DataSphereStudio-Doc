@@ -1,162 +1,373 @@
-# 第三方系统如何接入 DSS？
+# 第三方系统接入 DSS 开发指南
 
-## 一、前言
+总共分为四步：
 
-第三方系统通过实现一个 ```AppConn``` 来接入 DSS，DSS 提供了多种 ```AppConn``` 用于方便不同应用场景的第三方系统的快速接入。
+1. 在 DSS 创建一个全新的 AppConn 目录
+2. 后台实现一个全新的 AppConn；
+3. 补充 AppConn 要求的相关文件；
+4. 如果想作为工作流节点接入 DSS 工作流，还需完成工作流节点的新增。
 
-以下是各种 ```AppConn``` 的详细介绍：
+具体如下：
 
-- ```OnlySSOAppConn```。如果您的第三方系统只想与 DSS 完成 SSO 免登录跳转，则只需继承该 AppConn 即可。
-- ```OnlyStructureAppConn```。如果您的第三方系统想与 DSS 统一组织结构，如：工程的统一创建、更新、删除等管理操作，角色权限管理的统一管理，则需继承该 AppConn。
-- ```SchedulerAppConn```。该 AppConn 是 ```OnlySSOAppConn``` 和 ```OnlyStructureAppConn``` 的子类，用于将一条 DSS 工作流同步给第三方调度系统，补充 DSS 工作流的调度能力；如果您想对接其他调度系统，则需实现该 AppConn。
-- ```OnlyDevelopmentAppConn```。如果您的第三方系统想作为 DSS 工作流的一个节点集成进来，则需实现该 AppConn。
-- ```SecondlyAppConn```。是 ```OnlySSOAppConn``` 和 ```OnlyStructureAppConn``` 的子类，表示第三方系统既想打通 SSO，又想打通组织结构。
-- ```ThirdlyAppConn```。是 ```OnlySSOAppConn```、```OnlyStructureAppConn``` 和 ```OnlyDevelopmentAppConn``` 的子类，表示第三方系统既想打通 SSO 和组织结构，又想作为 DSS 工作流的一个节点集成进来。
+## 一、在 DSS 创建一个全新的 AppConn 目录
 
-您可以根据实际需要，选择对应的 ```AppConn``` 进行实现。
+新 AppConn 的目录格式要求如下，请依照要求的格式创建一个新的 AppConn module：
 
-## 二、详细介绍
+```html
 
-```AppConn``` 的具体实现包含以下几个层面，第一层是 ```AppConn``` 层，第二层是 ```AppStandard``` 规范层，第三层是 ```Service``` 层，第四层是 ```Operation``` 层，主要的业务逻辑都是在 ```Operation``` 层实现的, 参数的传递统一采用的是 ```Ref``` 实现类。
-
-![AppConn架构图](../Images/开发文档/第三方系统如何接入DSS/AppConn架构图.png)
-
-### 2.1 OnlySSOAppConn —— 打通 SSO 免登录跳转
-
-DSS 提供了 SSO 免登录跳转的核心 SSO Jar 包，第三方系统需引入该 SSO Jar 包，且在 Filter 中信任 DSS 用户，即可完成用户免登录跳转。
-
-DSS SSO 免登录跳转的设计方案如下：
-
-![SSO免登录跳转](../Images/开发文档/第三方系统如何接入DSS/SSO免密跳转.png)
-
-目前对接 DSS 的一级 SSO 免登录跳转规范大概有两种方式：一种是 Spring Web 应用的对接方式；另一种则是非 Spring Web 应用的对接方式。
-
-#### 2.1.1 Spring Web 应用实现 DSS 一级规范
-
-定义一个 ```Configuration```，如下图：
-
-```java
-@Configuration
-public class DSSConfiguration {
-
-    @Bean
-    Public FilterRegistrationBean<SSOPluginFilter> dssSSOFilter(@Autowired SSOPluginFilter ssoPluginFilter) { 
-        FilterRegistrationBean<SSOPluginFilter> filter = new FilterRegistrationBean<>();
-        filter.setName("dssSSOFilter");
-        filter.setFilter(ssoPluginFilter); 
-        // 指定优先级，顺序必须在第三方应用的用户登录判断Filter之前 
-        filter.setOrder(-1); 
-        return filter; 
-    }
-} 
+|-- DataSphereStudio    
+|   |-- dss-appconn  // AppConn 框架的根目录
+|   |   |-- appconns // 所有 AppConn 的存放目录
+|   |   |   |-- dss-<appconnName>-appconn   // 新增的 AppConn 的根目录
+|   |   |   |   |-- src
+|   |   |   |   |   |-- main
+|   |   |   |   |   |   |-- assembly  // 打成 DSS 可加载的 appconnName.zip 包的配置目录
+|   |   |   |   |   |   |   |-- distribution.xml   // 打包的配置文件
+|   |   |   |   |   |   |-- icons   // 如果想作为工作流节点，这里用于存放各个工作流节点的图标
+|   |   |   |   |   |   |-- java    // AppConn代码的存放目录
+|   |   |   |   |   |   |-- resources   // 该 AppConn 的资源文件存放目录
+|   |   |   |   |   |   |   |-- appconn.properties   // 该 AppConn 的配置文件，必须命名为 appconn.properties
+|   |   |   |   |   |   |   |-- init.sql   // 往 DSS 数据库中导入 AppConn 信息的 dml sql 文件
+|   |   |   |   |-- pom.xml  // 新增的 AppConn 的 pom文件
 
 ```
 
-请注意：如果以依赖注入的方式引入 ```@Autowired SSOPluginFilter ssoPluginFilter```，则需将 ```com.webank.wedatasphere``` 加入到 SpringBoot main class 的 ```@ComponentScan(basePackages=”com.webank.wedatasphere”)``` 之中；否则，请直接使用以下方式：
-```java
-@Configuration
-public class DSSConfiguration {
+## 二、后台实现一个全新的 AppConn
 
-    @Bean
-    Public FilterRegistrationBean<SSOPluginFilter> dssSSOFilter() { 
-        FilterRegistrationBean<SSOPluginFilter> filter = new FilterRegistrationBean<>();
-        filter.setName("dssSSOFilter");
-        filter.setFilter(new SpringOriginSSOPluginFilter()); 
-        // 指定优先级，顺序必须在第三方应用的用户登录判断Filter之前 
-        filter.setOrder(-1); 
-        return filter; 
-    }
-} 
+请参考：[AppConn 开发指南](AppConn开发指南.md)。
+
+## 三、补充 AppConn 要求的相关文件
+
+主要分为以下几步：
+
+- 补充 pom.xml 文件
+- 补充 icons 文件
+- 补充 init.sql
+- 补充 distribution.xml
+- appconn.properties 的作用
+
+### 3.1 补充 pom.xml 文件
+
+请参考：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>dss</artifactId>
+        <groupId>com.webank.wedatasphere.dss</groupId>
+        <version>1.1.0</version>
+        <relativePath>../../../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>dss-${appconnName}-appconn</artifactId>
+
+    <dependencies>
+        <!-- 以下是必须的 DSS dependency -->
+        <dependency>
+            <groupId>com.webank.wedatasphere.dss</groupId>
+            <artifactId>dss-appconn-core</artifactId>
+            <version>${dss.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>linkis-common</artifactId>
+                    <groupId>org.apache.linkis</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>json4s-jackson_2.11</artifactId>
+                    <groupId>org.json4s</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 如果想接入 DSS 工作流，请加上以下 dependency -->
+        <dependency>
+            <groupId>com.webank.wedatasphere.dss</groupId>
+            <artifactId>dss-development-process-standard-execution</artifactId>
+            <version>${dss.version}</version>
+        </dependency>
+
+        <!-- 以下 dependency 可按需引用 -->
+        <dependency>
+            <groupId>org.apache.linkis</groupId>
+            <artifactId>linkis-cs-client</artifactId>
+            <version>${linkis.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+             <groupId>org.apache.linkis</groupId>
+             <artifactId>linkis-httpclient</artifactId>
+             <version>${linkis.version}</version>
+             <exclusions>
+                  <exclusion>
+                       <artifactId>linkis-common</artifactId>
+                       <groupId>org.apache.linkis</groupId>
+                  </exclusion>
+                  <exclusion>
+                       <artifactId>json4s-jackson_2.11</artifactId>
+                       <groupId>org.json4s</groupId>
+                  </exclusion>
+             </exclusions>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 该 plugin 可直接引用 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+            <!-- 如果有 Scala 代码，需加上该 plugin -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
+            <!-- 该 plugin 可直接引用 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+            </plugin>
+            <!-- 该 plugin 可直接引用 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.3</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/distribution.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <skipAssembly>false</skipAssembly>
+                    <finalName>out</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <attach>false</attach>
+                    <descriptors>
+                        <descriptor>src/main/assembly/distribution.xml</descriptor>
+                    </descriptors>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <!-- 该 resource 可直接引用 -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <!-- 该 resource 可按需配置 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/application.yml</exclude>
+                    <exclude>**/bootstrap.yml</exclude>
+                    <exclude>**/log4j2.xml</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
+</project>
 ```
 
-#### 2.1.2 非 Spring Web 应用
+### 3.2 icons 文件
 
-需自己继承 ```OriginSSOPluginFilter```，并将该 filter 加入到 Web 容器之中，其顺序必须在第三方应用的用户登录判断 Filter 之前。
+如果该 AppConn 想作为工作流节点接入 DSS 工作流，则相关工作流节点的图标，需存储在 ```dss-appconn/appconns/dss-<appconnName>-appconn/src/main/icons``` 目录。
 
-具体代码参考如下图所示：
-https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/src/main/java/azkaban/webapp/servlet/DSSOriginSSOFilter.java
+您在新增图标时，请直接复制图标的代码，放入到文件之中。如：新建 widget.icon 文件，并复制相关 SVG 代码到该文件中。
 
-![Schedulis实现DSS一级规范](../Images/开发文档/第三方系统如何接入DSS/Schedulis实现DSS一级规范.png)
+### 3.3 补充 init.sql
 
-#### 2.1.3 实现 UserInterceptor
+这里只给出了一个外部系统接入到 DSS，可在顶部菜单栏中使用的基本 dml sql 的示例，如您想将 AppConn 作为工作流节点进行接入，还需参考 [DSS工作流如何新增工作流节点](DSS工作流如何新增工作流节点.md)。
 
-请注意：不管是 Spring Web 应用，还是非 Spring Web 应用，都需要实现一个 ```UserInterceptor ```。
-
-根据不同的场景，DSS 提供了以下的三种 ```UserInterceptor``` 次级接口：
-
-- ```DSSInternalUserInterceptor```：如果第三方应用为 DSS 内部应用，则实现该接口；
-- ```HttpRequestUserInterceptor```：如果第三方应用的用户登录信息(如：User 对象)，是存储在 cookies 里面，则需要实现该接口，该接口主要的目的是希望第三方系统将 user 写入到 ```HttpServletRequest``` 之中并返回，这样后面的 Filter 就能在 cookie 中检测到用户而直接放行，可参考 Schedulis 的实现：https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/src/main/java/azkaban/webapp/servlet/WTSSHttpRequestUserInterceptor.java
-- ```HttpSessionUserInterceptor```：如果第三方应用的用户登录信息(如：User 对象)，是存储在 HttpSession 里面，则需要实现该接口，该接口主要的目的是希望第三方系统将 user 写入到 ```HttpSession``` 之中，这样后面的 Filter 就能在 cookie 中检测到用户而直接放行；
-
-请注意：**如果是 Spring Web 应用，还需将实现的 ```UserInterceptor``` 以 ```@Component``` 标识，以便 ```SpringOriginSSOPluginFilter``` 能够正常加载到该 ```UserInterceptor```。**
-
-### 2.2 OnlyStructureAppConn —— 接入 DSS 组织结构规范
-
-工具组织结构规范主要包含了工程集成规范和角色集成规范，目前主要可以参考 ```VisualisAppConn``` 的实现。
-
-如工程集成规范实现了工程的统一创建、更新、删除操作，工程规范如下图所示：
-
-![组织结构规范](../Images/开发文档/第三方系统如何接入DSS/组织结构规范.png)
-
-具体代码参考如下图所示：
-https://github.com/WeBankFinTech/DataSphereStudio/blob/branch-1.0.0/dss-standard/structure-standard/dss-structure-integration-standard/src/main/java/com/webank/wedatasphere/dss/standard/app/structure/AbstractStructureIntegrationStandard.java
-
-### 2.3 OnlyDevelopmentAppConn —— 接入 DSS 开发流程规范
-
-应用开发流程规范目前主要体现在工作流节点上，工作流节点的增删改查操作、导入导出操作，节点实时执行，以及 Kill 操作等。
-
-应用开发流程规范也可以根据场景需要，形成开发，测试，生产流程规范。现在开发流程规范主要包括了 ```RefCRUDService```、```RefExecutionService```、```RefExportService```、```RefImportService``` 等服务。
-
-![开发流程规范](../Images/开发文档/第三方系统如何接入DSS/开发流程规范.png)
-
-具体代码参考如下图所示：
-https://github.com/WeBankFinTech/DataSphereStudio/blob/master/dss-appconn/appconns/dss-visualis-appconn/src/main/java/com/webank/wedatasphere/dss/appconn/visualis/VisualisDevelopmentIntegrationStandard.java
-
-## 三、数据库内容介绍
-
-主要修改涉及的表包括：dss_appconn、dss_appconn_instance、dss_workflow_node、dss_workflow_node_to_group、dss_workflow_node_to_ui 等。如下是 ```VisualisAppConn``` 的 ```display``` 节点新增为工作流节点需要修改的数据库操作。
+如下所示：
 
 ```mysql-sql
-delete from  `dss_appconn` where `appconn_name`='visualis';
-INSERT INTO `dss_appconn` (`appconn_name`, `is_user_need_init`, `level`, `if_iframe`, `is_external`, `reference`, `class_name`, `appconn_class_path`, `resource`) VALUES ('visualis', 0, 1, NULL, 0, NULL, 'com.webank.wedatasphere.dss.appconn.visualis.VisualisAppConn', 'DSS_INSTALL_HOME_VAL/dss-appconns/visualis/lib', '');
 
-select @dss_appconn_visualisId:=id from `dss_appconn` where `appconn_name` = 'visualis';
+select @old_dss_appconn_id:=id from `dss_appconn` where `appconn_name` = '具体的AppConnName，如：Visualis';
 
-delete from `dss_appconn_instance` where `homepage_url` like '%visualis%';
-INSERT INTO `dss_appconn_instance` (`appconn_id`, `label`, `url`, `enhance_json`, `homepage_url`, `redirect_url`) VALUES (@dss_appconn_visualisId, 'DEV', 'http://APPCONN_INSTALL_IP:APPCONN_INSTALL_PORT/', '', 'http://APPCONN_INSTALL_IP:APPCONN_INSTALL_PORT/dss/visualis/#/projects', 'http://APPCONN_INSTALL_IP:APPCONN_INSTALL_PORT/');
+delete from  `dss_workspace_menu_appconn` WHERE `appconn_id` = @old_dss_appconn_id;
+delete from `dss_appconn_instance` where `appconn_id` = @old_dss_appconn_id;
+delete from  `dss_appconn` where `appconn_name`='具体的AppConnName，如：Visualis';
 
-delete from `dss_workflow_node`  where `node_type` like '%visualis%';
-insert into `dss_workflow_node` (`name`, `appconn_name`, `node_type`, `jump_url`, `support_jump`, `submit_to_scheduler`, `enable_copy`, `should_creation_before_node`, `icon`) values('display','visualis','linkis.appconn.visualis.display','http://APPCONN_INSTALL_IP:APPCONN_INSTALL_PORT/dss/visualis/#/project/${projectId}/display/${displayId}','1','1','0','1',<?xml version=\"1.0\" encoding=\"UTF-8\"?><svg</svg>);
+-- 除了 appconn_class_path 和 resource 用户无需关注，其他字段都需关注
+-- 下面有做详细介绍
+INSERT INTO `dss_appconn` (`appconn_name`, `is_user_need_init`, `level`, `if_iframe`, `is_external`, `reference`, `class_name`, `appconn_class_path`, `resource`) VALUES ('具体的AppConnName，如：Visualis', 0, 1, NULL, 0, NULL, 'com.webank.wedatasphere.dss.appconn.visualis.VisualisAppConn', '', '');
 
-select @dss_visualis_displayId:=id from `dss_workflow_node` where `node_type` = 'linkis.appconn.visualis.display';
+select @dss_appconn_id:=id from `dss_appconn` where `appconn_name` = '具体的AppConnName，如：Visualis';
 
-delete from `dss_workflow_node_to_group` where `node_id`=@dss_visualis_displayId;
+-- 用户需关注的字段：menu_id、title_en、title_cn、desc_en、desc_cn、labels_en、labels_cn、is_active、access_button_en、access_button_cn、manual_button_url
+-- 下面有做详细介绍
+INSERT INTO `dss_workspace_menu_appconn`(`appconn_id`,`menu_id`,`title_en`,`title_cn`,`desc_en`,`desc_cn`,`labels_en`,`labels_cn`,`is_active`,`access_button_en`,`access_button_cn`,`manual_button_en`,`manual_button_cn`,`manual_button_url`,`icon`,`order`,`create_by`,`create_time`,`last_update_time`,`last_update_user`,`image`) 
+    values(@dss_appconn_id,2,'appconn English title','这是引擎中文名','This is English description.','这是中文描述。','label1,label2','标签1,标签2','1','enter AppConnName1','进入引擎1','user manual','用户手册','请补充用户手册地址',NULL,10,'system',NULL,'system',NULL,NULL);
 
-delete from `dss_workflow_node_to_ui` where `workflow_node_id`=@dss_visualis_displayId;
+-- 用户需关注的字段：enhance_json、homepage_uri
+-- 下面有做详细介绍
+INSERT INTO `dss_appconn_instance` (`appconn_id`, `label`, `url`, `enhance_json`, `homepage_uri`) VALUES (@dss_appconn_id, 'DEV', 'http://APPCONN_INSTALL_IP:APPCONN_INSTALL_PORT/', '', '');
 
-select @dss_visualis_displayId:=id from `dss_workflow_node` where `node_type` = 'linkis.appconn.visualis.display';
-
-INSERT INTO `dss_workflow_node_to_group`(`node_id`,`group_id`) values (@dss_visualis_displayId,4);
 ```
 
-以上是 ```VisualisAppConn``` 的 DDL 和 DML SQL，新的第三方系统在接入时，可参考该 SQL 脚本进行修改，并写入到 ```init.sql``` 文件之中。
+#### 3.3.1 dss_appconn 表
 
-## 四、AppConn 如何添加到 DSS
+```dss_appconn``` 表是 DSS 的核心表，除了 appconn_class_path 和 resource 用户无需关注，其他字段都需关注。
 
-- 使用 AppConn 部署脚本 ```sh install-appconn.sh```，前提是 AppConn 已经打包好，并包含了 init.sql 可以支持数据库的更新。可参考 ```VisualisAppConn``` 的插件安装文档：
-https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/VisualisAppConn%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md
+具体关注点如下：
 
-- 如有前端交互，如节点双击打开，目前都是使用 Iframe 的方式嵌入的，在第三方系统编辑任务后，需要把结果返回给 DSS，并保存工作流 Json 的 ```jobContent``` 字段中，这部分设计到第三方系统的前端修改，可参考已有的 ```VisualisAppConn``` 的前端节点编辑来做。
+- ```is_user_need_init```，用户是否需要初始化，该字段为保留字段，直接设置为 0 即可
+- ```if_iframe```，DSS 是否可以通过 Iframe 嵌入的方式打开第三方 AppConn 页面，1 为可以通过 Iframe 方式打开，0 为通过前端路由的方式打开；
+- ```is_external```，打开第三方 AppConn 的页面时，是否通过打开新的浏览器 Tab 的方式打开，1 为打开新的浏览器 Tab 打开，0 为在本页面打开
+- ```reference```，关联的 AppConn。一些 AppConn 想直接复用已实现 AppConn，可直接用该字段指定对应的 AppConn 名。例如：某个 AppConn 只想与 DSS 打通 免密跳转（即一级规范），则该字段可直接填 sso (即关联到 SSOAppConn)； 
+- ```class_name```，该 AppConn 的主类。如果 ```reference``` 不为空，则该字段为空。
 
-## 五、架构介绍：DSS 如何使用 AppConn 和第三方应用进行关联
+#### 3.3.2 dss_workspace_menu_appconn 表
 
-DSS 同第三方应用系统的交互都是通过相应的 AppConn 实例来完成的，当 AppConn 被部署到指定目录后，dss-framework-project-server 服务启动时会负责加载所有的 AppConn，并把它存入物料库，其它服务以客户端的形式进行拉取，并动态加载到服务进程，作为 AppConn 实例被调用。
+```dss_workspace_menu_appconn``` 表需要用户关注的点，如下：
+
+- 其他字段无需改动，可按需修改相关字段：menu_id、title_en、title_cn、desc_en、desc_cn、labels_en、labels_cn、is_active、access_button_en、access_button_cn、manual_button_url
+- ```menu_id```，即顶部菜单栏的分类 id，目前分为：1-数据交换；2-数据分析；3-生产运维；4-数据质量；5-管理员功能；6-数据应用
+- 如果已有的 ```menu_id``` 无法满足您的需求，您可以自己往 ```dss_workspace_menu``` 表中插入新的菜单分类。
+- ```is_active```，即该 AppConn 是否可以被访问，如果为 1 表示可用；为 0 表示 敬请期待
+- ```manual_button_url```，用户手册的 URL 地址
+
+#### 3.3.2 dss_appconn_instance 表
+
+```dss_appconn_instance``` 表需要用户关注的点，如下：
+
+- ```enhance_json```，AppConn 的额外参数，为 map json 格式的字符串，与 appconn.properties 作用相同，都是为该 AppConn 配置额外参数
+- ```homepage_uri```，主页的 URI。请注意，是 URI，不是 URL。例如：如果主页 URL 为： http://ip:port/test/home，则主页 URI 为：test/home
+
+
+### 3.4 distribution.xml 文件
+
+下面的参考样例，除了 appconnName 需要用户按实际名称修改以外，其他都无需修改，可直接拷贝使用。
+
+请按需拷贝使用，具体请参考：
+
+```xml
+<assembly
+        xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.3"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/2.3 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+    <!-- 这里需保证 id 唯一 -->
+    <id>dss-appconnName-appconn</id> 
+    <formats>
+        <format>dir</format>
+    </formats>
+    <includeBaseDirectory>true</includeBaseDirectory>
+    <!-- 具体的 AppConn 名 -->
+    <baseDirectory>appconnName</baseDirectory>
+
+    <dependencySets>
+        <!-- 如果有 dependency，则需 lib 目录 -->
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <unpack>false</unpack>
+            <useStrictFiltering>true</useStrictFiltering>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+        </dependencySet>
+    </dependencySets>
+
+    <fileSets>
+        <!-- 如果有 appconn.properties，则需 conf 目录 -->
+        <fileSet>
+            <directory>${basedir}/conf</directory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <fileMode>0777</fileMode>
+            <outputDirectory>conf</outputDirectory>
+            <lineEnding>unix</lineEnding>
+        </fileSet>
+        <!-- 存放 init.sql -->
+        <fileSet>
+            <directory>${basedir}/src/main/resources</directory>
+            <includes>
+                <include>init.sql</include>
+            </includes>
+            <fileMode>0777</fileMode>
+            <outputDirectory>db</outputDirectory>
+        </fileSet>
+        <!-- 存放工作流节点的 icons -->
+        <fileSet>
+            <directory>${basedir}/src/main/icons</directory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <fileMode>0777</fileMode>
+            <outputDirectory>icons</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
+```
+
+### 3.5 appconn.properties 的作用
+
+appconn.properties 用于配置该 AppConn 额外的参数，如果您的 AppConn 没有定义任何的参数，您也可以不创建 appconn.properties 文件。
+
+appconn.properties 与 ```dss_appconn_instance``` 表的 ```enhance_json``` 字段作用相同。
+
+使用 appconn.properties 的好处是：
+
+- ```enhance_json``` 是一个 map json 格式的字符串，修改有一定的门槛，需要做转换才能使用；
+- 修改 ```enhance_json``` 需要改动数据库，远没有直接改 AppConn 配置文件来的简单。
+
+我们推荐您使用 appconn.properties 来配置 AppConn 的参数，您也可以按照您的实际需要去选择使用其中的某种方式。
+
+## 四、工作流节点的新增
+
+请参考：[DSS 工作流如何新增工作流节点](DSS工作流如何新增工作流节点.md)。
+
+## 五、DSS 如何加载新的 AppConn
+
+使用 ```install-appconn.sh``` 来安装新的 AppConn，如下：
+
+```shell script
+  cd $DSS_HOME/bin
+  sh install-appconn.sh
+```
+
+如果是已存在的 AppConn，当 AppConn 有改动时，请使用 ```appconn-refresh.sh``` 来刷新该 AppConn，如下：
+
+```shell script
+  cd $DSS_HOME/bin
+  sh appconn-refresh.sh
+```
+
+请注意：您需提前将打包好的 AppConn zip 放到 AppConn 的 安装目录。
+
+## 六、AppConn 贡献
+
+**如果您想将 AppConn 插件贡献给社区，请您在实现该 AppConn 前先与社区取得联系并沟通确认**。且在发版前，您还需编写 `AppConn插件安装文档`，以及 `AppConn插件使用文档`。
+
+关于插件安装文档，可参考： [```VisualisAppConn``` 插件安装文档](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/VisualisAppConn%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)。
+        
+关于插件使用文档，可参考： [```VisualisAppConn``` 插件使用文档](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/VisualisAppConn%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md#4visualisappconn%E7%9A%84%E4%BD%BF%E7%94%A8)。
+        
+## 七、DSS 如何使用 AppConn 和第三方应用进行交互
+     
+DSS 同第三方应用系统的交互都是通过相应的 AppConn 实例来完成的。
+
+当 AppConn 被部署到指定目录后，```dss-framework-project-server``` 服务启动时会加载或**刷新**所有的 AppConn，并把它存入物料库。
+
+其它的 DSS 微服务将从 ```dss-framework-project-server``` 中按需拉取所有 AppConn 的物料，并动态加载到服务进程，作为 AppConn 实例被调用。
 
 ![DSS框架设计](../Images/开发文档/第三方系统如何接入DSS/DSS框架设计.png)
-
-DSS 目前实现的是框架层的代码，通过统一的调用方式来访问 AppConn 里面的对应的接口，接口的入口参数和返回值都是确定的。
-
-如下图所示：
-
-![AppConn调用举例](../Images/开发文档/第三方系统如何接入DSS/AppConn调用举例.png)
-
