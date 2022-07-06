@@ -11,6 +11,7 @@
 Go to the deployment directory of dss, and execute the command in the directory to stop all services of dss:
 ```shell
 cd ${DSS_DEPLOY_PATH}
+
 sh sbin/dss-stop-all.sh
 ````
 #### 2. Execute the database upgrade sql script
@@ -29,7 +30,26 @@ It can be executed successfully under normal circumstances.
 
 #### 3. Replace the dss deployment directory with the new version package
 
-First back up the deployment directory of the old version of dss, take this directory as an example: /appcom/Install/DSSInstall
+**(Important: it is best to back up the database of the old version of dss first)**
+
+- Back up the following tables with structural changes through the mysqldump command:
+
+dss_appconn、dss_appconn_instance、dss_workflow_node、dss_onestop_user_favorites、dss_component_role、dss_onestop_menu_application
+
+
+
+These tables just modify the table name, and can also be backed up:
+
+dss_dictionary
+dss_role
+dss_admin_dept
+dss_download_audit
+dss_flow_relation
+dss_flow_edit_lock
+dss_onestop_menu
+dss_menu_role
+
+- Back up the deployment directory of the old version of dss, take this directory as an example:/appcom/Install/DSSInstall
 ```shell
 mv /appcom/Install/DSSInstall /appcom/Install/DSSInstall-bak
 ```
@@ -69,18 +89,13 @@ Configuration modification:
 
 1. Add to the dss.properties configuration file:
 ```properties
-###dolphinscheduler system admin user token, if you do not need to install dolphinscheduler-appconn, you do not need to configure this item
-wds.dss.appconn.ds.admin.token=
-```
-2. Add in the configuration file dss-framework-project-server.properties:
-```properties
-###Or appconn does not implement the desired development specification (node update, delete, copy, import, export operations), it needs to be added to the configuration to ignore the check
+###If appconn does not implement all development specifications (node update, delete, copy, import, export operations), it needs to be added to the configuration to ignore the check
 wds.dss.appconn.checker.development.ignore.list=workflow,sendemail
-###Or appconn does not implement all engineering specifications (add, delete, modify, check), it needs to be added to the configuration to ignore the check
-wds.dss.appconn.checker.project.ignore.list=mlss
+###If appconn does not implement all project specifications (add, delete, modify, check), it needs to be added to the configuration to ignore the check
+wds.dss.appconn.checker.project.ignore.list=
 ```
 
-#### 5. Service startup
+#### 5. service start
 OK, now you can start the new version of dss service, run the command in the **dss deployment directory** to start all services:
 
 ```shell
