@@ -23,6 +23,21 @@ sh bin/appconn-install.sh
 >> 8085
 ```
 
+#### 配置 "前往调度中心" 按钮 的 url
+
+- 修改 `${DSS_HOME}/conf/dss-workflow-server.properties` 配置：
+
+```properties
+#该路径对应的是dolphinscheduler运维中心的页面
+wds.dss.workflow.schedulerCenter.url="http://${schedulis_ip}:${schedulis_port}"
+```
+
+- 然后重启下 workflow 使配置生效：
+
+```shell script
+sh sbin/dss-daemon.sh restart workflow-server
+```
+
 
 ### 三、Schedulis JobType 插件安装
 
@@ -38,12 +53,10 @@ sh bin/appconn-install.sh
 
 | 表名      | 表作用   | 备注                                   |
 |-----------------|----------------|----------------------------------------|
-| dss_application       | 应用表,主要是插入 schedulis 应用的基本信息 | 必须                                   |
-| dss_menu     | 菜单表，存储对外展示的内容，如图标、名称等 | 必须                                   |
-| dss_onestop_menu_application | menu 和 application 的关联表，用于联合查找 |                    必须                |
+| dss_workspace_menu     | 菜单表，存储对外展示的内容，如图标、名称等 | 必须                                   |
+| dss_workspace_menu_appconn | menu 和 application 的关联表，用于联合查找 |                    必须                |
 | dss_appconn      | appconn 的基本信息，用于加载 appconn  | 必须                                   |
 | dss_appconn_instance  | AppConn 的实例的信息，包括自身的url信息 | 必须         |
-| dss_workflow_node  | schedulis 作为工作流节点需要插入的信息 | 如果使用可视化节点，则必须         |
 
 - Schedulis 作为调度框架，实现了一级规范和二级规范，需要使用 Schedulis AppConn 的微服务如下表。
 
