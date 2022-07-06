@@ -24,7 +24,7 @@
 
 - Tips:
 
-  If the user is installing Hadoop for the first time, you can refer to: [Hadoop single-machine deployment](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html) ；分布式部署Hadoop可参考：[Hadoop分布式部署](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html)
+  If the user is installing Hadoop for the first time, you can refer to: [Hadoop single-machine deployment](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SingleCluster.html) ；For distributed deployment of Hadoop, please refer to: [Hadoop Distributed Deployment](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/ClusterSetup.html)
 
   If the user is installing Hive for the first time, please refer to: [Hive Quick Installation and Deployment](https://cwiki.apache.org/confluence/display/Hive/GettingStarted)
 
@@ -88,11 +88,11 @@
 - If the user chooses to directly deploy by downloading the installation package, they can directly jump to [Modify Configuration](#1)
 
 
-- 如果用户选择自行编译 Linkis 或 DSS，请确保编译的是 Linkis1.1.1 和已拉取了 DSS `master` 分支的最新代码，编译方式可以参考:  
+- If the user chooses to compile Linkis or DSS by themselves, please make sure to compile Linkis1.1.1 and the latest code that has pulled the DSS `master` branch. For the compilation method, please refer to: <br>
   [DSS backend compilation documentation](../Development_Documentation/Compilation_Documentation.md)  
   [DSS front-end compilation documentation](../Development_Documentation/Front-end_compilation_documentation.md)  
-  [Linkis backend compilation documentation](https://linkis.apache.org/zh-CN/docs/latest/development/linkis_compile_and_package)  
-  [Linkis front-end compilation documentation](https://linkis.apache.org/zh-CN/docs/latest/development/web_build)
+  [Linkis backend compilation documentation](https://linkis.apache.org/docs/latest/development/linkis_compile_and_package/)  
+  [Linkis front-end compilation documentation](https://linkis.apache.org/docs/latest/development/web_build/)
 
 
        1. For the back-end installation package, you can directly replace the above Linkis back-end installation package or DSS back-end installation package with the relevant installation package after compilation.
