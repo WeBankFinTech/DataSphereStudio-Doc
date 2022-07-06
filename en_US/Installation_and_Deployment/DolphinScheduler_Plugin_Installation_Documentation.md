@@ -16,25 +16,25 @@ If you want to compile `DolphinSchedulerAppConn` yourself, the specific compilat
 
 1. The code of clone DataSphereStudio
 
-2. Compile dolphinscheduler-appconn separately
+2. Compile dss-dolphinscheduler-appconn separately
 
 ```shell script 
  cd ${DSS_HOME}/dss-appconn/appconns/dss-dolphinscheduler-appconn
  mvn clean install
 ```
+3. 在dss-dolphinscheduler-appconn/target/out目录下会生成dolphinscheduler文件夹，用户将其压缩成dolphinscheduler-appconn.zip文件即可
 
 ## 3. Configure and deploy
 
-- Put the `dolphinscheduler-appconn.zip` plugin installation package into the following directory and unzip it.
+### 3.1 appconn configuration and installation
+- Put the `dolphinscheduler-appconn.zip` plugin installation package in the following directory and unzip it.
 
 ```shell script 
  cd ${DSS_HOME}/dss/dss-appconns
  unzip dolphinscheduler-appconn.zip
 ```
 
-- Configuration parameters
-
-Please modify the configuration parameters of `appconn.properties` as needed.
+- Configuration parameters, please modify the configuration parameters of `appconn.properties` as needed.
 
 ```shell script
  cd ${DSS_HOME}/dss/dss-appconns/dolphinscheduler
@@ -69,7 +69,8 @@ sh install-appconn.sh
 
 Please note: Do not enter `localhost` or `127.0.0.1` for the ip of dolphinscheduler, please enter the real IP.
 
-#### 3.1.1 - Put dss-dolphinscheduler-token.jar under lib of dss-framework-project
+### 3.2 Modify the jar package
+#### 3.2.1 Put dss-dolphinscheduler-token.jar under lib of dss-framework-project
 
 The role of this Jar package is to provide the `/api/rest_j/v1/dss/framework/project/ds/token` interface, which is used to request the interface of DolphinScheduler without password.
 
@@ -83,7 +84,7 @@ Upload the Jar package to the DSS deployment directory: `${DSS_HOME}/lib/dss-fra
 sh sbin/dss-daemon.sh restart project-server
 ```
 
-#### 3.1.2 put dolphinscheduler-prod-metrics.jar
+#### 3.2.2 Put dolphinscheduler-prod-metrics.jar into DolphinScheduler's lib directory
 
 This step is to add the custom interface implementation Jar package of DolphinScheduler to the lib directory of the DolphinScheduler service, and restart the DolphinScheduler service to make it effective.
 
@@ -103,7 +104,7 @@ sh bin/start-all.sh
 ```
 
 
-#### 3.2 Modify the nginx configuration of DSS and add the request matching rule of the /dolphinscheduler path.
+### 3.3 Modify the nginx configuration of DSS and add the request matching rule of the /dolphinscheduler path.
 
 This step is because the front end of the operation and maintenance center page will directly call the interface of the DolphinScheduler service to request data (`/dolphinscheduler` URI path prefix),
 
@@ -128,7 +129,7 @@ After the modification, execute the command to reload the nginx configuration to
 sudo nginx -s reload
 ```
 
-#### 3.3. Configure the url to the dispatch center
+### 3.4 Configure the url to the dispatch center
 
 update `${DSS_HOME}/conf/dss-workflow-server.properties` config：
 
@@ -143,13 +144,13 @@ Then restart the workflow to make the configuration take effect:
 sh sbin/dss-daemon.sh restart workflow-server
 ```
 
-## 4. deploy dss-dolphinscheduler-client
+## 4. Deploy dss-dolphinscheduler-client
 
 In order for `DolphinScheduler` to normally schedule workflow node jobs in DataSphereStudio, you also need to install the dss-dolphinscheduler-client plugin, which is used to execute DSS workflow node jobs.
 
 ### 4.1 Installation package preparation
 
-The `dss-dolphinscheduler-client` plugin installation package can be downloaded from here: [Click me to download the `dss-dolphinscheduler-client` plugin installation package]().
+The `dss-dolphinscheduler-client` plugin installation package can be downloaded from here: [Click me to download the plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-client.zip)
 
 If you want to compile `dss-dolphinscheduler-client` yourself, the specific compilation steps are as follows:
 
@@ -161,7 +162,7 @@ cd ${DSS_HOME}/plugins/dolphinscheduler/dss-dolphinscheduler-client
 mvn clean install
 ```
 
-### 4.2 Install and deploy
+### 4.2 Installation and deployment
 
 Please configure the environment variable `DSS_DOLPHINSCHEDULER_CLIENT_HOME` in `/home/${USER}/.bash_rc` first (if you specify an absolute path instead of this environment variable in `appconn.properties`, this environment variable can also be left unconfigured ).
 
@@ -181,18 +182,19 @@ Then you need to modify the ip and port of the linkis gateway in the configurati
 ![img_5.png](../Images/Install_and_Deploy/DolphinschedulerAppConn_deployment/img_5.png)
 
 
-## 4. Use of DolphinSchedulerAppConn
+## 5. Use of DolphinSchedulerAppConn
 
-### 4.1 Password-free jump
+### 5.1 Password-free jump
 
 Go to the DSS workspace home page, and then click Jump to DolphinScheduler on the top menu bar.
 
-![DolphinScheduler Password-free jump]()
+![DolphinScheduler password-free jump](../Images/Install_and_Deploy/DolphinschedulerAppConn_deployment/img_13.png)
+![img_14](../Images/Install_and_Deploy/DolphinschedulerAppConn_deployment/img_14.png)
 
-### 4.2 Publish DSS workflows to DolphinScheduler
+### 5.2 Publish DSS workflows to DolphinScheduler
 
 Click the Publish button of the DSS workflow to publish the DSS workflow to DolphinScheduler with one click.
 
-### 4.3 dispatch center documentation
+### 5.3 dispatch center documentation
 
 For more information on the use of DSS dispatch center, please refer to：[Schedul Center Documentation](../User_Manual/Schedule_Center_Documentation.md)
