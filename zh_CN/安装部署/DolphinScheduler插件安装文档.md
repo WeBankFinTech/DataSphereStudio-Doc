@@ -50,7 +50,7 @@ wds.dss.appconn.ds.admin.token=
 # 【请参考】目前只适配了 DolphinScheduler 1.3.X.
 wds.dss.appconn.ds.version=1.3.9
 
-# 用于配置 dss-dolphinscheduler-client 的 home 路径，可为具体路径，具体请参考第 4 大步骤
+# 用于配置 dss-dolphinscheduler-client 的 home 路径，可为具体路径，具体请参考 4.2 小节
 wds.dss.appconn.ds.client.home=${DSS_DOLPHINSCHEDULER_CLIENT_HOME}
 
 # this property is used to add url prefix, if you add a proxy for dolphinscheduler url.
@@ -162,20 +162,18 @@ mvn clean install
 
 ### 4.2 安装部署
 
-请先在 `/home/${USER}/.bash_rc` 配置环境变量 `DSS_DOLPHINSCHEDULER_CLIENT_HOME`（如果您在 `appconn.properties` 中指定的是绝对路径而不是该环境变量，则该环境变量也可以不用配置）。
-
-将 `DSS_DOLPHINSCHEDULER_CLIENT_HOME` 配置为实际的 `dss-dolphinscheduler-client` 根路径。
-
-在 `dss-dolphinscheduler-client` 的根路径进行解压安装，如下：
+- 将`dss-dolphinscheduler-client` 插件安装包置入任意目录下，建议放到与`dolphinscheduler`的同级目录xx下，对安装包直接进行解压即完成`dss-dolphinscheduler-client`的安装
 
 ```shell script 
 cd ${DSS_DOLPHINSCHEDULER_CLIENT_HOME}
 unzip dss-dolphinscheduler-client.zip
 ```
 
-解压即可完成 `dss-dolphinscheduler-client` 的安装。
 
-接着需要修改dss-dolphinscheduler-client中的配置文件conf/linkis.properties的linkis网关的ip和端口：
+- 关于 3.1 小节`appconn.properties`中`wds.dss.appconn.ds.client.home`的配置，用户可以配置为`dss-dolphinscheduler-client` 插件的绝对路径，即`xx/dss-dolphinscheduler-client`；抑或是在`/home/${USER}/.bash_rc` 配置环境变量 `DSS_DOLPHINSCHEDULER_CLIENT_HOME`，将其配置为 `dss-dolphinscheduler-client` 实际的根路径
+
+
+- 接着需要修改`dss-dolphinscheduler-client`中的配置文件`conf/linkis.properties`的linkis网关的ip和端口：
 
 ![img_5.png](../Images/安装部署/DolphinschedulerAppConn部署/img_5.png)
 
