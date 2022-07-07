@@ -95,6 +95,16 @@ wds.dss.appconn.checker.development.ignore.list=workflow,sendemail
 wds.dss.appconn.checker.project.ignore.list=
 ```
 
+并替换为新版本的restful、mybatis配置：
+```properties
+##restful
+wds.linkis.server.restful.scan.packages=com.webank.wedatasphere.dss.framework.workspace.restful,com.webank.wedatasphere.dss.framework.project.restful,com.webank.wedatasphere.dss.framework.release.restful,com.webank.wedatasphere.dss.framework.appconn.restful,com.webank.wedatasphere.dss.framework.admin.restful
+##mybatis
+wds.linkis.server.mybatis.mapperLocations=classpath*:com/webank/wedatasphere/dss/framework/workspace/dao/impl/*.xml,classpath*:com/webank/wedatasphere/dss/application/dao/impl/*.xml,classpath*:com/webank/wedatasphere/dss/framework/project/dao/impl/*Mapper.xml,classpath*:com/webank/wedatasphere/dss/framework/appconn/dao/impl/*.xml,classpath*:com/webank/wedatasphere/dss/framework/release/dao/impl/*.xml,classpath*:com/webank/wedatasphere/dss/framework/admin/xml/impl/*.xml
+wds.linkis.server.mybatis.typeAliasesPackage=com.webank.wedatasphere.dss.application.entity,com.webank.wedatasphere.dss.common.entity,com.webank.wedatasphere.dss.framework.workspace.bean,com.webank.wedatasphere.dss.framework.project.entity,com.webank.wedatasphere.dss.framework.appconn.entity,com.webank.wedatasphere.dss.framework.release.entity,com.webank.wedatasphere.dss.framework.admin.pojo.entity
+wds.linkis.server.mybatis.BasePackage=com.webank.wedatasphere.dss.framework.workspace.dao,com.webank.wedatasphere.dss.application.dao,com.webank.wedatasphere.dss.framework.project.dao,com.webank.wedatasphere.dss.framework.appconn.dao,com.webank.wedatasphere.dss.framework.release.dao,com.webank.wedatasphere.dss.framework.admin.xml
+```
+
 #### 5. 服务启动
 OK，到现在可以启动dss新版本的服务了，在**dss部署目录下**执行命令启动所有服务：
 
