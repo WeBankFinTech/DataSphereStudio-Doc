@@ -26,6 +26,7 @@
 
 ## 3. 配置和部署
 
+### 3.1 appconn配置与安装
 - 将 `dolphinscheduler-appconn.zip` 插件安装包，放置到如下目录并进行解压。
 
 ```shell script 
@@ -33,9 +34,7 @@
  unzip dolphinscheduler-appconn.zip
 ```
 
-- 配置参数
-
-请按需修改 `appconn.properties` 的配置参数。
+- 配置参数，请按需修改 `appconn.properties` 的配置参数。
 
 ```shell script
  cd ${DSS_HOME}/dss/dss-appconns/dolphinscheduler
@@ -51,7 +50,7 @@ wds.dss.appconn.ds.admin.token=
 # 【请参考】目前只适配了 DolphinScheduler 1.3.X.
 wds.dss.appconn.ds.version=1.3.9
 
-# 用于配置 dss-dolphinscheduler-client 的 home 路径，可为具体路径，具体请参考第 4 大步骤
+# 用于配置 dss-dolphinscheduler-client 的 home 路径，可为具体路径，具体请参考 4.2 小节
 wds.dss.appconn.ds.client.home=${DSS_DOLPHINSCHEDULER_CLIENT_HOME}
 
 # this property is used to add url prefix, if you add a proxy for dolphinscheduler url.
@@ -68,13 +67,14 @@ sh install-appconn.sh
 # 该脚本为交互式的安装方案，您只需要按照指示，输入字符串 dolphinscheduler 以及 dolphinscheduler 服务的 ip 和端口，即可以完成安装
 ```
 
-请注意：dolphinscheduler 的 ip 不要输入 `localhost` 或 `127.0.0.1`，请输入真实 IP。
+**请注意：dolphinscheduler 的 ip 不要输入 `localhost` 或 `127.0.0.1`，请输入真实 IP。**
 
-#### 3.1.1 - 放入 dss-dolphinscheduler-token.jar 到 dss-framework-project 的 lib 下
+### 3.2 修改jar包
+#### 3.2.1 将 dss-dolphinscheduler-token.jar 放入到 dss-framework-project 的 lib 下
 
 这个 Jar 包的作用是提供 `/api/rest_j/v1/dss/framework/project/ds/token` 接口，用于免密请求 DolphinScheduler 的接口。
 
-Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可以获取：
+Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可以获取或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-token-1.1.0.jar)
 
 ![img_9.png](../Images/安装部署/DolphinschedulerAppConn部署/img_9.png)
 
@@ -84,11 +84,11 @@ Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可�
 sh sbin/dss-daemon.sh restart project-server
 ```
 
-#### 3.1.2 放入 dolphinscheduler-prod-metrics.jar
+#### 3.2.2 将 dolphinscheduler-prod-metrics.jar 放入到 DolphinScheduler 的 lib 目录
 
 这一步是将 DolphinScheduler 的自定义接口实现 Jar 包添加到 DolphinScheduler 服务的 lib 目录，并重启 DolphinScheduler 服务使之生效。
 
-Jar获取方式：从 DSS 编译后的 plugins 目录下有 dolphinscheduler 相关插件包，如图：
+Jar获取方式：从 DSS 编译后的 plugins 目录下有 dolphinscheduler 相关插件包或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dolphinscheduler-prod-metrics-1.1.0.jar)
 
 ![img_6.png](../Images/安装部署/DolphinschedulerAppConn部署/img_6.png)
 
@@ -104,11 +104,9 @@ sh bin/start-all.sh
 ```
 
 
-#### 3.2 修改 DSS 的 nginx 配置，加入 /dolphinscheduler 路径的请求匹配规则。
+### 3.3 修改 DSS 的 nginx 配置，加入 /dolphinscheduler 路径的请求匹配规则。
 
-这一步是由于运维中心页面的前端，会直接调用 DolphinScheduler 服务的接口请求数据（`/dolphinscheduler` URI 路径前缀），
-
-所以需要将请求转发到 DolphinScheduler 服务。
+这一步是由于运维中心页面的前端，会直接调用 DolphinScheduler 服务的接口请求数据（`/dolphinscheduler` URI 路径前缀），所以需要将请求转发到 DolphinScheduler 服务。
 
 ```shell script
 vim /etc/nginx/conf.d/dss.conf
@@ -129,7 +127,7 @@ location /dolphinscheduler {
 sudo nginx -s reload
 ```
 
-#### 3.3. 配置 前往调度中心 的 url
+### 3.4 配置 前往调度中心 的 url
 
 修改 `${DSS_HOME}/conf/dss-workflow-server.properties` 配置：
 
@@ -164,36 +162,35 @@ mvn clean install
 
 ### 4.2 安装部署
 
-请先在 `/home/${USER}/.bash_rc` 配置环境变量 `DSS_DOLPHINSCHEDULER_CLIENT_HOME`（如果您在 `appconn.properties` 中指定的是绝对路径而不是该环境变量，则该环境变量也可以不用配置）。
-
-将 `DSS_DOLPHINSCHEDULER_CLIENT_HOME` 配置为实际的 `dss-dolphinscheduler-client` 根路径。
-
-在 `dss-dolphinscheduler-client` 的根路径进行解压安装，如下：
+- 将`dss-dolphinscheduler-client` 插件安装包置入任意目录下，建议放到与`dolphinscheduler`的同级目录xx下，对安装包直接进行解压即完成`dss-dolphinscheduler-client`的安装
 
 ```shell script 
 cd ${DSS_DOLPHINSCHEDULER_CLIENT_HOME}
 unzip dss-dolphinscheduler-client.zip
 ```
 
-解压即可完成 `dss-dolphinscheduler-client` 的安装。
 
-接着需要修改dss-dolphinscheduler-client中的配置文件conf/linkis.properties的linkis网关的ip和端口：
+- 关于 3.1 小节`appconn.properties`中`wds.dss.appconn.ds.client.home`的配置，用户可以配置为`dss-dolphinscheduler-client` 插件的绝对路径，即`xx/dss-dolphinscheduler-client`；抑或是在`/home/${USER}/.bash_rc` 配置环境变量 `DSS_DOLPHINSCHEDULER_CLIENT_HOME`，将其配置为 `dss-dolphinscheduler-client` 实际的根路径
+
+
+- 接着需要修改`dss-dolphinscheduler-client`中的配置文件`conf/linkis.properties`的linkis网关的ip和端口：
 
 ![img_5.png](../Images/安装部署/DolphinschedulerAppConn部署/img_5.png)
 
 
-## 4. DolphinSchedulerAppConn 的使用
+## 5. DolphinSchedulerAppConn 的使用
 
-### 4.1 免密跳转
+### 5.1 免密跳转
 
 进入 DSS 的工作空间首页，然后在顶部菜单栏点击跳转到 DolphinScheduler。
 
 ![DolphinScheduler免密跳转](../Images/安装部署/DolphinschedulerAppConn部署/img_13.png)
 ![img_14](../Images/安装部署/DolphinschedulerAppConn部署/img_14.png)
-### 4.2 发布 DSS 工作流到 DolphinScheduler
+
+### 5.2 发布 DSS 工作流到 DolphinScheduler
 
 点击 DSS 工作流的发布按钮，可将 DSS 工作流一键发布到 DolphinScheduler。
 
-### 4.3 调度中心使用文档
+### 5.3 调度中心使用文档
 
 更多关于 DSS 调度中心的使用介绍，请参考：[调度中心使用文档](../用户手册/调度中心使用文档.md)
