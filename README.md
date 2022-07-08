@@ -61,8 +61,6 @@ English | [中文](README-ZH.md)
 
 - [Exchangis AppConn Plugin Installation Guide for DSS](https://github.com/WeDataSphere/Exchangis/blob/master/docs/en_US/ch1/exchangis_appconn_deploy_en.md)
 
-- [Qualitis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)
-
 - [Streamis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Streamis/blob/main/docs/en_US/0.2.0/development/StreamisAppConnInstallationDocument.md)
 
 - [Prophecis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)
