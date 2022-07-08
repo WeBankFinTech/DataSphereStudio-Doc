@@ -79,6 +79,7 @@ DataSphereStudio
 
 - [DSS 的 Prophecis AppConn 插件安装指南](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)
 
+- [DSS 的 Dolphinscheduler AppConn 插件安装指南](zh_CN/安装部署/DolphinScheduler插件安装文档.md)
 
 ## 谁在使用 DataSphere Studio
 
