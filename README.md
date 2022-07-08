@@ -55,7 +55,7 @@ English | [中文](README-ZH.md)
 
 - [Visualis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/en_US/Visualis_appconn_install_en.md)
 
-- [Schedulis AppConn Plugin Installation Guide for DSS](en_US/Installation_and_Deployment/SchedulisAppConn_Plugin_Installation_Documentation.md)
+- [Schedulis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/en_US/Installation_and_Deployment/Schedulis_Linkis_JobType_Installation_Documentation.md)
 
 - [Qualitis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md)
 
@@ -65,6 +65,7 @@ English | [中文](README-ZH.md)
 
 - [Prophecis AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)
 
+- [DolphinScheduler AppConn Plugin Installation Guide for DSS](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/en_US/Installation_and_Deployment/DolphinScheduler_Plugin_Installation_Documentation.md)
 
 ## Who is using DataSphere Studio
 
