@@ -123,43 +123,43 @@
 ```properties
 #################### 一键安装部署的基本配置 ####################
 
-### deploy user（部署用户，默认为当前登录用户，非必须不建议修改）
+### deploy user（部署用户，默认为当前登录用户）
 deployUser=hadoop
 
-### Linkis_VERSION（非必须不建议修改）
+### Linkis_VERSION
 LINKIS_VERSION=1.1.1
 
 ### DSS Web（本机安装一般无需修改，但需确认此端口是否占用，若被占用，修改一个可用端口即可）
 DSS_NGINX_IP=127.0.0.1
 DSS_WEB_PORT=8085
 
-### DSS VERSION（非必须不建议修改）
+### DSS VERSION
 DSS_VERSION=1.1.0
 
 
 ############## linkis的其他默认配置信息 start ############## 
 ### Specifies the user workspace, which is used to store the user's script files and log files.
 ### Generally local directory
-##file:// required（非必须不建议修改）
+##file:// required. 指定用户使用的目录路径，一般用于存储用户的脚本文件和日志文件等，是用户的工作空间
 WORKSPACE_USER_ROOT_PATH=file:///tmp/linkis/ 
 ### User's root hdfs path
-##hdfs:// required（非必须不建议修改）
+##hdfs:// required. 结果集日志等文件路径，用于存储Job的结果集文件
 HDFS_USER_ROOT_PATH=hdfs:///tmp/linkis 
 ### Path to store job ResultSet:file or hdfs path
-##hdfs:// required（非必须不建议修改）
+##hdfs:// required. 结果集日志等文件路径，用于存储Job的结果集文件，如果未配置 使用HDFS_USER_ROOT_PATH的配置
 RESULT_SET_ROOT_PATH=hdfs:///tmp/linkis 
 
-### Path to store started engines and engine logs, must be local（非必须不建议修改）
+### Path to store started engines and engine logs, must be local. 存放执行引擎的工作路径，需要部署用户有写权限的本地目录
 ENGINECONN_ROOT_PATH=/appcom/tmp
 
-
-###HADOOP CONF DIR #/appcom/config/hadoop-config（非必须不建议修改）
+### 基础组件环境信息
+###HADOOP CONF DIR #/appcom/config/hadoop-config（用户根据实际情况修改）
 HADOOP_CONF_DIR=/appcom/config/hadoop-config
-###HIVE CONF DIR  #/appcom/config/hive-config（非必须不建议修改）
+###HIVE CONF DIR  #/appcom/config/hive-config（用户根据实际情况修改）
 HIVE_CONF_DIR=/appcom/config/hive-config
-###SPARK CONF DIR #/appcom/config/spark-config（非必须不建议修改）
+###SPARK CONF DIR #/appcom/config/spark-config（用户根据实际情况修改）
 SPARK_CONF_DIR=/appcom/config/spark-config
-###for install （非必须不建议修改）
+###for install （用户根据实际情况修改）
 LINKIS_PUBLIC_MODULE=lib/linkis-commons/public-module
 
 ##YARN REST URL spark engine required（根据实际情况修改IP和端口）
