@@ -92,7 +92,7 @@
 
 关于 dss_appconn 表的介绍，请参考：[dss_appconn 表介绍](第三方系统接入DSS开发指南.md#331-dss_appconn-表)。
 
-**_`OnlySSOAppConn` 的核心，是需要第三方 AppConn 按照要求引入 DSS 的 SSO Jar 包，完成相关接口的代码实现和引入，具体如下_**：
+**_`OnlySSOAppConn` 的核心，是需要第三方应用工具按照要求引入 DSS 的 SSO Jar 包，完成相关接口的代码实现和引入，具体如下_**：
 
 DSS 提供了 SSO 免登录跳转的核心 SSO Jar 包，第三方系统需引入该 SSO Jar 包，且在 Filter 中信任 DSS 用户，即可完成用户免登录跳转。
 
@@ -100,11 +100,24 @@ DSS SSO 免登录跳转的设计方案如下：
 
 ![SSO免登录跳转](../Images/开发文档/第三方系统如何接入DSS/SSO免密跳转.png)
 
-目前第三方 AppConn 系统，对接 DSS 的一级 SSO 免登录跳转规范大概有两种方式：一种是 Spring Web 应用的对接方式；另一种则是非 Spring Web 应用的对接方式。
+目前第三方 AppConn 系统，对接 DSS 的一级 SSO 免登录跳转规范大概有两种方式：
+
+- 一种是 Spring Web 应用的对接方式；
+- 另一种则是非 Spring Web 应用的对接方式。
 
 #### 2.1.1 Spring Web 应用实现 DSS 一级规范
 
-定义一个 ```Configuration```，如下图：
+1. 引入 Jar 包，如下：
+
+```xml
+<dependency>
+    <groupId>com.webank.wedatasphere.dss</groupId>
+    <artifactId>spring-origin-sso-integration-plugin</artifactId>
+    <version>${dss.version}</version>
+</dependency>
+```
+
+2. 定义一个 ```Configuration```，如下图：
 
 ```java
 @Configuration
@@ -142,7 +155,17 @@ public class DSSConfiguration {
 
 #### 2.1.2 非 Spring Web 应用
 
-需自己继承 ```OriginSSOPluginFilter```，并将该 filter 加入到 Web 容器之中，其顺序必须在第三方应用的用户登录判断 Filter 之前。
+1. 引入 Jar 包，如下：
+
+```xml
+<dependency>
+    <groupId>com.webank.wedatasphere.dss</groupId>
+    <artifactId>dss-origin-sso-integration-standard</artifactId>
+    <version>${dss.version}</version>
+</dependency>
+```
+
+2. 需自己继承 ```OriginSSOPluginFilter```，并将该 filter 加入到 Web 容器之中，其顺序必须在第三方应用的用户登录判断 Filter 之前。
 
 具体代码参考如下图所示：
 https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/src/main/java/azkaban/webapp/servlet/DSSOriginSSOFilter.java
