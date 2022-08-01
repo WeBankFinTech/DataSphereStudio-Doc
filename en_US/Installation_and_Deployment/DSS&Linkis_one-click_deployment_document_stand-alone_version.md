@@ -91,8 +91,8 @@
 - If the user chooses to compile Linkis or DSS by themselves, please make sure to compile Linkis1.1.1 and the latest code that has pulled the DSS `master` branch. For the compilation method, please refer to: <br>
   [DSS backend compilation documentation](../Development_Documentation/Compilation_Documentation.md)  
   [DSS front-end compilation documentation](../Development_Documentation/Front-end_compilation_documentation.md)  
-  [Linkis backend compilation documentation](https://linkis.apache.org/docs/latest/development/linkis_compile_and_package/)  
-  [Linkis front-end compilation documentation](https://linkis.apache.org/docs/latest/development/web_build/)
+  [Linkis backend compilation documentation](https://linkis.apache.org/docs/latest/development/linkis-compile-and-package/)  
+  [Linkis front-end compilation documentation](https://linkis.apache.org/docs/latest/development/web-build/)
 
 
        1. For the back-end installation package, you can directly replace the above Linkis back-end installation package or DSS back-end installation package with the relevant installation package after compilation.

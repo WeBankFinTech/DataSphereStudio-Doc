@@ -91,8 +91,8 @@
 - 如果用户选择自行编译 Linkis 或 DSS，请确保编译的是 Linkis1.1.1 和已拉取了 DSS `master` 分支的最新代码，编译方式可以参考:  
   [DSS后端编译文档](../开发文档/DSS编译文档.md)  
   [DSS前端编译文档](../开发文档/前端编译文档.md)  
-  [Linkis后端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/linkis_compile_and_package)  
-  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/web_build)
+  [Linkis后端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/linkis-compile-and-package/)  
+  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/latest/development/web-build)
 
 
         1. 针对后端安装包可直接将上面的 Linkis 后端安装包或 DSS 后端安装包替换成编译后相关安装包即可。
@@ -385,7 +385,7 @@ HIVE_PASSWORD=xxx
 - 若用户需要停止所有服务可执行该命令`sh stop-all.sh`，重新启动所有服务就执行`sh start-all.sh`，这两条命令均在xx/dss_linkis/bin目录下执行
 
 ### 六、补充说明
-- 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎的安装](https://linkis.apache.org/zh-CN/docs/latest/deployment/engine_conn_plugin_installation/)
+- 考虑到安装包过于大的问题，Linkis默认仅提供Hive, Python, Shell, Spark引擎插件，用户若想使用其他引擎，可参考文档: [Linkis引擎的安装](https://linkis.apache.org/zh-CN/docs/latest/deployment/engine-conn-plugin-installation)
 - DSS默认未安装调度系统，用户可以选择安装 Schedulis 或者 DolphinScheduler，具体安装方式见下面表格
 - DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如Visualis, Exchangis, Qualitis, Prophecis, Streamis。调度系统可使用Schedulis或DolphinScheduler
 

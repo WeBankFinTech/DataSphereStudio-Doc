@@ -3,7 +3,7 @@
 在 ```linkis-computation-governance\linkis-manager\label-common\src\main\java\com\webank\wedatasphere\linkis\manager\label\entity\engine\EngineType.scala``` 中，
 新增一个全新的枚举引擎类型。
 
-关于如何实现一个全新的 Linkis 引擎，请参考：[如何实现一个新引擎](https://linkis.apache.org/zh-CN/docs/latest/development/new_engine_conn)。
+关于如何实现一个全新的 Linkis 引擎，请参考：[如何实现一个新引擎](https://linkis.apache.org/zh-CN/docs/latest/development/new-engine-conn)。
 
 ## 二、前端新增
 

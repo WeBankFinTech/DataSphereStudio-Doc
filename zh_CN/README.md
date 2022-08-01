@@ -33,7 +33,7 @@ DataSphere Studio（简称 DSS）是微众银行自研的数据应用开发管�
         * [Scriptis 数据开发探索使用介绍](用户手册/Scriptis使用文档.md)
         * [DSS 工作流使用介绍](用户手册/工作流使用文档.md)
         * [数据服务使用介绍](用户手册/数据服务使用手册.md)
-        * [Linkis 管理台使用介绍](https://linkis.apache.org/zh-CN/docs/latest/user_guide/console_manual)
+        * [Linkis 管理台使用介绍](https://linkis.apache.org/zh-CN/docs/latest/user_guide/console-manual/)
         * [调度中心使用介绍](用户手册/调度中心使用文档.md)
 
 
