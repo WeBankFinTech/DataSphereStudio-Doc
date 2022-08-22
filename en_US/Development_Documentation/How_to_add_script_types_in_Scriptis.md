@@ -3,7 +3,7 @@
 In ```linkis-computation-governance\linkis-manager\label-common\src\main\java\com\webank\wedatasphere\linkis\manager\label\entity\engine\EngineType.scala```,
 Added a new enumeration engine type.
 
-For how to implement a new Linkis engine, please refer to: [How to implement a new engine](https://linkis.apache.org/zh-CN/docs/latest/development/new_engine_conn).
+For how to implement a new Linkis engine, please refer to: [How to implement a new engine](https://linkis.apache.org/docs/latest/development/new-engine-conn).
 
 ## 2. New front-end
 
