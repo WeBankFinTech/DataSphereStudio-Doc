@@ -41,7 +41,7 @@ If you want to run the project on a local browser and change the code to see the
 ```shell script
 npm run serve
 ````
-
+####Method I
 Access the app in a browser (Chrome is recommended) via the link: [http://localhost:8080/](http://localhost:8080/) .
 
 When you run the project in this way, the effect of your code changes will be dynamically reflected on the browser.
@@ -62,3 +62,18 @@ Execute the following command in the terminal command line (you need to replace 
 ```shell script
 open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/yourname/MyChromeDevUserData/
 ````
+####Method Ⅱ
+Use the proxy configuration of vue to find vue.config.js in the dss under web packages
+```
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://172.21.129.210:9001',  // 写成你的后端地址
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      }
+    }
+  }
+```
