@@ -42,7 +42,7 @@ If you want to run the project on a local browser and change the code to see the
 npm run serve
 ````
 
-Access the app in a browser (Chrome is recommended) via the link: [http://localhost:8080/](http://localhost:8080/) .
+Access the app in a browser (Chrome is recommended) via the link: ```http://localhost:8080/```
 
 When you run the project in this way, the effect of your code changes will be dynamically reflected on the browser.
 

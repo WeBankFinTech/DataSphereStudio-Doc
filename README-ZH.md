@@ -111,4 +111,4 @@ DataSphereStudio
 
 ## License
 
-&nbsp; &nbsp; &nbsp; &nbsp;DSS is under the Apache 2.0 license. See the [License](https://github.com/WeBankFinTech/DataSphereStudio/LICENSE) file for details.
+&nbsp; &nbsp; &nbsp; &nbsp;DSS is under the Apache 2.0 license. See the [License](https://github.com/WeBankFinTech/DataSphereStudio/blob/master/LICENSE) file for details.
