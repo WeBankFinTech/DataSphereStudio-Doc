@@ -357,7 +357,7 @@ Note: You need to put the packaged AppConn zip in the AppConn installation direc
 ## 6. AppConn Contribution
 
 **If you want to contribute the AppConn plugin to the community, please contact the community and communicate with the community before implementing the AppConn**. And before release, you also need to write `AppConn plugin installation document`.
-For plugin installation documentation, please refer to: [VisualisAppConn Plugin installation documentation](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/en_US/Visualis_appconn_install_cn.md)
+For plugin installation documentation, please refer to: [VisualisAppConn Plugin installation documentation](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/en_US/Visualis_appconn_install_en.md)
 
 ## 7. How DSS uses AppConn to interact with third-party applications
 
