@@ -478,9 +478,59 @@ Job 管理规范 ```RefCRUDService``` 要求必须实现的 ```DevelopmentOperat
 - ```DSSJobContentRequestRef```，包含了 DSS 工作流节点的信息，```dssJobContent``` 存储了该工作流节点的基本信息，所有的 key 已被 ```DSSJobContentConstant``` 收录。
 - ```RefJobContentRequestRef```，包含了 第三方应用工具的 refJob ID 信息，如：```refJobContent```，方便用户能正常找到第三方应用工具对应的 refJob 进行相应操作，如：```RefUpdateOperation``` 、 ```RefDeletionOperation```等， 在删除、更新和查找时进行使用。
 - ```DSSContextRequestRef```，包含了 DSS 工作流的 contextId 信息。
-- ```ProjectRefRequestRef```，包含了 第三方应用工具的 refProjectId。
+- ```ProjectRefRequestRef```，包含了 第三方应用工具的 refProjectId。**需要注意的是，当dss调用三方appconn的节点拷贝接口时，refProjectId参数的定义可能不一致。参考如下注释所述：**
+```java
+public interface ProjectRefRequestRef<R extends ProjectRefRequestRef<R>> extends DevelopmentRequestRef<R> {
+
+    default R setRefProjectId(Long refProjectId) {
+        this.setParameter("refProjectId", refProjectId);
+        return (R) this;
+    }
+
+    /**
+     * 返回的是第三方 AppConn 的工程 Id，由第三方 AppConn {@code ProjectCreationOperation} 的实现类返回的 refProjectId。
+     * 特别注意：当dss调用三方appconn的节点拷贝接口时，若工作流是在同一个项目内拷贝，则refProjectId代表的是节点源工程Id；
+     * 若工作流是跨工程拷贝，则refProjectId代表的是目标工程id。
+     * 三方接入系统在实现节点拷贝操作时，需要在自己系统内先根据节点名获取源工程Id，判断和dss传入的refProjectId是否一致。
+     * 若一致，则代表dss端发起的请求是工程内拷贝；若不一致，则代表dss端发起的请求是跨工程拷贝。三方系统在实现节点拷贝操作时需要根据此两种情况做不同实现。
+     *
+     * @return 返回的是第三方 AppConn 的工程Id
+     */
+    default Long getRefProjectId() {
+        return (Long) this.getParameter("refProjectId");
+    }
+   
+}
+```
 - ```UpdateRequestRef```，为 ```DSSJobContentRequestRef``` 和 ```RefJobContentRequestRef``` 的子接口。
-- ```CopyRequestRef```，为 ```RefJobContentRequestRef``` 的子接口，且包含了拷贝的工作流版本信息。
+- ```CopyRequestRef```，为 ```RefJobContentRequestRef``` 的子接口，且包含了拷贝的工作流版本信息。 若AppConn实现了二级规范，则在实现CopyRequestRef的同时必须要实现ProjectRequestRef。 原因是dss调用节点复制接口时，传的refProjectId可能是节点源工程id（同一个项目内拷贝），也可能是另一个工程Id（跨项目拷贝）。**此外对于newVersion参数的定义也需要开发者特别注意，如下注释所述：**
+```java
+public interface CopyRequestRef<R extends RefJobContentRequestRef<R>>
+extends RefJobContentRequestRef<R> {
+
+    default R setNewVersion(String version) {
+        setParameter("newVersion", version);
+        return (R) this;
+    }
+
+    /**
+     * The new version comes from DSS Orchestrator framework.
+     * When the orchestrator, such as DSSWorkflow, added a new version, we hope all nodes of this workflow,
+     * can also update a new version.
+     * <p>
+     * 特别注意：
+     * 此版本号格式不一定是v000001的格式，在工作流复制操作时会加上前缀或者后缀（suffix_v000001的形式），三方节点最好将其当做一个普通字符串处理。
+     * 三方节点新增节点版本时，需要将之前版本号去掉后缀，然后用节点名前缀拼接新的版本号。
+     * 比如节点名：widget_1001_v000001 在新增版本号（v000002）后需变为：widget_1001_v000002，而不是widget_1001_v000001_v000002
+     *
+     * @return the new version of the orchestrator, such as DSSWorkflow.
+     */
+    default String getNewVersion() {
+        return (String) getParameter("newVersion");
+    }
+
+}
+```
 - ```ImportRequestRef```，为 ```CopyRequestRef``` 的子接口，包含的 resourceMap ，表示该工作流节点的元数据文件，通过该文件可还原工作流节点。
 - ```QueryJumpUrlRequestRef```，包含了 ```SSOUrlBuilderOperation```，可协助封装出第三方系统 refJob 对应的前端页面的 URL。
 

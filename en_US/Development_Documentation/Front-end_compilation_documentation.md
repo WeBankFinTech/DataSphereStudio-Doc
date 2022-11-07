@@ -62,3 +62,18 @@ Execute the following command in the terminal command line (you need to replace 
 ```shell script
 open -n /Applications/Google\ Chrome.app/ --args --disable-web-security --user-data-dir=/Users/yourname/MyChromeDevUserData/
 ````
+####Method Ⅱ
+Use the proxy configuration of vue to find vue.config.js in the dss under web packages
+```
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://172.21.129.210:9001',  // 写成你的后端地址
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/api'
+        }
+      }
+    }
+  }
+```

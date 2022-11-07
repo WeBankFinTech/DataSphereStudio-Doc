@@ -42,7 +42,7 @@
 ```
 
 ```properties
-# 【必填】指定 DolphinScheduler 的管理员用户
+# 【必填】指定 DolphinScheduler 的管理员用户，建议将该用户的token过期时间设置为永不过期
 wds.dss.appconn.ds.admin.user=admin
 # 【必填】指定 DolphinScheduler 管理员用户的 token，可从dolphinscheduler页面的"安全中心->令牌管理"处中得到
 wds.dss.appconn.ds.admin.token=
