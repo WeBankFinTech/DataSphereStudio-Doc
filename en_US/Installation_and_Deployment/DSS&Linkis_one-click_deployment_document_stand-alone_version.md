@@ -91,8 +91,8 @@
 - If the user chooses to compile Linkis or DSS by themselves, please make sure to compile Linkis1.1.1 and the latest code that has pulled the DSS `master` branch. For the compilation method, please refer to: <br>
   [DSS backend compilation documentation](../Development_Documentation/Compilation_Documentation.md)  
   [DSS front-end compilation documentation](../Development_Documentation/Front-end_compilation_documentation.md)  
-  [Linkis backend compilation documentation](https://linkis.apache.org/docs/latest/development/linkis-compile-and-package/)  
-  [Linkis front-end compilation documentation](https://linkis.apache.org/docs/latest/development/web-build/)
+  [Linkis backend compilation documentation](https://linkis.apache.org/docs/1.1.1/development/linkis-compile-and-package/)  
+  [Linkis front-end compilation documentation](https://linkis.apache.org/docs/1.1.1/development/web-build/)
 
 
        1. For the back-end installation package, you can directly replace the above Linkis back-end installation package or DSS back-end installation package with the relevant installation package after compilation.
@@ -383,7 +383,7 @@ HIVE_PASSWORD=xxx
 - If the user needs to stop all services, execute the command `sh stop-all.sh`, restart all services and execute `sh start-all.sh`, these two commands are executed in the xx/dss_linkis/bin directory
 
 ### 6. Supplementary Instructions
-- Considering the problem that the installation package is too large, Linkis only provides Hive, Python, Shell, Spark engine plug-ins by default. If users want to use other engines, please refer to the document: [Linkis Engine Installation](https://linkis.apache.org/docs/latest/deployment/engine_conn_plugin_installation/)
+- Considering the problem that the installation package is too large, Linkis only provides Hive, Python, Shell, Spark engine plug-ins by default. If users want to use other engines, please refer to the document: [Linkis Engine Installation](https://linkis.apache.org/docs/1.1.1/deployment/engine-conn-plugin-installation/)
 - DSS does not install the scheduling system by default. Users can choose to install Schedulelis or DolphinScheduler. The specific installation method is shown in the following table
 - DSS only installs DateChecker, EventSender, EventReceiver AppConn by default. Users can refer to the documentation to install other AppConn, such as Visualis, Exchangis, Qualitis, Prophecis, Streamis. The scheduling system can use Schedulelis or DolphinScheduler
 

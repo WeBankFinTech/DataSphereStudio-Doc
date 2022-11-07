@@ -30,7 +30,7 @@ vim dss-workflow-server
 ```
 Find the DEBUG_PORT keyword in the script, and then enter the port number that needs to be opened **(to be able to connect from the local)**
 
-![img.png](../Images/Installation_and_Deployment/DSS_Debug_Documentation/img.png)
+![img.png](../Images/Install_and_Deploy/DSS_Debug_Documentation/img.png)
 
 Then you need to restart the corresponding service to make it take effect:
 

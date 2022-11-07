@@ -27,12 +27,12 @@ DSS_Guide模块主要包含了Restful、Service、Dao、Entity的定义。
 
 ### 核心流程图
 
-![](./Images/16559707626688.png)
+![](images/核心流程图.png)
 
 
 ### 数据结构
 
-![](./Images/1653309930194.png)
+![](images/数据结构.png)
 
 ### dss_guide_group
 
