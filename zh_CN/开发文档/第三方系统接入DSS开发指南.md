@@ -251,7 +251,7 @@ INSERT INTO `dss_appconn_instance` (`appconn_id`, `label`, `url`, `enhance_json`
 ```dss_appconn_instance``` 表需要用户关注的点，如下：
 
 - ```enhance_json```，AppConn 的额外参数，为 `map json` 格式的字符串，与 `appconn.properties` 作用相同，都是为该 AppConn 配置额外参数。
-- ```homepage_uri```，主页的 URI。请注意，是 URI，不是 URL。例如：如果主页 URL 为： http://ip:port/test/home，则主页 URI 为：test/home
+- ```homepage_uri```，主页的 URI。请注意，是 URI，不是 URL。例如：如果主页 URL 为：```http://ip:port/test/home```，则主页 URI 为：test/home
 
 这里介绍一下 `enhance_json` 或 `appconn.properties` 在 DSS 之中的一个使用场景。
 
@@ -262,7 +262,7 @@ INSERT INTO `dss_appconn_instance` (`appconn_id`, `label`, `url`, `enhance_json`
 `reqUri` 用于指定一个 RESTFUL 请求的 URI，该 URI 可访问第三方系统后台的某个 RESTFUL 接口（Restful 接口无要求，能访问即可），DSS 放置在第三方应用工具的一级规范 Jar 包会自动拦截该请求，
 加上用户态后自动重定向给实际的前端首页。
 
-更多细节可参考 [DSS 一级规范](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/AppConn%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.md#21-onlyssoappconn--%E6%89%93%E9%80%9A-sso-%E5%85%8D%E7%99%BB%E5%BD%95%E8%B7%B3%E8%BD%AC)。
+更多细节可参考 [DSS 一级规范](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3/AppConn%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.md#21-onlyssoappconn--%E6%89%93%E9%80%9A-sso-%E5%85%8D%E7%99%BB%E5%BD%95%E8%B7%B3%E8%BD%AC)
 
 ### 3.4 distribution.xml 文件
 
@@ -366,12 +366,10 @@ appconn.properties 与 ```dss_appconn_instance``` 表的 ```enhance_json``` 字�
 
 ## 六、AppConn 贡献
 
-**如果您想将 AppConn 插件贡献给社区，请您在实现该 AppConn 前先与社区取得联系并沟通确认**。且在发版前，您还需编写 `AppConn插件安装文档`，以及 `AppConn插件使用文档`。
+**如果您想将 AppConn 插件贡献给社区，请您在实现该 AppConn 前先与社区取得联系并沟通确认**。且在发版前，您还需编写 `AppConn插件安装文档`
 
-关于插件安装文档，可参考： [```VisualisAppConn``` 插件安装文档](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/VisualisAppConn%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md)。
-        
-关于插件使用文档，可参考： [```VisualisAppConn``` 插件使用文档](https://github.com/WeBankFinTech/DataSphereStudio-Doc/blob/main/zh_CN/%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/VisualisAppConn%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md#4visualisappconn%E7%9A%84%E4%BD%BF%E7%94%A8)。
-        
+关于插件安装文档，可参考： [VisualisAppConn 插件安装文档](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)
+         
 ## 七、DSS 如何使用 AppConn 和第三方应用进行交互
      
 DSS 同第三方应用系统的交互都是通过相应的 AppConn 实例来完成的。
