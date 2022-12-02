@@ -9,7 +9,7 @@
 - You need to install and run Schedulis first, you can refer to: [Schedulis deployment documentation](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md)
 
 # 2. Compile the AppConn plugin package separately
-- The user first needs to check whether the schedulis directory exists under the xx/dss_linkis/dss/dss-appconns directory. If the user does not exist, the user needs to download the schedulis plugin
+- The user first needs to check whether the schedulis directory exists under the xx/dss_linkis/dss/dss-appconns directory. If the user does not exist, the user needs to download the schedulis plugin. [click me to download](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/Schedulis/schedulis_appconn_DSS1.1.1/schedulis-appconn.zip)
 - The user installs Schedulis AppConn by executing the script appconn-install.sh, and only needs to enter the specific IP and Port of the machine where Schedulis WEB is deployed, and the AppConn plug-in installation can be completed. When the script is executed, the init.sql script under the corresponding AppConn will be executed, and the corresponding database information will be inserted into the DSS table
 ```shell
 ## Change directory to the installation directory of DSS
