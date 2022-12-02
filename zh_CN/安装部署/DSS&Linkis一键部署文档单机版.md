@@ -79,7 +79,7 @@
 
 ### 三、准备安装包
 
-- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.0](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.0)
+- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.1)
 
   **请注意：为了能正常使用 Visualis1.0.0 和 Exchangis1.0.0，请去 releases 页面下载最新的一键安装部署包。**
 
@@ -147,7 +147,7 @@ DSS_NGINX_IP=127.0.0.1
 DSS_WEB_PORT=8085
 
 ### DSS VERSION
-DSS_VERSION=1.1.0
+DSS_VERSION=1.1.1
 
 
 ############## linkis的其他默认配置信息 start ############## 
