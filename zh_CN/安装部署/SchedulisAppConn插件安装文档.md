@@ -9,7 +9,7 @@
 - 需先安装并运行 Schedulis，可参考: [Schedulis部署文档](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md)
 
 ### 二、安装 Schedulis AppConn
-- 用户首先需要查看xx/dss_linkis/dss/dss-appconns目录下面是否存在 schedulis 目录，若不存在用户就需要下载 schedulis 插件
+- 用户首先需要查看xx/dss_linkis/dss/dss-appconns目录下面是否存在 schedulis 目录，若不存在用户就需要下载 schedulis 插件 [点击下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/Schedulis/schedulis_appconn_DSS1.1.1/schedulis-appconn.zip)
 - 用户通过执行脚本appconn-install.sh来安装 Schedulis AppConn，只需输入部署 Schedulis WEB机器的具体 IP 和 Port，就能完成 AppConn 插件安装。在执行脚本时，会执行对应 AppConn 下 init.sql 脚本，把对应的数据库信息插入到 DSS 表中
 ```shell
 ## 切换目录到DSS的安装目录

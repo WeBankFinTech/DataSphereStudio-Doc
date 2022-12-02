@@ -1,4 +1,4 @@
-# DataSphere Studio 1.0.1 升级到 1.1.0 使用文档
+# DataSphere Studio 1.0.1 升级到 1.1.0 使用文档（同样适用于1.0.1到1.1.1）
 
 ### 升级步骤主要分为：
 - 服务停止
@@ -23,7 +23,7 @@ sh sbin/dss-stop-all.sh
 
 然后登陆dss数据库执行source命令：
 
-```roomsql
+```shell
 source ${your_path}/from_v101_to_v110.sql
 ```
 正常情况下可以执行成功。
