@@ -66,7 +66,7 @@
 
 ### 3. Prepare the installation package
 
-- Users can compile their own or go to the release page to download the installation package：[DSS Release-1.1.0](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.0)
+- Users can compile their own or go to the release page to download the installation package：[DSS Release-1.1.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.1)
 
   **Please note: In order to use Visualis1.0.0 and Exchangis1.0.0 normally, please go to the releases page to download the latest one-click installation deployment package. **
 

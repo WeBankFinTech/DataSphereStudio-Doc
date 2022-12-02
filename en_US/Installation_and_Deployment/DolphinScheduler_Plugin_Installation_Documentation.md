@@ -10,7 +10,7 @@ For the installation and deployment of `DolphinScheduler`, please refer to：[`D
 
 ## 2. Download and compile
 
-The `DolphinSchedulerAppConn` plugin installation package can be downloaded from here: [Click me to download the `DolphinSchedulerAppConn` plugin installation package]().
+The `DolphinSchedulerAppConn` plugin installation package can be downloaded from here: [Click me to download the `DolphinSchedulerAppConn` plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dolphinscheduler-appconn.zip)
 
 If you want to compile `DolphinSchedulerAppConn` yourself, the specific compilation steps are as follows:
 
@@ -72,6 +72,8 @@ Please note: Do not enter `localhost` or `127.0.0.1` for the ip of dolphinschedu
 ### 3.2 Modify the jar package
 #### 3.2.1 Put dss-dolphinscheduler-token.jar under lib of dss-framework-project
 
+The plugin installation package can be downloaded from here: [Click me to download plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dss-dolphinscheduler-token-1.1.1.jar)
+
 The role of this Jar package is to provide the `/api/rest_j/v1/dss/framework/project/ds/token` interface, which is used to request the interface of DolphinScheduler without password.
 
 How to obtain the Jar package: After DSS is compiled, it can be obtained from the `plugins/dolphinscheduler` directory:
@@ -84,11 +86,13 @@ Upload the Jar package to the DSS deployment directory: `${DSS_HOME}/lib/dss-fra
 sh sbin/dss-daemon.sh restart project-server
 ```
 
-#### 3.2.2 Put dolphinscheduler-prod-metrics.jar into DolphinScheduler's lib directory
+#### 3.2.2 Put dolphinscheduler-prod-metrics-with-dependencies.jar into DolphinScheduler's lib directory
+
+The plugin installation package can be downloaded from here: [Click me to download plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dolphinscheduler-prod-metrics-1.1.1-jar-with-dependencies.jar)
 
 This step is to add the custom interface implementation Jar package of DolphinScheduler to the lib directory of the DolphinScheduler service, and restart the DolphinScheduler service to make it effective.
 
-Jar acquisition method: There are dolphinscheduler related plug-in packages in the plugins directory compiled from DSS, as shown in the figure:
+Jar acquisition method: There are dolphinscheduler related plugin packages in the plugins directory compiled from DSS, as shown in the figure:
 
 ![img_6.png](../Images/Install_and_Deploy/DolphinschedulerAppConn_deployment/img_6.png)
 
@@ -150,7 +154,7 @@ In order for `DolphinScheduler` to normally schedule workflow node jobs in DataS
 
 ### 4.1 Installation package preparation
 
-The `dss-dolphinscheduler-client` plugin installation package can be downloaded from here: [Click me to download the plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-client.zip)
+The `dss-dolphinscheduler-client` plugin installation package can be downloaded from here: [Click me to download the plugin installation package](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dss-dolphinscheduler-client.zip)
 
 If you want to compile `dss-dolphinscheduler-client` yourself, the specific compilation steps are as follows:
 
