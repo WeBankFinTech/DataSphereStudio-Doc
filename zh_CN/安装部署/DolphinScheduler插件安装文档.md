@@ -10,7 +10,7 @@
 
 ## 2. 下载和编译
 
-`DolphinSchedulerAppConn` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dolphinscheduler-appconn.zip)
+`DolphinSchedulerAppConn` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dolphinscheduler-appconn.zip)
 
 如果您想自己编译 `DolphinSchedulerAppConn`，具体编译步骤如下:
 
@@ -74,7 +74,7 @@ sh install-appconn.sh
 
 这个 Jar 包的作用是提供 `/api/rest_j/v1/dss/framework/project/ds/token` 接口，用于免密请求 DolphinScheduler 的接口。
 
-Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可以获取或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-token-1.1.0.jar)
+Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可以获取或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dss-dolphinscheduler-token-1.1.1.jar)
 
 ![img_9.png](../Images/安装部署/DolphinschedulerAppConn部署/img_9.png)
 
@@ -84,11 +84,11 @@ Jar 包获取方式：DSS 编译后从 `plugins/dolphinscheduler` 目录中可�
 sh sbin/dss-daemon.sh restart project-server
 ```
 
-#### 3.2.2 将 dolphinscheduler-prod-metrics.jar 放入到 DolphinScheduler 的 lib 目录
+#### 3.2.2 将 dolphinscheduler-prod-metrics-with-dependencies.jar 放入到 DolphinScheduler 的 lib 目录
 
 这一步是将 DolphinScheduler 的自定义接口实现 Jar 包添加到 DolphinScheduler 服务的 lib 目录，并重启 DolphinScheduler 服务使之生效。
 
-Jar获取方式：从 DSS 编译后的 plugins 目录下有 dolphinscheduler 相关插件包或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dolphinscheduler-prod-metrics-1.1.0.jar)
+Jar获取方式：从 DSS 编译后的 plugins 目录下有 dolphinscheduler 相关插件包或 [点我下载](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dolphinscheduler-prod-metrics-1.1.1-jar-with-dependencies.jar)
 
 ![img_6.png](../Images/安装部署/DolphinschedulerAppConn部署/img_6.png)
 
@@ -148,7 +148,7 @@ sh sbin/dss-daemon.sh restart workflow-server
 
 ### 4.1 安装包准备
 
-`dss-dolphinscheduler-client` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/dss-dolphinscheduler-client.zip)
+`dss-dolphinscheduler-client` 插件安装包，可从此处下载：[点我下载插件安装包](https://osp-1257653870.cos.ap-guangzhou.myqcloud.com/WeDatasphere/DolphinScheduler/DSS1.1.1_dolphinscheduler/dss-dolphinscheduler-client.zip)
 
 如果您想自己编译 `dss-dolphinscheduler-client`，具体编译步骤如下:
 

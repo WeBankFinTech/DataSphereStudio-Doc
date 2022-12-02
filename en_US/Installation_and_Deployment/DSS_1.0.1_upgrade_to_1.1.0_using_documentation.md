@@ -1,4 +1,4 @@
-# DataSphere Studio 1.0.1 upgrade to 1.1.0 using documentation
+# DataSphere Studio 1.0.1 upgrade to 1.1.0 using documentation(apply to 1.01 to 1.1.1)
 
 ### The upgrade steps are mainly divided into:
 - service stopped
@@ -23,7 +23,7 @@ How to get the upgrade sql script:
 
 Then log in to the dss database and execute the source command:
 
-```roomsql
+```shell
 source ${your_path}/from_v101_to_v110.sql
 ```
 It can be executed successfully under normal circumstances.
