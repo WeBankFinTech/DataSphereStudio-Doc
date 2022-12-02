@@ -283,7 +283,7 @@ https://github.com/WeBankFinTech/Schedulis/blob/branch-0.6.1/azkaban-web-server/
 
 其中，也只有 ```ProjectCreationOperation``` 和 ```ProjectSearchOperation``` 要求返回一个包含了 ```refProjectId``` 的 ```ProjectResponseRef```，而 ```ProjectUpdateOperation``` 和 ```ProjectDeletionOperation``` 只要求返回一个 ```ResponseRef```，即只需告知 DSS 框架删除和更新操作是否成功即可。 
 
-您还可以参考 VisualisAppConn 的实现方式：[请点我查看](https://github.com/WeDataSphere/DataSphereStudio/tree/dev-1.1.0/dss-appconn/appconns/dss-visualis-appconn/src/main/java/com/webank/wedatasphere/dss/appconn/visualis/project)
+您还可以参考 VisualisAppConn 的实现方式：[请点我查看](https://github.com/WeBankFinTech/Visualis/tree/master/visualis-appconn/src/main/java/com/webank/wedatasphere/dss/appconn/visualis/project)
 
 ### 2.3 OnlyDevelopmentAppConn —— 接入 DSS 开发流程规范
 
