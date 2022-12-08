@@ -260,7 +260,7 @@ The ```ProjectResponseRef``` is relatively simple, only requires the user to ret
 
 Among them, only ```ProjectCreationOperation``` and ```ProjectSearchOperation``` require a ```ProjectResponseRef``` containing a ```refProjectId```, while ```ProjectUpdateOperation``` and ` ``ProjectDeletionOperation``` is only required to return a ```ResponseRef```, which simply tells the DSS framework whether the delete and update operations were successful.
 
-You can also refer to the implementation of VisualisAppConn: [Please click me to view](https://github.com/WeDataSphere/DataSphereStudio/tree/dev-1.1.0/dss-appconn/appconns/dss-visualis-appconn/src/main/java/com/webank/wedatasphere/dss/appconn/visualis/project)
+You can also refer to the implementation of VisualisAppConn: [Please click me to view](https://github.com/WeBankFinTech/Visualis/tree/master/visualis-appconn/src/main/java/com/webank/wedatasphere/dss/appconn/visualis/project)
 
 ### 2.3 OnlyDevelopmentAppConn - access to DSS development process specification
 
