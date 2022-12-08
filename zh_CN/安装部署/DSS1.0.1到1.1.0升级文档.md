@@ -23,7 +23,7 @@ sh sbin/dss-stop-all.sh
 
 然后登陆dss数据库执行source命令：
 
-```roomsql
+```shell
 source ${your_path}/from_v101_to_v110.sql
 ```
 正常情况下可以执行成功。

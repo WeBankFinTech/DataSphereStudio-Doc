@@ -6,8 +6,8 @@
 
 ```xml
   <properties>
-          <dss.version>1.0.0</dss.version>
-          <linkis.version>1.0.2</linkis.version>
+          <dss.version>1.1.1</dss.version>
+          <linkis.version>1.1.1</linkis.version>
           <scala.version>2.11.12</scala.version>
           <jdk.compile.version>1.8</jdk.compile.version>
           <maven.version>3.3.3</maven.version>
