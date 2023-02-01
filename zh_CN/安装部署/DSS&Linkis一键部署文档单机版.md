@@ -30,7 +30,7 @@
 
   Hadoop(**2.7.2，Hadoop其他版本需自行编译Linkis**) ，安装的机器必须支持执行 `hdfs dfs -ls /` 命令
 
-  Hive(**2.3.3，Hive其他版本需自行编译Linkis**)，安装的机器必须支持执行`hive -e "show databases"`命令
+  Hive(**2.3.3，Hive其他版本需自行编译Linkis**)，安装的机器必须支持执行`hive -e "show databases"` 或者 `beeline -e "show databases"`命令
 
   Spark(**支持2.0以上所有版本**) ，安装的机器必须支持执行`spark-sql -e "show databases" `命令
 
