@@ -1,4 +1,9 @@
 {
+  "ignorePatterns": [
+    {
+      "pattern": "https://dolphinscheduler.apache.org/"
+    }
+  ],
   "timeout": "10s",
   "retryOn429": true,
   "retryCount": 10,
