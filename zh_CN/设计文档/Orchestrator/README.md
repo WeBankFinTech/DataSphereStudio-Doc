@@ -2,7 +2,7 @@ Orchestrator架构设计
 -------------------------
 Orchestrator：编排模块，提供project下编排的增删改查、导入导出等接口服务，并作为各个编排实现（如workflow）的统一输入端。向上对接project服务，向下对接具体编排实现（如workflow服务）。
 
-###2.2 业务架构
+### 一、业务架构
 用户使用功能点：
 
 
@@ -17,10 +17,10 @@ Orchestrator：编排模块，提供project下编排的增删改查、导入导�
 
 ![](images/orchestrator_uml.png)
 
-### 一、Orchestrator架构：
+### 二、Orchestrator架构：
 ![](images/orchestrator_arch.png)
 
-### 二、Orchestrator模块设计：
+### 三、Orchestrator模块设计：
 二级模块核心类介绍：
 
 **dss-orchestrator-core**
@@ -76,11 +76,11 @@ Orchestrator框架服务，提供了编排前端的增删改查、回滚等接�
 | MetaWriter            | 提供将编排的表字段信息通过特定格式输出到元数据文件的功能|
 | MetaReader            | 提供将编排的元数据文件解析生成表字段内容的功能|
 
-####创建编排时序图（删除和编辑操作类似）：
+#### 创建编排时序图（删除和编辑操作类似）：
 
 ![](images/创建编排时序图.png)
 
-####导入编排时序图（导出操作类似）：
+#### 导入编排时序图（导出操作类似）：
 
 ![](images/导入编排时序图.png)
 
@@ -140,17 +140,4 @@ CREATE TABLE `dss_orchestrator_ref_orchestration_relation` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 ```
-
-###5.接口设计
-
-
-###6.非功能性设计
-####6.1 安全
-采用cookie中专门的ID,在GateWay需要使用专门的解密算法后才能识别。
-####6.2 性能
-可以满足性能要求。
-####6.3 容量
-不涉及
-####6.4 高可用
-可部署多活
  
