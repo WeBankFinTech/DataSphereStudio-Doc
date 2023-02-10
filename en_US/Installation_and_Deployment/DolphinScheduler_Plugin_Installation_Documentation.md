@@ -6,7 +6,7 @@ Before you deploy `DolphinSchedulerAppConn`, you must first start the `DolphinSc
 
 **Please note: Currently `DolphinSchedulerAppConn` only supports DolphinScheduler 1.3.X. **
 
-For the installation and deployment of `DolphinScheduler`, please refer to：[`DolphinScheduler` Install and deploy documentation](https://dolphinscheduler.apache.org/en-us/docs/1.3.8/user_doc/standalone-deployment.html)
+For the installation and deployment of `DolphinScheduler`, please refer to：[`DolphinScheduler` Install and deploy documentation](https://dolphinscheduler.apache.org/en-us/docs/1.3.9/standalone-deployment)
 
 ## 2. Download and compile
 
