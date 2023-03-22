@@ -6,7 +6,7 @@
 
 **请注意：目前 `DolphinSchedulerAppConn` 只支持适配 DolphinScheduler1.3.X。在代码中默认配置的是1.3.9，用户若安装的是其他1.3.x版本就需要修改 dolphinscheduler module下的pom.xml中的dolphinscheuduler.version到相应版本**
 
-关于 `DolphinScheduler` 的安装部署，请参考：`DolphinScheduler` [安装部署文档](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.8/user_doc/standalone-deployment.html)
+关于 `DolphinScheduler` 的安装部署，请参考：`DolphinScheduler` [安装部署文档](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.9/standalone-deployment)
 
 ## 2. 下载和编译
 
