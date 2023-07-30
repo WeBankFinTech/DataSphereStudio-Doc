@@ -1,7 +1,7 @@
 # DataSphere Studio 单机一键部署文档
 
 ### 零、部署前注意事项（重要！！！）
-- 确保安装的系统为CentOS为6或者7
+- 确保安装的系统为CentOS为6,7,8
 
 - 服务器存在多网卡问题。首先通过命令`ifconfig`命令查看服务器激活状态的网卡，若激活状态的网卡数大于1，那么用户就需要通过命令`ifconfig [NIC_NAME] down`(`[NIC_NAME]`为网卡名称)来关闭多余的网卡，以确保激活的网卡数只有1个
 
@@ -26,9 +26,8 @@
 
   MySQL (5.5+); JDK (1.8.0_141以上); Nginx
 
-- Tips:
-  *请确保已安装Links*
-  
+- **Tips: 请确保已安装Linkis**
+
 ### 二、创建用户
 
 1. 假设**部署用户是hadoop账号**（可以不是hadoop用户，但是推荐使用Hadoop的超级用户进行部署，这里只是一个示例）
@@ -56,7 +55,7 @@
 
 ### 三、准备安装包
 
-- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.1)
+- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.2](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.2)
 
 - DSS 一键安装部署包的层级目录结构如下：
 
@@ -102,29 +101,33 @@
 ### deploy user
 deployUser=hadoop
 
-### DSS Web
-DSS_NGINX_IP=127.0.0.1
+## max memory for services
+SERVER_HEAP_SIZE=512M
+
+### The install home path of DSS，Must provided
+LINKIS_DSS_HOME=/data/Install/dss_install
+
+DSS_VERSION=1.1.2
+
+DSS_FILE_NAME=dss-1.1.2
+
 DSS_WEB_PORT=8085
 
-### DSS VERSION
-DSS_VERSION=1.1.1
+###  Linkis EUREKA information.  # Microservices Service Registration Discovery Center
+EUREKA_INSTALL_IP=127.0.0.1
+EUREKA_PORT=20303
+### If EUREKA  has safety verification, please fill in username and password
+#EUREKA_USERNAME=
+#EUREKA_PASSWORD=
 
-### 
-LINKIS_HOME=
-###  EUREKA install information
-###  You can access it in your browser at the address below:http://${EUREKA_INSTALL_IP}:${EUREKA_PORT}
-###  Microservices Service Registration Discovery Center
-LINKIS_EUREKA_INSTALL_IP=127.0.0.1
-LINKIS_EUREKA_PORT=20303
-#LINKIS_EUREKA_PREFER_IP=true
+### Linkis Gateway information
+GATEWAY_INSTALL_IP=127.0.0.1
+GATEWAY_PORT=9001
 
-###  Gateway install information
-LINKIS_GATEWAY_INSTALL_IP=127.0.0.1
-LINKIS_GATEWAY_PORT=9001
+### Linkis BML Token，需要从Linkis表linkis_mg_gateway_auth_token中获取以BML开头的token_name
+BML_AUTH=BML-14ddab34fbd640afa523dd8d1496c3c3
 
-
-
-################### The install Configuration of all DataSphereStudio's Micro-Services #####################
+################### The install Configuration of all Micro-Services start #####################
 #
 #    NOTICE:
 #       1. If you just wanna try, the following micro-service configuration can be set without any settings.
@@ -135,54 +138,38 @@ LINKIS_GATEWAY_PORT=9001
 
 ### DSS_SERVER
 ### This service is used to provide dss-server capability.
+### dss-server
+DSS_SERVER_INSTALL_IP=127.0.0.1
+DSS_SERVER_PORT=9043
 
-### project-server
-#DSS_FRAMEWORK_PROJECT_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FRAMEWORK_PROJECT_SERVER_PORT=9002
-### orchestrator-server
-#DSS_FRAMEWORK_ORCHESTRATOR_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FRAMEWORK_ORCHESTRATOR_SERVER_PORT=9003
-### apiservice-server
-#DSS_APISERVICE_SERVER_INSTALL_IP=127.0.0.1
-#DSS_APISERVICE_SERVER_PORT=9004
-### dss-workflow-server
-#DSS_WORKFLOW_SERVER_INSTALL_IP=127.0.0.1
-#DSS_WORKFLOW_SERVER_PORT=9005
-### dss-flow-execution-server
-#DSS_FLOW_EXECUTION_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FLOW_EXECUTION_SERVER_PORT=9006
-###dss-scriptis-server
-#DSS_SCRIPTIS_SERVER_INSTALL_IP=127.0.0.1
-#DSS_SCRIPTIS_SERVER_PORT=9008
-
-###dss-data-api-server
-#DSS_DATA_API_SERVER_INSTALL_IP=127.0.0.1
-#DSS_DATA_API_SERVER_PORT=9208
-###dss-data-governance-server
-#DSS_DATA_GOVERNANCE_SERVER_INSTALL_IP=127.0.0.1
-#DSS_DATA_GOVERNANCE_SERVER_PORT=9209
-###dss-guide-server
-#DSS_GUIDE_SERVER_INSTALL_IP=127.0.0.1
-#DSS_GUIDE_SERVER_PORT=9210
-########## DSS微服务配置完毕#####
-
-############## ############## other default configuration 其他默认配置信息  ############## ##############
-
-## java application default jvm memory
-export SERVER_HEAP_SIZE="512M"
+### dss-apps-server
+DSS_APPS_SERVER_INSTALL_IP=127.0.0.1
+DSS_APPS_SERVER_PORT=9044
+################### The install Configuration of all Micro-Services end #####################
 
 
-##sendemail配置，只影响DSS工作流中发邮件功能
+############## ############## dss_appconn_instance configuration start ############## ##############
+####eventchecker表的地址，一般就是dss数据库
+EVENTCHECKER_JDBC_URL=jdbc:mysql://172.16.16.16:3305/xxx?characterEncoding=UTF-8
+EVENTCHECKER_JDBC_USERNAME=xxx
+EVENTCHECKER_JDBC_PASSWORD=xxx
+
+#### hive地址
+DATACHECKER_JOB_JDBC_URL=jdbc:mysql://172.16.16.10:3306/xxx?useUnicode=true
+DATACHECKER_JOB_JDBC_USERNAME=xxx
+DATACHECKER_JOB_JDBC_PASSWORD=xxx
+#### 元数据库，可配置成和DATACHECKER_JOB的一致
+DATACHECKER_BDP_JDBC_URL=jdbc:mysql://172.16.16.10:3306/xxx?useUnicode=true
+DATACHECKER_BDP_JDBC_USERNAME=xxx
+DATACHECKER_BDP_JDBC_PASSWORD=xxx
+
+### 邮件节点配置
 EMAIL_HOST=smtp.163.com
 EMAIL_PORT=25
 EMAIL_USERNAME=xxx@163.com
 EMAIL_PASSWORD=xxxxx
 EMAIL_PROTOCOL=smtp
-
-### Save the file path exported by the orchestrator service
-ORCHESTRATOR_FILE_PATH=/appcom/tmp/dss
-### Save DSS flow execution service log path
-EXECUTION_LOG_PATH=/appcom/tmp/dss
+############## ############## dss_appconn_instance configuration end ############## ##############
 ```
 
 ### 五、安装和使用
@@ -209,13 +196,13 @@ EXECUTION_LOG_PATH=/appcom/tmp/dss
 - *除非用户想重新安装整个应用，否则该命令执行一次即可*
 
 4. #### 启动服务
-- 在xx/dss_install/bin目录下执行启动服务脚本
+- 在xx/dss_install/dss/sbin目录下执行启动服务脚本
 
     ```shell
-    sh start-all.sh
+    sh dss-start-all.sh
     ```
-
 - 如果启动产生了错误信息，可以查看具体报错原因。启动后，各项微服务都会进行**通信检测**，如果有异常则可以帮助用户定位异常日志和原因
+- 通过命令`sudo nginx`启动nginx，若nginx已在启动中，则通过命令`sudo nginx -s reload`重启nginx
 
 5. #### 安装默认Appconn
 
@@ -231,22 +218,27 @@ EXECUTION_LOG_PATH=/appcom/tmp/dss
 
 6. #### 查看验证是否成功
 
-- 用户可以在Linkis的Eureka界面查看 DSS 后台各微服务的启动情况，默认情况下DSS有7个微服务
+- 用户可以在Linkis的Eureka界面查看 DSS 后台各微服务的启动情况，默认情况下DSS有2个微服务
 
 - 用户可以使用**谷歌浏览器**访问以下前端地址：`http://DSS_NGINX_IP:DSS_WEB_PORT` **启动日志会打印此访问地址（在xx/dss_install/conf/config.sh中也配置了此地址）**。登陆时默认管理员的用户名和密码均为部署用户为hadoop（用户若做了修改，可以查看xx/linkis/conf/linkis-mg-gateway.properties 文件中的 wds.linkis.admin.password 参数)
 
 7. #### 停止服务
     ```shell
-    sh stop-all.sh
+    sh dss-stop-all.sh
     ```
 - 若用户需要停止所有服务可执行该命令`sh stop-all.sh`，重新启动所有服务就执行`sh start-all.sh`，这两条命令均在xx/dss_install/bin目录下执行
+
+8. #### 在linkis中配置appconn engine plugin
+- 将下载的dss-enginplugin-appconn.zip包放到linkis的xxx/lib/linkis-engineconn-plugins目录，解压并将文件夹重命名为appconn
+- 若是自行编译的DSS后端，那么可以在xxx/DataSphereStudio/dss-appconn/linkis-appconn-engineplugin/target获取到该zip包
+- 通过重启linkis cg-engineplugin 服务刷新引擎
 
 ### 六、补充说明
 - DSS默认未安装调度系统，用户可以选择安装 Schedulis 或者 DolphinScheduler，具体安装方式见下面表格
 - DSS默认仅安装DateChecker, EventSender, EventReceiver AppConn，用户可参考文档安装其他AppConn，如Visualis, Exchangis, Qualitis, Prophecis, Streamis。调度系统可使用Schedulis或DolphinScheduler
 
   | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
-  |-----------------|----------------|----------------------------------------|-------------------|
+    |-----------------|----------------|----------------------------------------|-------------------|
   | Schedulis | Schedulis0.7.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn安装](SchedulisAppConn插件安装文档.md)|
   | Visualis | Visualis1.0.0  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn安装](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
   | Exchangis | Exchangis1.0.0 | [Exchangis部署](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn安装](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
