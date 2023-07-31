@@ -65,6 +65,7 @@
       ├── conf # 一键部署的参数配置目录
       ├── wedatasphere-dss-x.x.x-dist.tar.gz # DSS后端安装包
       ├── wedatasphere-dss-web-x.x.x-dist.zip # DSS前端安装包
+      ├── linkis-engineplugin-appconn.zip # DSS appconn引擎包
     ```
 
 - 如果用户选择采用下载安装包直接部署的形式，可直接跳转到 [修改配置](#1)
