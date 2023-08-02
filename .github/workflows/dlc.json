@@ -2,6 +2,9 @@
   "ignorePatterns": [
     {
       "pattern": "https://dolphinscheduler.apache.org/"
+    },
+    {
+      "pattern": "https://web.mit.edu/"
     }
   ],
   "timeout": "10s",
