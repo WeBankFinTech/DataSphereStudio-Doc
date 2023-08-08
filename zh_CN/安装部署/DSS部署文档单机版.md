@@ -65,7 +65,6 @@
       ├── conf # 一键部署的参数配置目录
       ├── wedatasphere-dss-x.x.x-dist.tar.gz # DSS后端安装包
       ├── wedatasphere-dss-web-x.x.x-dist.zip # DSS前端安装包
-      ├── linkis-engineplugin-appconn.zip # DSS appconn引擎包
     ```
 
 - 如果用户选择采用下载安装包直接部署的形式，可直接跳转到 [修改配置](#1)
@@ -99,33 +98,38 @@
 - 打开 `config.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
-### deploy user
+### deploy user(为顺利部署，不建议修改)
 deployUser=hadoop
 
-## max memory for services
+## max memory for services(为顺利部署，不建议修改)
 SERVER_HEAP_SIZE=512M
 
-### The install home path of DSS，Must provided
+### The install home path of DSS，Must provided(用户可按需要进行修改)
 LINKIS_DSS_HOME=/data/Install/dss_install
 
-DSS_VERSION=1.1.2
+DSS_VERSION=1.1.2(版本号，不允许修改)
 
-DSS_FILE_NAME=dss-1.1.2
+DSS_FILE_NAME=dss-1.1.2(版本号，不允许修改)
 
-DSS_WEB_PORT=8085
+DSS_WEB_PORT=8085(为顺利部署，不建议修改)
 
-###  Linkis EUREKA information.  # Microservices Service Registration Discovery Center
+### Linkis EUREKA information, Microservices Service Registration Discovery Center.
+### 如果Linkis和DSS部署在同一台机器就无需修改，不然要修改为Linkis Eureka部署机器IP
 EUREKA_INSTALL_IP=127.0.0.1
+### 正常无需修改
 EUREKA_PORT=20303
+
 ### If EUREKA  has safety verification, please fill in username and password
 #EUREKA_USERNAME=
 #EUREKA_PASSWORD=
 
 ### Linkis Gateway information
+### 如果Linkis和DSS部署在同一台机器就无需修改，不然要修改为Linkis GateWay部署机器IP
 GATEWAY_INSTALL_IP=127.0.0.1
+### 正常无需修改
 GATEWAY_PORT=9001
 
-### Linkis BML Token，需要从Linkis表linkis_mg_gateway_auth_token中获取以BML开头的token_name
+### Linkis BML Token. (需要从Linkis表linkis_mg_gateway_auth_token中获取以BML开头的token_name，该参数务必配置正确，不然DSS服务会启动失败)
 BML_AUTH=BML-14ddab34fbd640afa523dd8d1496c3c3
 
 ################### The install Configuration of all Micro-Services start #####################
@@ -139,23 +143,23 @@ BML_AUTH=BML-14ddab34fbd640afa523dd8d1496c3c3
 
 ### DSS_SERVER
 ### This service is used to provide dss-server capability.
-### dss-server
+### dss-server(正常均无需修改)
 DSS_SERVER_INSTALL_IP=127.0.0.1
 DSS_SERVER_PORT=9043
 
-### dss-apps-server
+### dss-apps-server(正常均无需修改)
 DSS_APPS_SERVER_INSTALL_IP=127.0.0.1
 DSS_APPS_SERVER_PORT=9044
 ################### The install Configuration of all Micro-Services end #####################
 
 
 ############## ############## dss_appconn_instance configuration start ############## ##############
-####eventchecker表的地址，一般就是dss数据库
+####eventchecker.(需要修改为DSS数据库地址)
 EVENTCHECKER_JDBC_URL=jdbc:mysql://172.16.16.16:3305/xxx?characterEncoding=UTF-8
 EVENTCHECKER_JDBC_USERNAME=xxx
 EVENTCHECKER_JDBC_PASSWORD=xxx
 
-#### hive地址
+####datachecker.(需要修改为hive元数据库地址)
 DATACHECKER_JOB_JDBC_URL=jdbc:mysql://172.16.16.10:3306/xxx?useUnicode=true
 DATACHECKER_JOB_JDBC_USERNAME=xxx
 DATACHECKER_JOB_JDBC_PASSWORD=xxx
@@ -164,13 +168,23 @@ DATACHECKER_BDP_JDBC_URL=jdbc:mysql://172.16.16.10:3306/xxx?useUnicode=true
 DATACHECKER_BDP_JDBC_USERNAME=xxx
 DATACHECKER_BDP_JDBC_PASSWORD=xxx
 
-### 邮件节点配置
+### 邮件节点配置.(用户若想对接邮件服务，就需要修改下面配置，否则无需改动)
 EMAIL_HOST=smtp.163.com
 EMAIL_PORT=25
 EMAIL_USERNAME=xxx@163.com
 EMAIL_PASSWORD=xxxxx
 EMAIL_PROTOCOL=smtp
 ############## ############## dss_appconn_instance configuration end ############## ##############
+```
+
+- 打开 `db.sh`，按需修改相关配置参数，参数说明如下：
+```properties
+### 需要配置为DSS数据库
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_DB=dss
+MYSQL_USER=xxx
+MYSQL_PASSWORD=xxx
 ```
 
 ### 五、安装和使用
@@ -230,7 +244,7 @@ EMAIL_PROTOCOL=smtp
 - 若用户需要停止所有服务可执行该命令`sh stop-all.sh`，重新启动所有服务就执行`sh start-all.sh`，这两条命令均在xx/dss_install/bin目录下执行
 
 8. #### 在linkis中配置appconn engine plugin
-- 将下载的dss-enginplugin-appconn.zip包放到linkis的xxx/lib/linkis-engineconn-plugins目录，解压并将文件夹重命名为appconn
+- 将目录xxx/dss/dss-appconn/dss-enginplugin-appconn.zip包放到linkis的xxx/lib/linkis-engineconn-plugins目录，解压并将文件夹重命名为appconn
 - 若是自行编译的DSS后端，那么可以在xxx/DataSphereStudio/dss-appconn/linkis-appconn-engineplugin/target获取到该zip包
 - 通过重启linkis cg-engineplugin 服务刷新引擎
 
@@ -240,10 +254,10 @@ EMAIL_PROTOCOL=smtp
 
   | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
     |-----------------|----------------|----------------------------------------|-------------------|
-  | Schedulis | Schedulis0.7.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn安装](SchedulisAppConn插件安装文档.md)|
-  | Visualis | Visualis1.0.0  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn安装](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
-  | Exchangis | Exchangis1.0.0 | [Exchangis部署](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn安装](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
-  | Qualitis |Qualitis0.9.2 | [Qualitis部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E6%89%8B%E5%86%8C%E2%80%94%E2%80%94%E5%8D%95%E6%9C%BA%E7%89%88.md) |[Qualitis AppConn安装](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md) |
+  | Schedulis | Schedulis0.8.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn安装](SchedulisAppConn插件安装文档.md)|
+  | Visualis | Visualis1.0.1  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn安装](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
+  | Exchangis | Exchangis1.1.2 | [Exchangis部署](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.1.2/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn安装](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.1.2/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
+  | Qualitis |Qualitis1.0.0 | [Qualitis部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E6%89%8B%E5%86%8C%E2%80%94%E2%80%94%E5%8D%95%E6%9C%BA%E7%89%88.md) |[Qualitis AppConn安装](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md) |
   | Prophecis  | Prophecis0.3.2 | [Prophecis部署](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/QuickStartGuide.md) | [Prophecis AppConn安装](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
-  | Streamis  | Streamis0.2.0 | [Streamis部署](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/Streamis%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) | [Streamis AppConn安装](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/development/StreamisAppConn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
-  | DolphinScheduler | DolphinScheduler1.3.x | [DolphinScheduler部署](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.8/user_doc/standalone-deployment.html) | [DolphinScheduler AppConn安装](DolphinScheduler插件安装文档.md) | 
+  | Streamis  | Streamis0.3.0 | [Streamis部署](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/Streamis%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) | [Streamis AppConn安装](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/development/StreamisAppConn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
+  | DolphinScheduler | DolphinScheduler1.3.x | [DolphinScheduler部署](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.9/standalone-deployment) | [DolphinScheduler AppConn安装](DolphinScheduler插件安装文档.md) | 
