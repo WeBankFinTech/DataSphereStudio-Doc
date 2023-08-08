@@ -1,7 +1,7 @@
 # DataSphere Studio & Linkis 单机一键部署文档
 
 ### 零、部署前注意事项（重要！！！）
-- 确保安装的系统为CentOS为6或者7
+- 确保安装的系统为CentOS为6,7或者8
 
 - 服务器存在多网卡问题。首先通过命令`ifconfig`命令查看服务器激活状态的网卡，若激活状态的网卡数大于1，那么用户就需要通过命令`ifconfig [NIC_NAME] down`(`[NIC_NAME]`为网卡名称)来关闭多余的网卡，以确保激活的网卡数只有1个
 
@@ -79,7 +79,7 @@
 
 ### 三、准备安装包
 
-- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.1](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.1)
+- 用户可以自行编译或者去 release 页面下载安装包：[DSS Release-1.1.2](https://github.com/WeBankFinTech/DataSphereStudio/releases/tag/1.1.2)
 
   **请注意：为了能正常使用 Visualis1.0.0 和 Exchangis1.0.0，请去 releases 页面下载最新的一键安装部署包。**
 
@@ -101,11 +101,11 @@
 - 如果用户选择采用下载安装包直接部署的形式，可直接跳转到 [修改配置](#1)
 
 
-- 如果用户选择自行编译 Linkis 或 DSS，请确保编译的是 Linkis1.1.1 和已拉取了 DSS `master` 分支的最新代码，编译方式可以参考:  
+- 如果用户选择自行编译 Linkis 或 DSS，请确保编译的是 Linkis1.4.0 和已拉取了 DSS `master` 分支的最新代码，编译方式可以参考:  
   [DSS后端编译文档](../开发文档/DSS编译文档.md)  
   [DSS前端编译文档](../开发文档/前端编译文档.md)  
-  [Linkis后端编译文档](https://linkis.apache.org/zh-CN/docs/1.1.1/development/linkis-compile-and-package/)  
-  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/1.1.1/development/web-build)
+  [Linkis后端编译文档](https://linkis.apache.org/zh-CN/docs/1.1.2/development/linkis-compile-and-package/)  
+  [Linkis前端编译文档](https://linkis.apache.org/zh-CN/docs/1.1.2/development/web-build)
 
 
         1. 针对后端安装包可直接将上面的 Linkis 后端安装包或 DSS 后端安装包替换成编译后相关安装包即可。
@@ -136,58 +136,60 @@
 ```properties
 #################### 一键安装部署的基本配置 ####################
 
-### deploy user（部署用户，默认为当前登录用户）
+### deploy user(为顺利部署，不建议修改)
 deployUser=hadoop
 
-### Linkis_VERSION
-LINKIS_VERSION=1.1.1
+### Linkis_VERSION(版本号，不允许修改)
+LINKIS_VERSION=1.4.0
 
 ### DSS Web（本机安装一般无需修改，但需确认此端口是否占用，若被占用，修改一个可用端口即可）
 DSS_NGINX_IP=127.0.0.1
 DSS_WEB_PORT=8085
 
-### DSS VERSION
-DSS_VERSION=1.1.1
-
+### DSS VERSION(版本号，不允许修改)
+DSS_VERSION=1.1.2
 
 ############## linkis的其他默认配置信息 start ############## 
-### Specifies the user workspace, which is used to store the user's script files and log files.
-### Generally local directory
-##file:// required. 指定用户使用的目录路径，一般用于存储用户的脚本文件和日志文件等，是用户的工作空间
-WORKSPACE_USER_ROOT_PATH=file:///tmp/linkis/ 
-### User's root hdfs path
-##hdfs:// required. 结果集日志等文件路径，用于存储Job的结果集文件
-HDFS_USER_ROOT_PATH=hdfs:///tmp/linkis 
-### Path to store job ResultSet:file or hdfs path
-##hdfs:// required. 结果集日志等文件路径，用于存储Job的结果集文件，如果未配置 使用HDFS_USER_ROOT_PATH的配置
-RESULT_SET_ROOT_PATH=hdfs:///tmp/linkis 
 
-### Path to store started engines and engine logs, must be local. 存放执行引擎的工作路径，需要部署用户有写权限的本地目录
+### Specifies the user workspace, which is used to store the user's script files and log files.Generally local directory
+### 该配置无需修改，指定用户使用的目录路径，一般用于存储用户的脚本文件和日志文件等，是用户的工作空间
+WORKSPACE_USER_ROOT_PATH=file:///tmp/linkis/ 
+
+### User's root hdfs path
+### 该配置无需修改，指结果集日志等文件路径，用于存储Job的结果集文件
+HDFS_USER_ROOT_PATH=hdfs:///tmp/linkis 
+
+### Path to store job ResultSet:file or hdfs path
+### 该配置无需修改，指结果集日志等文件路径，用于存储Job的结果集文件，如果未配置 使用HDFS_USER_ROOT_PATH的配置
+RESULT_SET_ROOT_PATH=hdfs:///tmp/linkis
+
+### Path to store started engines and engine logs, must be local. 
+### 该配置无需修改，指存放执行引擎的工作路径，需要部署用户有写权限的本地目录
 ENGINECONN_ROOT_PATH=/appcom/tmp
 
 ### 基础组件环境信息
-###HADOOP CONF DIR #/appcom/config/hadoop-config（用户根据实际情况修改）
+###HADOOP CONF DIR(Hadoop配置文件目录，用户需根据Hadoop实际部署情况进行修改)
 HADOOP_CONF_DIR=/appcom/config/hadoop-config
-###HIVE CONF DIR  #/appcom/config/hive-config（用户根据实际情况修改）
+###HIVE CONF DIR(Hive配置文件目录，用户需根据Hive实际部署情况进行修改)
 HIVE_CONF_DIR=/appcom/config/hive-config
-###SPARK CONF DIR #/appcom/config/spark-config（用户根据实际情况修改）
+###SPARK CONF DIR(Spark配置文件目录，用户需根据Spark实际部署情况进行修改)
 SPARK_CONF_DIR=/appcom/config/spark-config
-###for install （用户根据实际情况修改）
+###for install （正常无需修改）
 LINKIS_PUBLIC_MODULE=lib/linkis-commons/public-module
-
-##YARN REST URL spark engine required（根据实际情况修改IP和端口）
+###YARN REST URL spark engine required（用户需根据部署的Yarn信息修改IP和端口）
 YARN_RESTFUL_URL=http://127.0.0.1:8088
 
 
-## Engine version
-#SPARK_VERSION（根据实际版本情况修改版本号）
+### Engine version(引擎版本信息)
+### SPARK_VERSION（用户可根据实际版本情况修改版本号）
 SPARK_VERSION=2.4.3
-##HIVE_VERSION（根据实际版本情况修改版本号）
+### HIVE_VERSION（用户可根据实际版本情况修改版本号）
 HIVE_VERSION=2.3.3
-##PYTHON_VERSION（根据实际版本情况修改版本号）
+### PYTHON_VERSION（用户可根据实际版本情况修改版本号）
 PYTHON_VERSION=python2
 
-## LDAP is for enterprise authorization, if you just want to have a try, ignore it.
+### LDAP is for enterprise authorization, if you just want to have a try, ignore it.
+### 用户如果想对接自己的用户系统，就需要配置该参数，否则不需要
 #LDAP_URL=ldap://localhost:1389/
 #LDAP_BASEDN=dc=webank,dc=com
 #LDAP_USER_NAME_FORMAT=cn=%s@xxx.com,OU=xxx,DC=xxx,DC=com
@@ -210,34 +212,33 @@ PYTHON_VERSION=python2
 ###  Microservices Service Registration Discovery Center
 LINKIS_EUREKA_INSTALL_IP=127.0.0.1
 LINKIS_EUREKA_PORT=9600
-#LINKIS_EUREKA_PREFER_IP=true
 
 ###  Gateway install information
-#LINKIS_GATEWAY_INSTALL_IP=127.0.0.1
+LINKIS_GATEWAY_INSTALL_IP=127.0.0.1
 LINKIS_GATEWAY_PORT=9001
 
 ### ApplicationManager
-#LINKIS_MANAGER_INSTALL_IP=127.0.0.1
+LINKIS_MANAGER_INSTALL_IP=127.0.0.1
 LINKIS_MANAGER_PORT=9101
 
 ### EngineManager
-#LINKIS_ENGINECONNMANAGER_INSTALL_IP=127.0.0.1
+LINKIS_ENGINECONNMANAGER_INSTALL_IP=127.0.0.1
 LINKIS_ENGINECONNMANAGER_PORT=9102
 
 ### EnginePluginServer
-#LINKIS_ENGINECONN_PLUGIN_SERVER_INSTALL_IP=127.0.0.1
+LINKIS_ENGINECONN_PLUGIN_SERVER_INSTALL_IP=127.0.0.1
 LINKIS_ENGINECONN_PLUGIN_SERVER_PORT=9103
 
 ### LinkisEntrance
-#LINKIS_ENTRANCE_INSTALL_IP=127.0.0.1
+LINKIS_ENTRANCE_INSTALL_IP=127.0.0.1
 LINKIS_ENTRANCE_PORT=9104
 
 ###  publicservice
-#LINKIS_PUBLICSERVICE_INSTALL_IP=127.0.0.1
+LINKIS_PUBLICSERVICE_INSTALL_IP=127.0.0.1
 LINKIS_PUBLICSERVICE_PORT=9105
 
 ### cs
-#LINKIS_CS_INSTALL_IP=127.0.0.1
+LINKIS_CS_INSTALL_IP=127.0.0.1
 LINKIS_CS_PORT=9108
 
 ########## Linkis微服务配置完毕 ##########
@@ -251,29 +252,17 @@ LINKIS_CS_PORT=9108
 #          the following microservice parameters
 #
 
-# 用于存储发布到 Schedulis 的临时ZIP包文件
+# 用于存储发布到 Schedulis 的临时ZIP包文件，正常无需修改
 WDS_SCHEDULER_PATH=file:///appcom/tmp/wds/scheduler
 ### DSS_SERVER
 ### This service is used to provide dss-server capability.
 
-### project-server
-#DSS_FRAMEWORK_PROJECT_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FRAMEWORK_PROJECT_SERVER_PORT=9002
-### orchestrator-server
-#DSS_FRAMEWORK_ORCHESTRATOR_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FRAMEWORK_ORCHESTRATOR_SERVER_PORT=9003
-### apiservice-server
-#DSS_APISERVICE_SERVER_INSTALL_IP=127.0.0.1
-#DSS_APISERVICE_SERVER_PORT=9004
-### dss-workflow-server
-#DSS_WORKFLOW_SERVER_INSTALL_IP=127.0.0.1
-#DSS_WORKFLOW_SERVER_PORT=9005
-### dss-flow-execution-server
-#DSS_FLOW_EXECUTION_SERVER_INSTALL_IP=127.0.0.1
-#DSS_FLOW_EXECUTION_SERVER_PORT=9006
-###dss-scriptis-server
-#DSS_SCRIPTIS_SERVER_INSTALL_IP=127.0.0.1
-#DSS_SCRIPTIS_SERVER_PORT=9008
+### dss-server(正常均无需修改)
+DSS_SERVER_INSTALL_IP=127.0.0.1
+DSS_SERVER_PORT=9043
+### dss-apps-server(正常均无需修改)
+DSS_APPS_SERVER_INSTALL_IP=127.0.0.1
+DSS_APPS_SERVER_PORT=9044
 ########## DSS微服务配置完毕#####
 
 
@@ -281,9 +270,9 @@ WDS_SCHEDULER_PATH=file:///appcom/tmp/wds/scheduler
 
 ## java application default jvm memory（Java应用的堆栈大小。如果部署机器的内存少于8G，推荐128M；
 ## 达到16G时，推荐至少256M；如果想拥有非常良好的用户使用体验，推荐部署机器的内存至少达到32G）
-export SERVER_HEAP_SIZE="128M"
+export SERVER_HEAP_SIZE="256M"
 
-##sendemail配置，只影响DSS工作流中发邮件功能
+### sendemail邮件节点配置.(用户若想对接邮件服务，就需要修改下面配置，否则无需改动，未配置只会影响sendemail节点的使用)
 EMAIL_HOST=smtp.163.com
 EMAIL_PORT=25
 EMAIL_USERNAME=xxx@163.com
@@ -291,8 +280,10 @@ EMAIL_PASSWORD=xxxxx
 EMAIL_PROTOCOL=smtp
 
 ### Save the file path exported by the orchestrator service
+### 保存工作流的临时目录，用户无需修改
 ORCHESTRATOR_FILE_PATH=/appcom/tmp/dss
 ### Save DSS flow execution service log path
+### 工作流执行日志保存目录，用户无需修改
 EXECUTION_LOG_PATH=/appcom/tmp/dss
 ############## other default configuration 其他默认配置信息 ############## 
 ```
@@ -302,14 +293,14 @@ EXECUTION_LOG_PATH=/appcom/tmp/dss
 - 修改数据库配置。请确保配置的数据库，安装机器可以正常访问，否则将会出现 DDL 和 DML 导入失败的错误，打开 `db.sh`，按需修改相关配置参数，参数说明如下：
 
 ```properties
-### 配置DSS数据库
+### 配置DSS数据库，用户需自行修改
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3306
 MYSQL_DB=dss
 MYSQL_USER=xxx
 MYSQL_PASSWORD=xxx
 
-## Hive metastore的数据库配置，用于Linkis访问Hive的元数据信息
+### Hive metastore的数据库配置，用于Linkis访问Hive的元数据信息，用户需自行修改
 HIVE_HOST=127.0.0.1
 HIVE_PORT=3306
 HIVE_DB=xxx
@@ -385,7 +376,7 @@ HIVE_PASSWORD=xxx
 
 6. #### 查看验证是否成功
 
-- 用户可以在Eureka界面查看 Linkis & DSS 后台各微服务的启动情况，默认情况下DSS有7个微服务，Linkis有10个微服务(包括启用数据源管理功能后的两个微服务) **（Eureka地址在xx/dss_linkis/conf/config.sh有配置）**
+- 用户可以在Eureka界面查看 Linkis & DSS 后台各微服务的启动情况，默认情况下DSS有2个微服务，Linkis有6个微服务(包括启用数据源管理功能后的两个微服务) **（Eureka地址在xx/dss_linkis/conf/config.sh有配置）**
 
   ![](../Images/安装部署/DSS&Linkis一键部署文档单机版/eureka.png)
 
@@ -404,10 +395,10 @@ HIVE_PASSWORD=xxx
 
   | 组件名      | 组件版本要求   | 组件部署链接                                   | AppConn部署链接 |
   |-----------------|----------------|----------------------------------------|-------------------|
-  | Schedulis | Schedulis0.7.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn安装](SchedulisAppConn插件安装文档.md)|
-  | Visualis | Visualis1.0.0  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn安装](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
-  | Exchangis | Exchangis1.0.0 | [Exchangis部署](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn安装](https://github.com/WeBankFinTech/Exchangis/blob/master/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
-  | Qualitis |Qualitis0.9.2 | [Qualitis部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E6%89%8B%E5%86%8C%E2%80%94%E2%80%94%E5%8D%95%E6%9C%BA%E7%89%88.md) |[Qualitis AppConn安装](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md) |
+  | Schedulis | Schedulis0.8.0 | [Schedulis部署](https://github.com/WeBankFinTech/Schedulis/blob/master/docs/schedulis_deploy_cn.md) | [Schedulis AppConn安装](SchedulisAppConn插件安装文档.md)|
+  | Visualis | Visualis1.0.1  | [Visualis部署](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_deploy_doc_cn.md) |[Visualis AppConn安装](https://github.com/WeBankFinTech/Visualis/blob/master/visualis_docs/zh_CN/Visualis_appconn_install_cn.md)|
+  | Exchangis | Exchangis1.1.2 | [Exchangis部署](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.1.2/docs/zh_CN/ch1/exchangis_deploy_cn.md) | [Exchangis AppConn安装](https://github.com/WeBankFinTech/Exchangis/blob/dev-1.1.2/docs/zh_CN/ch1/exchangis_appconn_deploy_cn.md) |
+  | Qualitis |Qualitis1.0.0 | [Qualitis部署](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E6%89%8B%E5%86%8C%E2%80%94%E2%80%94%E5%8D%95%E6%9C%BA%E7%89%88.md) |[Qualitis AppConn安装](https://github.com/WeBankFinTech/Qualitis/blob/master/docs/zh_CN/ch1/%E6%8E%A5%E5%85%A5%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%8C%87%E5%8D%97.md) |
   | Prophecis  | Prophecis0.3.2 | [Prophecis部署](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/QuickStartGuide.md) | [Prophecis AppConn安装](https://github.com/WeBankFinTech/Prophecis/blob/master/docs/zh_CN/Deployment_Documents/Prophecis%20Appconn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
-  | Streamis  | Streamis0.2.0 | [Streamis部署](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/Streamis%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) | [Streamis AppConn安装](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/development/StreamisAppConn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
+  | Streamis  | Streamis0.3.0 | [Streamis部署](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/Streamis%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) | [Streamis AppConn安装](https://github.com/WeBankFinTech/Streamis/blob/main/docs/zh_CN/0.2.0/development/StreamisAppConn%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3.md) |
   | DolphinScheduler | DolphinScheduler1.3.x | [DolphinScheduler部署](https://dolphinscheduler.apache.org/zh-cn/docs/1.3.9/standalone-deployment) | [DolphinScheduler AppConn安装](DolphinScheduler插件安装文档.md) | 
