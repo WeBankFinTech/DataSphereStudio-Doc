@@ -17,7 +17,7 @@
 
   Hadoop (**2.7.2, other versions of Hadoop need to compile Linkis**), the installed machine must support the execution of the `hdfs dfs -ls /` command
 
-  Hive (**2.3.3, other versions of Hive need to compile Linkis**), the installed machine must support the execution of the `hive -e "show databases"` command
+  Hive (**2.3.3, other versions of Hive need to compile Linkis**), the installed machine must support the execution of the `hive -e "show databases"` or `beeline -e "show databases"` command
 
   Spark (**supports all versions above 2.0**), the installed machine must support the execution of the `spark-sql -e "show databases"` command
 
