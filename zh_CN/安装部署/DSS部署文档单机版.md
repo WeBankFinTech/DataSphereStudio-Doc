@@ -27,7 +27,7 @@
   MySQL (5.5+); JDK (1.8.0_141以上); Nginx
 
 - Tips:
-  *请确保已安装Links*
+  *请确保已安装Linkis*
   
 ### 二、创建用户
 
